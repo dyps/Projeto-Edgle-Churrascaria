@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<p:panelGrid columns="2" styleClass="ui-noborder">
+		<f:facet name="header">Funcionario</f:facet>
+
+		<p:outputLabel value="Id:"
+			rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
+		<p:outputLabel value="#{funcionarioEdit.funcionario.id}"
+			rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
+
+		<p:outputLabel for="Nome" value="Nome :" />
+		<p:inputText id="Nome" value="#{funcionarioEdit.funcionario.nome}"
+			label="Nome" required="true"/>
+
+
+		<p:outputLabel for="tipo" value="Tipo:" />
+		<p:selectOneMenu id="tipo" value="#{funcionarioEdit.funcionario.tipo}"
+			label="tipo" required="true">
+			<f:selectItem itemLabel="Selecione" itemValue="#{null}"
+				itemDisabled="true" />
+			<f:selectItems value="#{funcionarioEdit.getTipoFuncionarios()}"
+				var="g" itemLabel="#{g.nome}" itemValue="#{g}" />
+		</p:selectOneMenu>
+
+		<p:outputLabel for="login" value="Login:" />
+		<p:outputPanel>
+			<p:inputText id="login" value="#{funcionarioEdit.funcionario.login}"
+				label="Login" required="true" />
+			<p:commandButton id="checarDisponibilidadeLogin"
+				icon="fa fa-question" process="@this formEdit:login"
+				action="#{funcionarioEdit.checarDisponibilidadeLogin()}" />
+			<p:tooltip id="checarDisponibilidadeLoginTooltip"
+				value="Is login available?" for="checarDisponibilidadeLogin" />
+		</p:outputPanel>
+
+		<p:outputLabel for="password" value="Password:"
+			rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
+		<p:password id="password" value="#{funcionarioEdit.funcionario.senha}"
+			label="Password" required="true"
+			rendered="#{!funcionarioEdit.edicaoDeFuncionario}"
+			match="confirmacaoPassword" feedback="true" />
+
+		<p:outputLabel for="confirmacaoPassword" value="Confirm Password:"
+			rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
+		<p:password id="confirmacaoPassword"
+			value="#{funcionarioEdit.funcionario.senha}" label="Confirm Password"
+			required="true" rendered="#{!funcionarioEdit.edicaoDeFuncionario}"
+			feedback="true" />
+	</p:panelGrid>
+
+</ui:composition>
+</html>

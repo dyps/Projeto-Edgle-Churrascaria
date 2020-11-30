@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<display-name>ProjetoDac</display-name>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>/paginas/protegidas/index.xhtml</welcome-file>
+	</welcome-file-list>
+	<context-param>
+		<!-- Referência: http://stackoverflow.com/questions/7490954/set-a-default-time-zone-for-fconvertdatetime -->
+		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>nova-light</param-value>
+		<!-- default: -->
+		<!-- <param-value>omega</param-value> -->
+	</context-param>
+	<error-page>
+		<error-code>400</error-code>
+		<location>/paginas/publicas/400.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/paginas/publicas/500.xhtml</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/paginas/publicas/500.xhtml</location>
+	</error-page>
+	<error-page>
+		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<location>/paginas/publicas/sessionTimeout.xhtml</location>
+	</error-page>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	<login-config>
+		<!-- NONE, BASIC, DIGEST, FORM, or CLIENT-CERT -->
+		<!-- Referência: https://docs.oracle.com/javaee/7/tutorial/security-webtier002.htm#JEETT01227 -->
+		<auth-method>FORM</auth-method>
+		<realm-name>dacJdbcRealmProjeto</realm-name>
+		<form-login-config>
+			<form-login-page>/paginas/publicas/login.xhtml</form-login-page>
+			<form-error-page>/paginas/publicas/login.xhtml?error=true</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<security-constraint>
+		<display-name>Páginas do administrador</display-name>
+		<web-resource-collection>
+			<web-resource-name>Área protegida do administrador</web-resource-name>
+			<description></description>
+			<url-pattern>/paginas/protegidas/funcionario/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>PUT</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>CONNECT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<description />
+			<role-name>GERENTE</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<!-- CONFIDENTIAL, INTEGRAL, or NONE -->
+			<!-- Referência: https://docs.oracle.com/javaee/7/tutorial/security-webtier002.htm#JEETT00775 -->
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<security-constraint>
+		<display-name>Acesso permitido a todos usuários autenticados</display-name>
+		<web-resource-collection>
+			<web-resource-name>Área protegida que não exige autorização
+				específica
+			</web-resource-name>
+			<description />
+			<url-pattern>/paginas/protegidas/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>PUT</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>CONNECT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<description />
+			<role-name>*</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+
+	<!-- Security roles used by this web application -->
+	<security-role>
+		<role-name>GERENTE</role-name>
+	</security-role>
+	<security-role>
+		<role-name>GARCOM</role-name>
+	</security-role>
+	<security-role>
+		<role-name>COZINHEIRO</role-name>
+	</security-role>
+	<security-role>
+		<role-name>*</role-name>
+	</security-role>
+</web-app>

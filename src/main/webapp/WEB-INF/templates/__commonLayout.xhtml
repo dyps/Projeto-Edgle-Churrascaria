@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:insert name="metadata" />
+
+<h:head>
+	<title><ui:insert name="title">Main page</ui:insert></title>
+	<h:outputScript name="locale-primefaces.js" library="js" />
+</h:head>
+
+<h:body>
+
+	<ui:debug hotkey="z" />
+	<!-- Ctrl + Shift + z -->
+
+	<div id="header">
+		<ui:insert name="header">
+			<!-- https://www.primefaces.org/showcase/ui/menu/menubar.xhtml -->
+			<h:form id="formMenu">
+				<p:menubar>
+					<p:menuitem id="home" value="Home..."
+						outcome="/paginas/protegidas/index.xhtml" icon="fa fa-fw fa-home" />
+					<p:submenu id="submenuFuncionario" label="Funcionario"
+						icon="fa fa-fw fa-gear">
+						<p:menuitem id="submenuFuncionarioItemMain" value="Main..."
+							outcome="/paginas/protegidas/funcionario/index.xhtml"
+							icon="fa fa-fw fa-home" />
+						<p:menuitem id="submenuFuncionarioItemAdd"
+							value="Add Funcionario..."
+							outcome="/paginas/protegidas/funcionario/gerente/func_edit.xhtml"
+							icon="fa fa-fw fa-home" />
+						<p:menuitem id="menuItemChangeYourPassword"
+							value="Change your password" icon="fa fa-fw fa-key"
+							action="#{funcionarioEditOwnPassword.init()}"
+							oncomplete="if (!args.validationFailed) { PF('editOwnPasswordDialog').show() }"
+							update=":editOwnPasswordDialogId">
+							<p:resetInput target=":editOwnPasswordDialogId" />
+						</p:menuitem>
+					</p:submenu>
+					<p:submenu id="submenuCategoria" label="Categoria"
+						icon="fa fa-fw fa-gear">
+						<p:menuitem id="submenuCategoriaItemMain" value="Main..."
+							outcome="/paginas/protegidas/categoria/index.xhtml" icon="fa fa-fw fa-home" />
+						<p:menuitem id="submenuCategoriaItemAdd" value="Add Categoria..."
+							outcome="/paginas/protegidas/categoria/gerente/cate_edit.xhtml"
+							icon="fa fa-fw fa-home" />
+					</p:submenu>
+
+					<p:submenu id="submenuProduto" label="Produto"
+						icon="fa fa-fw fa-gear">
+						<p:menuitem id="submenuProdutoItemMain" value="Main..."
+							outcome="/paginas/protegidas/produto/index.xhtml" icon="fa fa-fw fa-home" />
+						<p:menuitem id="submenuProdutoItemAdd" value="Add Produto..."
+							outcome="/paginas/protegidas/produto/gerente/produto_edit.xhtml"
+							icon="fa fa-fw fa-home" />
+					</p:submenu>
+					<p:submenu id="submenuCliente" label="Cliente"
+						icon="fa fa-fw fa-gear">
+						<p:menuitem id="submenuClienteItemMain" value="Main..."
+							outcome="/paginas/protegidas/cliente/index.xhtml" icon="fa fa-fw fa-home" />
+						<p:menuitem id="submenuClienteItemAdd" value="Add Cliente..."
+							outcome="/paginas/protegidas/cliente/gerente/cliente_edit.xhtml"
+							icon="fa fa-fw fa-home" />
+					</p:submenu>
+					<p:submenu id="submenuPedido" label="Pedido"
+						icon="fa fa-fw fa-gear">
+						<p:menuitem id="submenuPedidoItemMain" value="Main..."
+							outcome="/paginas/protegidas/pedido/index.xhtml" icon="fa fa-fw fa-home" />
+						<p:menuitem id="submenuPedidoItemAdd" value="Add Pedido..."
+							outcome="/paginas/protegidas/pedido/gerente/pedido_edit.xhtml"
+							icon="fa fa-fw fa-home" />
+					</p:submenu>
+					
+					<p:submenu id="submenuMesa" label="Mesa"
+						icon="fa fa-fw fa-gear">
+						<p:menuitem id="submenuMesaItemMain" value="Main..."
+							outcome="/paginas/protegidas/mesa/index.xhtml" icon="fa fa-fw fa-home" />
+						<p:menuitem id="submenuMesaItemAdd" value="Add Mesa..."
+							outcome="/paginas/protegidas/mesa/gerente/mesa_edit.xhtml"
+							icon="fa fa-fw fa-home" />
+					</p:submenu>
+					
+					<f:facet name="options">
+						Olá, #{menu.funcionarioLogado.nome}
+						<p:commandButton id="menuItemLogout" value="Logout" icon="fa fa-fw fa-sign-out" action="#{logout.efetuarLogout}">
+							<p:confirm header="Confirmação!" message="Do you really want to logout?" icon="ui-icon-alert" />
+						</p:commandButton>
+					</f:facet>
+				</p:menubar>
+			</h:form>
+
+
+			<ui:include src="/WEB-INF/templates/_user_change_own_password.xhtml" />
+
+		</ui:insert>
+	</div>
+
+	<div id="content">
+		<p:growl id="idMessages" showDetail="true" severity="info">
+			<p:autoUpdate />
+		</p:growl>
+
+		<p:growl id="idMessagesErrors" showDetail="true" severity="error"
+			sticky="true">
+			<p:autoUpdate />
+		</p:growl>
+
+		<p:confirmDialog id="confirmDialog" global="true" showEffect="fade"
+			hideEffect="fade">
+			<p:commandButton id="confirmYes" value="Yes"
+				styleClass="ui-confirmdialog-yes" icon="fa fa-remove" />
+			<p:commandButton id="confirmNo" value="No"
+				styleClass="ui-confirmdialog-no" icon="fa fa-ban" />
+		</p:confirmDialog>
+
+		<ui:insert name="content" />
+	</div>
+
+	<div id="footer">
+		<p:panelGrid columns="1" style="width : 100%; text-align:center">
+			<h:outputText value="My App - v1.0" />
+		</p:panelGrid>
+	</div>
+
+</h:body>
+</html>
