@@ -1,0 +1,133 @@
+package br.com.churrascaria.services.implementacao;
+
+import java.util.List;
+
+import br.com.churrascaria.dao.FuncionarioDAO;
+import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
+import br.com.churrascaria.dao.implementacao.FuncionarioDAOImplementacao;
+import br.com.churrascaria.entities.Funcionario;
+import br.com.churrascaria.filter.FuncionarioFilter;
+import br.com.churrascaria.services.CRUDService;
+import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
+
+public class FuncionarioServiceImplementacao implements CRUDService<Funcionario, FuncionarioFilter> {
+
+	private FuncionarioDAO funcionarioDAO = new FuncionarioDAOImplementacao();
+
+	
+	public void save(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
+		try {
+			// Verificar se login j� existe
+//			validarLogin(funcionario);
+//			calcularHashDaSenha(funcionario);
+			funcionarioDAO.save(funcionario);
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
+
+	}
+	
+	public Funcionario update(long id, Funcionario funcionario) throws ServiceEdgleChurrascariaException {
+		return funcionario;
+//		try {
+//			// Verificar se login já existe
+//			validarLogin(funcionario);
+//			funcionario.limparCamposEspecificos();
+//			if (passwordChanged) {
+//				calcularHashDaSenha(funcionario);
+//			}
+//			return funcionarioDAO.update(funcionario);
+//		} catch (PersistenciaEdgleChurrascariaException e) {
+//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+//		}
+	}
+
+	public void delete(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
+//		try {
+//			funcionarioDAO.delete(funcionario);
+//		} catch (PersistenciaEdgleChurrascariaException e) {
+//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+//		}
+	}
+
+	public Funcionario getByID(int userId) throws ServiceEdgleChurrascariaException {
+		return null;
+//		try {
+//			return funcionarioDAO.getByID(userId);
+//		} catch (PersistenciaEdgleChurrascariaException e) {
+//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+//		}
+	}
+
+	public List<Funcionario> getAll() throws ServiceEdgleChurrascariaException {
+		return null;
+//		try {
+//			return funcionarioDAO.getAll();
+//		} catch (PersistenciaEdgleChurrascariaException e) {
+//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+//		}
+	}
+
+	public List<Funcionario> findBy(FuncionarioFilter filter) throws ServiceEdgleChurrascariaException {
+		return null;
+//		try {
+//			filter.validate();
+//			return funcionarioDAO.findBy(filter);
+//		} catch (PersistenciaEdgleChurrascariaException e) {
+//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+//		}
+	}
+
+	private String calcularHashDaSenha(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
+		return null;
+//		funcionario.setPassword(hash(funcionario.getPassword()));
+//		return funcionario.getPassword();
+	}
+
+	public boolean senhaConfere(Funcionario funcionario, String supostaSenha) throws ServiceEdgleChurrascariaException {
+		return false;
+//		// Recuperar verdadeira senha atual (hash)
+//		String senhaHash = null;
+//		try {
+//			senhaHash = funcionarioDAO.getByID(funcionario.getId()).getPassword();
+//		} catch (PersistenciaEdgleChurrascariaException e) {
+//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+//		}
+//
+//		// Programação defensiva contra NPE
+//		if (senhaHash == null && supostaSenha == null) {
+//			return true;
+//		}
+//
+//		if (senhaHash == null || supostaSenha == null) {
+//			return false;
+//		}
+//
+//		// Comparar hash da suposta senha com o verdadeiro hash da senha
+//		String supostaSenhaHash = hash(supostaSenha);
+//
+//		return senhaHash.equals(supostaSenhaHash);
+	}
+
+
+//	private String hash(String password) throws ServiceEdgleChurrascariaException {
+//		MessageDigest md;
+//		try {
+//			md = MessageDigest.getInstance("SHA-256");
+//			md.update(password.getBytes("UTF-8"));
+//			byte[] digest = md.digest();
+//			String output = Base64.getEncoder().encodeToString(digest);
+//			return output;
+//		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+//			throw new ServiceEdgleChurrascariaException("Could not calculate hash!", e);
+//		}
+//	}
+//	
+//	private void validarLogin(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
+//		boolean jahExiste = funcionarioDAO.existeUsuarioComLogin(funcionario);
+//		if (jahExiste) {
+//			throw new ServiceEdgleChurrascariaException("Login already exists: " + funcionario.getLogin()); 
+//		}
+//	}
+
+}

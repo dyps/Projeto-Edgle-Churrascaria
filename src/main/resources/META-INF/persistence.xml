@@ -6,7 +6,9 @@
 	<persistence-unit name="persistenceEdgleChurrascaria" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
-		<class>br.ifpb.ads.b2.entities.Funcionario</class>
+        <jta-data-source>java:/jboss/PostgreDS</jta-data-source>
+		
+		<class>br.com.churrascaria.entities.Funcionario</class>
 
 		<properties>
 		
@@ -31,11 +33,15 @@
 		
 			<!-- Configuração Hibernate SGBD Postgresql -->
 			
-<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /> -->
-<!-- 			<property name="hibernate.default_catalog" value="persistenceEdgleChurrascaria" />  -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
+			<property name="hibernate.default_catalog" value="persistenceEdgleChurrascaria" /> 
 			
 			<!-- O POOL DE CONEXÕES NÃO FOI CONFIGURADO -->
+			
+			
 	
 		</properties>
+		
 	</persistence-unit>
+	
 </persistence>
