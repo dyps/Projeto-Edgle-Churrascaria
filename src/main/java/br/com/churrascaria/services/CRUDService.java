@@ -10,7 +10,7 @@ public interface CRUDService<Entidade, Filtro> {
 
 	public void delete(Entidade funcionario) throws ServiceEdgleChurrascariaException;
 
-	public Entidade getByID(int userId) throws ServiceEdgleChurrascariaException;
+	public Entidade getByID(long userId) throws ServiceEdgleChurrascariaException;
 
 	public List<Entidade> getAll() throws ServiceEdgleChurrascariaException;
 

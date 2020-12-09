@@ -83,4 +83,8 @@ public class Funcionario implements Identificavel {
 		this.tipoDeFuncionario = tipoDeFuncionario;
 	}
 
+	@Override
+	public String toString() {
+		return Id + nome;
+	}
 }

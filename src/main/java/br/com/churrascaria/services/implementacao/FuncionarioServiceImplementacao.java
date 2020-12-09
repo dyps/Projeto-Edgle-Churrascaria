@@ -2,17 +2,23 @@ package br.com.churrascaria.services.implementacao;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import br.com.churrascaria.dao.FuncionarioDAO;
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
-import br.com.churrascaria.dao.implementacao.FuncionarioDAOImplementacao;
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.filter.FuncionarioFilter;
 import br.com.churrascaria.services.CRUDService;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
+@Named
+@RequestScoped
 public class FuncionarioServiceImplementacao implements CRUDService<Funcionario, FuncionarioFilter> {
 
-	private FuncionarioDAO funcionarioDAO = new FuncionarioDAOImplementacao();
+	@Inject
+	private FuncionarioDAO funcionarioDAO;
 
 	
 	public void save(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
@@ -50,32 +56,29 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 //		}
 	}
 
-	public Funcionario getByID(int userId) throws ServiceEdgleChurrascariaException {
-		return null;
-//		try {
-//			return funcionarioDAO.getByID(userId);
-//		} catch (PersistenciaEdgleChurrascariaException e) {
-//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-//		}
+	public Funcionario getByID(long userId) throws ServiceEdgleChurrascariaException {
+		try {
+			return funcionarioDAO.getByID(userId);
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
 	}
 
 	public List<Funcionario> getAll() throws ServiceEdgleChurrascariaException {
-		return null;
-//		try {
-//			return funcionarioDAO.getAll();
-//		} catch (PersistenciaEdgleChurrascariaException e) {
-//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-//		}
+		try {
+			return funcionarioDAO.getAll();
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
 	}
 
 	public List<Funcionario> findBy(FuncionarioFilter filter) throws ServiceEdgleChurrascariaException {
-		return null;
-//		try {
-//			filter.validate();
-//			return funcionarioDAO.findBy(filter);
-//		} catch (PersistenciaEdgleChurrascariaException e) {
-//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-//		}
+		try {
+			filter.validate();
+			return funcionarioDAO.findBy(filter);
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
 	}
 
 	private String calcularHashDaSenha(Funcionario funcionario) throws ServiceEdgleChurrascariaException {

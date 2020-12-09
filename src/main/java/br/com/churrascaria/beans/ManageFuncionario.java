@@ -2,32 +2,32 @@ package br.com.churrascaria.beans;
 
 import java.util.List;
 
-//import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.filter.FuncionarioFilter;
-import br.com.churrascaria.services.CRUDService;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.FuncionarioServiceImplementacao;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class ManageFuncionario extends AbstractBean{
+public class ManageFuncionario extends AbstractBean {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private CRUDService funcionarioService = new FuncionarioServiceImplementacao();
-	
+
+	@Inject
+	private FuncionarioServiceImplementacao funcionarioService ;
+
 	private List<Funcionario> funcionarios;
-	
+
 	private FuncionarioFilter funcionarioFilter;
-	
+
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
@@ -39,13 +39,13 @@ public class ManageFuncionario extends AbstractBean{
 	public void setFuncionarioFilter(FuncionarioFilter funcionarioFilter) {
 		this.funcionarioFilter = funcionarioFilter;
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		limpar();
 		filtrar();
 	}
-	
+
 	public String filtrar() {
 		try {
 			funcionarios = funcionarioService.findBy(getFuncionarioFilter());

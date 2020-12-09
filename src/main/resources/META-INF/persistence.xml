@@ -6,7 +6,7 @@
 	<persistence-unit name="persistenceEdgleChurrascaria" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
-        <jta-data-source>java:/jboss/PostgreDS</jta-data-source>
+<!--         <jta-data-source>java:/jboss/PostgreDS</jta-data-source> -->
 		
 		<class>br.com.churrascaria.entities.Funcionario</class>
 

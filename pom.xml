@@ -32,30 +32,36 @@
 			<version>2.3</version>
 		</dependency>
 		<!-- Java EE 8 API -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>javax</groupId> -->
-<!-- 			<artifactId>javaee-api</artifactId> -->
-<!-- 			<version>8.0</version> -->
-<!-- 			<scope>provided</scope> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>javax</groupId> -->
+		<!-- <artifactId>javaee-api</artifactId> -->
+		<!-- <version>8.0</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<version>1.2</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
 		<!-- <dependency> -->
 		<!-- <groupId>javax.enterprise</groupId> -->
 		<!-- <artifactId>cdi-api</artifactId> -->
-		<!-- <version>2.0</version> -->
-		<!-- <scope>provided</scope> -->
+		<!-- <version>1.2</version> -->
 		<!-- </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jboss.weld.servlet/weld-servlet -->
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>2.4.8.Final</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
 		<!-- <dependency> -->
@@ -83,6 +89,24 @@
 			<version>5.4.25.Final</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.13</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.2.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
 		<dependency>
 			<groupId>br.com.caelum.stella</groupId>
 			<artifactId>caelum-stella-core</artifactId>
@@ -94,4 +118,12 @@
 			<version>0.16</version>
 		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 </project>

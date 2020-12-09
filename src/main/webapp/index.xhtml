@@ -11,16 +11,109 @@
 <!-- 	xmlns:h="http://java.sun.com/jsf/html" -->
 <!-- 	xmlns:f="http://java.sun.com/jsf.core" -->
 <!-- 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" -->
+
 <h:head>
-	<title>OIIIIIIII</title>
+	<title>Manage Funcionario</title>
 </h:head>
+
 <h:body>
-	<div id="footer">
-		<p:panelGrid columns="1" style="width : 100%; text-align:center">
-			<p:spinner value="1" min="1" />
-			<h:outputText value="Teste" />
-			<h:outputLabel value="aaa"></h:outputLabel>
+
+	<h:messages />
+
+	<h:form id="formFilter">
+
+		<p:panelGrid columns="2">
+			<f:facet name="caption">
+				<h:outputText value="Filters" />
+			</f:facet>
+			<f:facet name="header">
+				<h:outputText value="Funcionario" />
+			</f:facet>
+
+			<p:outputLabel value="ID: " for="itIdFilter" />
+			<p:inputText id="itIdFilter" type="number"
+				value="#{manageFuncionario.funcionarioFilter.id}"  label="ID"
+				style="width:350px" />
+
+			<p:outputLabel value="Nome: " for="itNomeFilter" />
+			<p:inputText id="itNomeFilter"
+				value="#{manageFuncionario.funcionarioFilter.nome}" label="Nome"
+				style="width:350px" />
+
+			<p:outputLabel value="Login: " for="itLoginFilter" />
+			<p:inputText id="itLoginFilter"
+				value="#{manageFuncionario.funcionarioFilter.login}" label="Login"
+				style="width:350px" />
+
+
+			<p:outputLabel value="Ativo: " for="itAtivoFilter" />
+			<p:inputText id="itAtivoFilter"
+				value="#{manageFuncionario.funcionarioFilter.ativo}" label="Ativo"
+				style="width:350px" />
+
+			<p:outputLabel value="Tipo de Funcionario:" for="tipoDeFuncionario" />
+			<p:selectOneMenu id="tipoDeFuncionario"
+				value="#{manageFuncionario.funcionarioFilter.tipoDeFuncionario}"
+				label="Tipo de Funcionario">
+				<f:selectItem itemLabel="Todos" itemValue="#{null}" />
+				<f:selectItems value="#{manageFuncionario.getTipoDeFuncionario()}"
+					var="g" itemLabel="#{g.nome}" itemValue="#{g}" />
+			</p:selectOneMenu>
+
+			<p:commandButton id="btnFiltrarBotao" value="Search"
+				action="#{manageFuncionario.filtrar()}" update="@form" />
+			<p:commandButton id="btnLimparBotao" value="Clean"
+				action="#{manageFuncionario.limpar()}" update="@form" />
 		</p:panelGrid>
-	</div>
+
+
+		<p:dataTable id="dataTableFuncionarios" border="1"
+			style="width : 100%" var="funcionario"
+			value="#{manageFuncionario.funcionarios}">
+			<p:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{funcionario.id}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{funcionario.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Login</f:facet>
+				<h:outputText value="#{funcionario.login}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Senha</f:facet>
+				<h:outputText value="#{funcionario.senha}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Ativo</f:facet>
+				<h:outputText value="#{funcionario.ativo}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Tipo do funcionario</f:facet>
+				<h:outputText value="#{funcionario.tipoDeFuncionario}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Operações</f:facet>
+				<p:link outcome="paginas/protegidas/funcionario_edit.xhtml"
+					value="Edit Funcionario">
+					<f:param name="funcionario" value="#{funcionario.id}" />
+				</p:link>
+				<h:outputText value=" " />
+				<!-- 			<p:link outcome="funcionario_delete.xhtml" value="Delete Funcionario"> -->
+				<!-- 				<f:param name="funcionario" value="#{funcionario.id}" /> -->
+				<!-- 			</p:link> -->
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+	<p:panelGrid columns="1" style="width : 100%; text-align:center"
+		border="1">
+		<h:outputText value="My App - v1.0" />
+	</p:panelGrid>
+
 </h:body>
 </html>
+
+

@@ -20,8 +20,6 @@ public  class FuncionarioFilter implements Filter{
 	
 	private String login;
 	
-	private String senha;
-	
 	private String ativo;
 	
 	private TipoDeFuncionario tipoDeFuncionario;
@@ -54,13 +52,7 @@ public  class FuncionarioFilter implements Filter{
 		this.login = login;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 
 	public String getAtivo() {
 		return ativo;
@@ -88,9 +80,6 @@ public  class FuncionarioFilter implements Filter{
 		if (this.login != null && !this.login.trim().isEmpty()) {
 			return false;
 		}
-		if (this.senha != null && !this.senha.trim().isEmpty()) {
-			return false;
-		}
 		if (this.ativo != null && !this.ativo.trim().isEmpty()) {
 			return false;
 		}
@@ -104,7 +93,7 @@ public  class FuncionarioFilter implements Filter{
 	@Override
 	public String toString() {
 		return "FuncionarioFilter [id=" + id + ", nome=" + nome + ", login="
-				+ login + ", senha=" + senha + ", ativo=" + ativo + ", tipoDeFuncionario="
+				+ login  + ", ativo=" + ativo + ", tipoDeFuncionario="
 				+ tipoDeFuncionario + "]";
 	}
 
