@@ -114,6 +114,7 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 		Predicate[] predicate = getPredicateFilter(criteriaBuilder, root, filter);
 		criteriaQuery.select(root);
 		criteriaQuery.where(predicate);
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("ativo")));
 
 		TypedQuery<Funcionario> typedQuery = em.createQuery(criteriaQuery);
 
@@ -139,7 +140,6 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 		if (notEmpty(filter.getId())) {
 			predicate.add(criteriaBuilder.equal(root.get("Id"),   filter.getId()));
 		}
-
 
 		return predicate.toArray(new Predicate[0]);
 	}
