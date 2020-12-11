@@ -64,13 +64,7 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 		}
 	}
 
-	public List<Funcionario> getAll() throws ServiceEdgleChurrascariaException {
-		try {
-			return funcionarioDAO.getAll();
-		} catch (PersistenciaEdgleChurrascariaException e) {
-			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-		}
-	}
+	
 
 	public List<Funcionario> findBy(FuncionarioFilter filter) throws ServiceEdgleChurrascariaException {
 		try {

@@ -1,4 +1,4 @@
-package br.com.churrascaria.beans;
+package br.com.churrascaria.beans.dataGenerator.funcionario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.churrascaria.beans.AbstractBean;
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.filter.FuncionarioFilter;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;

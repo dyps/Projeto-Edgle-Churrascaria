@@ -12,8 +12,6 @@ public interface CRUDService<Entidade, Filtro> {
 
 	public Entidade getByID(long userId) throws ServiceEdgleChurrascariaException;
 
-	public List<Entidade> getAll() throws ServiceEdgleChurrascariaException;
-
 	public List<Entidade> findBy(Filtro filtro) throws ServiceEdgleChurrascariaException;
 
 }
