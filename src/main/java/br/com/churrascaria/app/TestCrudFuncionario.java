@@ -2,11 +2,6 @@ package br.com.churrascaria.app;
 
 
 import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
-
-import br.com.churrascaria.entities.Funcionario;
-import br.com.churrascaria.entities.TipoDeFuncionario;
-import br.com.churrascaria.services.CRUDService;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.FuncionarioServiceImplementacao;
 
@@ -14,7 +9,7 @@ public class TestCrudFuncionario {
 	final Faker faker = new Faker();
 
 	public static void main(String[] args) {
-		CRUDService funcionarioService = new FuncionarioServiceImplementacao();
+		FuncionarioServiceImplementacao funcionarioService = new FuncionarioServiceImplementacao();
 		try {
 			Object a = funcionarioService.getByID(1);
 			System.out.println(a);
@@ -42,18 +37,18 @@ public class TestCrudFuncionario {
 //		}
 //	}
 
-	private static Funcionario novoFunc() {
-
-		Name nome = Faker.instance().name();
-		String senha = Faker.instance().number().digits(10);
-		Funcionario funcionario = new Funcionario();
-		String nomefunc = nome.firstName();
-		funcionario.setNome(nomefunc);
-		funcionario.setLogin(nomefunc);
-		funcionario.setSenha(senha);
-		funcionario.setAtivo(Faker.instance().bool().bool());
-		funcionario.setTipoDeFuncionario(TipoDeFuncionario.GERENTE);
-		return funcionario;
-
-	}
+//	private static Funcionario novoFunc() {
+//
+//		Name nome = Faker.instance().name();
+//		String senha = Faker.instance().number().digits(10);
+//		Funcionario funcionario = new Funcionario();
+//		String nomefunc = nome.firstName();
+//		funcionario.setNome(nomefunc);
+//		funcionario.setLogin(nomefunc);
+//		funcionario.setSenha(senha);
+//		funcionario.setAtivo(Faker.instance().bool().bool());
+//		funcionario.setTipoDeFuncionario(TipoDeFuncionario.GERENTE);
+//		return funcionario;
+//
+//	}
 }

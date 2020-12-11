@@ -1,23 +1,24 @@
 package br.com.churrascaria.beans;
 
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.FuncionarioServiceImplementacao;
 
 @ViewScoped
-@ManagedBean
+@Named
 public class FuncionarioEdit extends AbstractBean{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private FuncionarioServiceImplementacao funcionarioService = new FuncionarioServiceImplementacao();
+	@Inject
+	private FuncionarioServiceImplementacao funcionarioService ;
 	
 	private Funcionario funcionario;
 	

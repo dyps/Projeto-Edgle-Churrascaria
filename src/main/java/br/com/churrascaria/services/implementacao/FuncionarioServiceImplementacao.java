@@ -81,11 +81,11 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 		}
 	}
 
-	private String calcularHashDaSenha(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
-		return null;
+//	private String calcularHashDaSenha(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
+//		return null;
 //		funcionario.setPassword(hash(funcionario.getPassword()));
 //		return funcionario.getPassword();
-	}
+//	}
 
 	public boolean senhaConfere(Funcionario funcionario, String supostaSenha) throws ServiceEdgleChurrascariaException {
 		return false;

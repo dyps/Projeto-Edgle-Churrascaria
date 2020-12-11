@@ -15,7 +15,8 @@ import br.com.churrascaria.services.implementacao.FuncionarioServiceImplementaca
 @FacesConverter(forClass = Funcionario.class)
 public class FuncionarioConverter implements Converter<Funcionario> {
 
-	private FuncionarioServiceImplementacao funcionarioService = new FuncionarioServiceImplementacao();
+	@Inject
+	private FuncionarioServiceImplementacao funcionarioService;
 
 	@Override
 	public Funcionario getAsObject(FacesContext context, UIComponent component, String value) {
