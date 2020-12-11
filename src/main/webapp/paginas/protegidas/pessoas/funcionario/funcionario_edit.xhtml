@@ -19,59 +19,78 @@
 
 		<h:form id="formEdit">
 
-			<h:panelGrid columns="2">
-				<f:facet name="header">Funcionario</f:facet>
+			<p:panelGrid columns="1" styleClass="panelGridCenter">
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Id:"
+						rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
+					<p:outputLabel value="#{funcionarioEdit.funcionario.id}"
+						rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
+				</h:panelGrid>
 
-				<h:outputLabel value="Id:"
-					rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
-				<h:outputLabel value="#{funcionarioEdit.funcionario.id}"
-					rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
+				<h:panelGrid columns="1">
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome" value="#{funcionarioEdit.funcionario.nome}"
+						label="Nome" required="true" />
+				</h:panelGrid>
 
-				<h:outputLabel for="nome" value="Nome:" />
-				<h:inputText id="nome" value="#{funcionarioEdit.funcionario.nome}"
-					label="Nome" />
+				<h:panelGrid columns="1">
+					<p:outputLabel for="login" value="Login:" />
+					<p:inputText id="login"
+						value="#{funcionarioEdit.funcionario.login}" label="Login"
+						required="true" />
+				</h:panelGrid>
 
-				<h:outputLabel for="ativo" value="Ativo:" />
-				<h:inputText id="ativo" value="#{funcionarioEdit.funcionario.ativo}"
-					label="Ativo" />
+				<h:panelGrid columns="1">
+					<p:outputLabel for="password" value="Password:"
+						rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
+					<p:password id="password"
+						value="#{funcionarioEdit.funcionario.senha}" label="Password"
+						required="true" rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
+				</h:panelGrid>
 
-				<h:outputLabel for="tipoDeFuncionario" value="Tipo do funcionario:" />
-				<h:selectOneMenu id="tipoDeFuncionario"
-					value="#{funcionarioEdit.funcionario.tipoDeFuncionario}"
-					label="Group" hideNoSelectionOption="true" required="true">
-					<f:selectItem itemLabel="Selecione" itemValue="#{null}"
-						noSelectionOption="true" />
-					<f:selectItems value="#{funcionarioEdit.getTipoDeFuncionario()}"
-						var="g" itemLabel="#{g.nome}" itemValue="#{g}" />
-				</h:selectOneMenu>
+				<h:panelGrid columns="1">
+					<p:outputLabel for="confirmacaoPassword" value="Confirm Password:"
+						rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
+					<p:password id="confirmacaoPassword"
+						value="#{funcionarioEdit.funcionario.senha}"
+						label="Confirm Password" required="true"
+						rendered="#{!funcionarioEdit.edicaoDeFuncionario}">
+						<!-- 									<o:validateEqual id="validadorSenhaIgual" -->
+						<!-- 										components="password confirmacaoPassword" -->
+						<!-- 										message="Password does not match the confirm password!" /> -->
+					</p:password>
+				</h:panelGrid>
 
-				<h:outputLabel for="login" value="Login:" />
-				<h:inputText id="login" value="#{funcionarioEdit.funcionario.login}"
-					label="Login" required="true" />
+				<h:panelGrid columns="1">
+					<p:outputLabel for="ativo" value="Ativo:" />
+					<p:toggleSwitch id="ativo"
+						value="#{funcionarioEdit.funcionario.ativo}" label="Ativo" />
+				</h:panelGrid>
 
-				<h:outputLabel for="password" value="Password:"
-					rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
-				<h:inputSecret id="password"
-					value="#{funcionarioEdit.funcionario.senha}" label="Password"
-					required="true" rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
+				<h:panelGrid columns="1">
+					<p:outputLabel for="tipoDeFuncionario" value="Tipo do funcionario:" />
+					<p:selectOneMenu id="tipoDeFuncionario"
+						value="#{funcionarioEdit.funcionario.tipoDeFuncionario}"
+						label="Group" required="true" hideNoSelectionOption="true">
+						<f:selectItem itemLabel="Selecione" itemValue="#{null}"
+							noSelectionOption="true" itemDisabled="true" />
+						<f:selectItems value="#{funcionarioEdit.getTipoDeFuncionario()}"
+							var="g" itemLabel="#{g.nome}" itemValue="#{g}" />
+						<f:ajax render="formEdit:pgCozinheiro" />
+					</p:selectOneMenu>
+				</h:panelGrid>
 
-				<h:outputLabel for="confirmacaoPassword" value="Confirm Password:"
-					rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
-				<h:inputSecret id="confirmacaoPassword"
-					value="#{funcionarioEdit.funcionario.senha}"
-					label="Confirm Password" required="true"
-					rendered="#{!funcionarioEdit.edicaoDeFuncionario}">
-<!-- 									<o:validateEqual id="validadorSenhaIgual" -->
-<!-- 										components="password confirmacaoPassword" -->
-<!-- 										message="Password does not match the confirm password!" /> -->
-				</h:inputSecret>
-			</h:panelGrid>
+				<h:panelGrid columns="1" id="pgCozinheiro">
+					<p:outputLabel value="Setores"
+						rendered="#{funcionarioEdit.isCozinheiro()}" />
+				</h:panelGrid>
 
-			<h:panelGrid columns="2">
-				<h:commandButton id="botaoSubmeter"
-					action="#{funcionarioEdit.saveFuncionario}" value="Submit" />
-				<h:button id="botaoCancelar" outcome="index.xhtml" value="Cancel" />
-			</h:panelGrid>
+				<p:panelGrid columns="2">
+					<p:button id="botaoCancelar" outcome="index.xhtml" value="Cancel" />
+					<p:commandButton id="botaoSubmeter"
+						action="#{funcionarioEdit.saveFuncionario}" value="Submit" />
+				</p:panelGrid>
+			</p:panelGrid>
 
 		</h:form>
 	</ui:define>

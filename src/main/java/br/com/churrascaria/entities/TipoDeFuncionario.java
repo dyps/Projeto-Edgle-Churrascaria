@@ -1,7 +1,7 @@
 package br.com.churrascaria.entities;
 
 public enum TipoDeFuncionario {
-	GARCOM("Garcom"), COZINHEIRO("Cozinheiro"), GERENTE("Gerente");
+	GARCOM("Garçom"), COZINHEIRO("Cozinheiro"), GERENTE("Gerente");
 
 	private String nome;
 
@@ -12,5 +12,7 @@ public enum TipoDeFuncionario {
 	public String getNome() {
 		return nome;
 	}
+	
+
 
 }

@@ -94,11 +94,11 @@ public class Funcionario implements Identificavel {
 
 	public void setPrimeiro(boolean b) {
 		primeiro = b;
-		
+
 	}
 
 	public boolean isPrimeiro() {
 		return primeiro;
 	}
-	
+
 }

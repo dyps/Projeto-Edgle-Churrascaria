@@ -4,7 +4,7 @@
 	text-align: center;
 }
 
-body .ui-button  {
+body .ui-button {
 	background-color: #660000;
 	border: 1px solid #212121;
 }
@@ -17,20 +17,30 @@ body {
 	margin: 0px;
 	background-color: #CCCCCC;
 }
-table{
-	width:100%
+
+table {
+	width: 100%
 }
 
 body .pi {
-    font-size: 7.2rem;
+	font-size: 7.2rem;
 }
+
 body .ui-panel .ui-panel-content {
-    border: 1px solid #c8c8c8;
-    background-color: #fff;
-    color: #333;
-    padding: .571em 1em;
-    border-top: 0 none;
-    line-height: 1.5;
-    height: 14.4em;
-    max-width: 256px;
+	border: 1px solid #c8c8c8;
+	background-color: #fff;
+	color: #333;
+	padding: .571em 1em;
+	border-top: 0 none;
+	line-height: 1.5;
+	height: 14.4em;
+	max-width: 256px;
+}
+
+.panelGridCenter td, .panelGridCenter tr {
+	text-align: center;
+	border-width: initial !important;
+	border-style: none !important;
+	border-color: initial !important;
+	border-image: initial !important;
 }
