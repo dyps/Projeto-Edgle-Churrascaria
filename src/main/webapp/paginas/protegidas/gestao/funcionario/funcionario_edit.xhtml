@@ -2,80 +2,79 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:o="http://omnifaces.org/ui"
-	xmlns:of="http://omnifaces.org/functions">
-<f:metadata>
-	<f:viewParam name="funcionario" value="#{funcionarioEdit.funcionario}" />
-	<f:viewAction action="#{funcionarioEdit.init()}" />
-</f:metadata>
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/templates/Template_Master.xhtml">
 
-<h:head>
-	<title>Funcionario create/edit</title>
-</h:head>
+	<ui:define name="title">
+		Criar/Editar Funcionario
+	</ui:define>
+	<ui:define name="metadata">
+		<f:viewParam name="funcionario" value="#{funcionarioEdit.funcionario}" />
+		<f:viewAction action="#{funcionarioEdit.init()}" />
+	</ui:define>
 
-<h:body>
+	<ui:define name="content">
 
-	<h:messages />
 
-	<h:form id="formEdit">
+		<h:form id="formEdit">
 
-		<h:panelGrid columns="2">
-			<f:facet name="header">Funcionario</f:facet>
+			<h:panelGrid columns="2">
+				<f:facet name="header">Funcionario</f:facet>
 
-			<h:outputLabel value="Id:"
-				rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
-			<h:outputLabel value="#{funcionarioEdit.funcionario.id}"
-				rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
+				<h:outputLabel value="Id:"
+					rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
+				<h:outputLabel value="#{funcionarioEdit.funcionario.id}"
+					rendered="#{funcionarioEdit.edicaoDeFuncionario}" />
 
-			<h:outputLabel for="nome" value="Nome:" />
-			<h:inputText id="nome" value="#{funcionarioEdit.funcionario.nome}"
-				label="Nome" />
+				<h:outputLabel for="nome" value="Nome:" />
+				<h:inputText id="nome" value="#{funcionarioEdit.funcionario.nome}"
+					label="Nome" />
 
-			<h:outputLabel for="ativo" value="Ativo:" />
-			<h:inputText id="ativo" value="#{funcionarioEdit.funcionario.ativo}" label="Ativo" />
+				<h:outputLabel for="ativo" value="Ativo:" />
+				<h:inputText id="ativo" value="#{funcionarioEdit.funcionario.ativo}"
+					label="Ativo" />
 
-			<h:outputLabel for="tipoDeFuncionario" value="Tipo do funcionario:" />
-			<h:selectOneMenu id="tipoDeFuncionario" value="#{funcionarioEdit.funcionario.tipoDeFuncionario}"
-				label="Group" hideNoSelectionOption="true" required="true">
-				<f:selectItem itemLabel="Selecione" itemValue="#{null}"
-					noSelectionOption="true" />
-				<f:selectItems value="#{funcionarioEdit.getTipoDeFuncionario()}" var="g"
-					itemLabel="#{g.nome}" itemValue="#{g}" />
-			</h:selectOneMenu>
+				<h:outputLabel for="tipoDeFuncionario" value="Tipo do funcionario:" />
+				<h:selectOneMenu id="tipoDeFuncionario"
+					value="#{funcionarioEdit.funcionario.tipoDeFuncionario}"
+					label="Group" hideNoSelectionOption="true" required="true">
+					<f:selectItem itemLabel="Selecione" itemValue="#{null}"
+						noSelectionOption="true" />
+					<f:selectItems value="#{funcionarioEdit.getTipoDeFuncionario()}"
+						var="g" itemLabel="#{g.nome}" itemValue="#{g}" />
+				</h:selectOneMenu>
 
-			<h:outputLabel for="login" value="Login:" />
-			<h:inputText id="login" value="#{funcionarioEdit.funcionario.login}" label="Login"
-				required="true" />
+				<h:outputLabel for="login" value="Login:" />
+				<h:inputText id="login" value="#{funcionarioEdit.funcionario.login}"
+					label="Login" required="true" />
 
-			<h:outputLabel for="password" value="Password:"
-				rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
-			<h:inputSecret id="password" value="#{funcionarioEdit.funcionario.senha}"
-				label="Password" required="true"
-				rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
+				<h:outputLabel for="password" value="Password:"
+					rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
+				<h:inputSecret id="password"
+					value="#{funcionarioEdit.funcionario.senha}" label="Password"
+					required="true" rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
 
-			<h:outputLabel for="confirmacaoPassword" value="Confirm Password:"
-				rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
-			<h:inputSecret id="confirmacaoPassword"
-				value="#{funcionarioEdit.funcionario.senha}" label="Confirm Password"
-				required="true" rendered="#{!funcionarioEdit.edicaoDeFuncionario}">
-				<o:validateEqual id="validadorSenhaIgual"
-					components="password confirmacaoPassword"
-					message="Password does not match the confirm password!" />
-			</h:inputSecret>
-		</h:panelGrid>
+				<h:outputLabel for="confirmacaoPassword" value="Confirm Password:"
+					rendered="#{!funcionarioEdit.edicaoDeFuncionario}" />
+				<h:inputSecret id="confirmacaoPassword"
+					value="#{funcionarioEdit.funcionario.senha}"
+					label="Confirm Password" required="true"
+					rendered="#{!funcionarioEdit.edicaoDeFuncionario}">
+<!-- 									<o:validateEqual id="validadorSenhaIgual" -->
+<!-- 										components="password confirmacaoPassword" -->
+<!-- 										message="Password does not match the confirm password!" /> -->
+				</h:inputSecret>
+			</h:panelGrid>
 
-		<h:panelGrid columns="2">
-			<h:commandButton id="botaoSubmeter" action="#{funcionarioEdit.saveFuncionario}"
-				value="Submit" />
-			<h:button id="botaoCancelar" outcome="index.xhtml" value="Cancel" />
-		</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:commandButton id="botaoSubmeter"
+					action="#{funcionarioEdit.saveFuncionario}" value="Submit" />
+				<h:button id="botaoCancelar" outcome="index.xhtml" value="Cancel" />
+			</h:panelGrid>
 
-	</h:form>
+		</h:form>
+	</ui:define>
+</ui:composition>
 
-	<h:panelGrid columns="1" style="width : 100%; text-align:center"
-		border="1">
-		<h:outputText value="My App - v1.0" />
-	</h:panelGrid>
-
-</h:body>
 </html>

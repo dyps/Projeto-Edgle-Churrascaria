@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
@@ -21,6 +22,9 @@ public class Funcionario implements Identificavel {
 
 	private boolean ativo;
 	private TipoDeFuncionario tipoDeFuncionario;
+
+	@Transient
+	private boolean primeiro = false;
 
 	public Identificavel clone() {
 		Funcionario funcionario = new Funcionario();
@@ -87,4 +91,14 @@ public class Funcionario implements Identificavel {
 	public String toString() {
 		return Id + nome;
 	}
+
+	public void setPrimeiro(boolean b) {
+		primeiro = b;
+		
+	}
+
+	public boolean isPrimeiro() {
+		return primeiro;
+	}
+	
 }

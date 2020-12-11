@@ -1,5 +1,6 @@
 package br.com.churrascaria.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -47,8 +48,13 @@ public class ManageFuncionario extends AbstractBean {
 	}
 
 	public String filtrar() {
+		ArrayList<Funcionario> array = new ArrayList<Funcionario>();
+		Funcionario func = new Funcionario();
+		func.setPrimeiro(true);
+		array.add(func);
+		funcionarios =array;
 		try {
-			funcionarios = funcionarioService.findBy(getFuncionarioFilter());
+			array.addAll(funcionarioService.findBy(funcionarioFilter));
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 			return null;

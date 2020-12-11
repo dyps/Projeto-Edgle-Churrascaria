@@ -11,22 +11,25 @@
 
 <!-- 	xmlns:h="http://java.sun.com/jsf/html" -->
 <!-- 	xmlns:f="http://java.sun.com/jsf.core" -->
-
-<ui:insert name="metadata" />
+<f:metadata>
+	<ui:insert name="metadata" />
+</f:metadata>
 
 <h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="css" name="estilos.css" />
 	<title><ui:insert name="title">Pagina inicial</ui:insert></title>
 	<!-- 	<h:outputScript name="locale-primefaces.js" library="js" /> -->
 </h:head>
 
 
-<h:body style=" margin:0px;">
+<h:body >
 
 	<ui:debug hotkey="z" />
 	<!-- Ctrl + Shift + z -->
 
 	<h:messages />
-	<div class="ui-g  " style="background-color: #990000">
+	<div class="ui-g  " id="barra-superior"  >
 		<div class="ui-g-12 ui-md-12 ui-g-nopad">
 			<div class="ui-g-6">
 				<h:outputLabel value="Edglê churrascaria"
@@ -39,27 +42,46 @@
 		</div>
 	</div>
 
-	<div class="ui-g  " style="background-color: #CCCCCC">
+	<div class="ui-g  " >
 		<div class="ui-g-12 ui-md-2 ui-g-nopad">
 			<h:form>
 				<p:growl>
 					<p:autoUpdate />
 				</p:growl>
 
-				<p:panelMenu>
-					<p:submenu label="Vendas" expanded="false">
-						<p:menuitem value="Save" action="#{menuView.save}"
-							icon="pi pi-save" />
-						<p:menuitem value="Update" action="#{menuView.update}"
-							icon="pi pi-refresh" />
+				<p:panelMenu id="menu">
+					<p:submenu href="label=" label="Vendas" expanded="false">
+						<p:menuitem value="Pedidos" />
+						<p:menuitem value="Clientes" />
+						<p:menuitem value="Abrir/Fechar caixa" />
 					</p:submenu>
-					<p:submenu label="Catalogo" expanded="false"></p:submenu>
-					<p:submenu label="Estoque" expanded="false"></p:submenu>
-					<p:submenu label="Gestão" expanded="false"></p:submenu>
-					<p:submenu label="Pessoas" expanded="false">
-						<p:menuitem value="Funcionários" outcome="/paginas/protegidas/gestao/funcionario/index.xhtml" />
+					<p:submenu label="Catalogo" expanded="false">
+						<p:menuitem value="Produtos" />
+						<p:menuitem value="Observações" />
 					</p:submenu>
-					<p:submenu label="Relatórios" expanded="false"></p:submenu>
+					<p:submenu label="Estoque" expanded="false">
+						<p:menuitem value="Entradas e saídas" />
+						<p:menuitem value="Fornecedores" />
+						<p:menuitem value="Insumos" />
+					</p:submenu>
+					<p:submenu label="Gestão" expanded="false">
+						<p:menuitem value="Promoções" />
+						<p:menuitem value="Cupons de desconto" />
+						<p:menuitem value="Formas de pagamento" />
+						<p:menuitem value="Setores de cozinha" />
+						<p:menuitem value="Mesas" />
+					</p:submenu>
+					<p:submenu id="menuPessoas" label="Pessoas" expanded="false">
+						<p:menuitem value="Funcionários"
+							outcome="/paginas/protegidas/gestao/funcionario/index.xhtml" />
+						<p:menuitem value="Entregadores" />
+					</p:submenu>
+					<p:submenu label="Relatórios" expanded="false">
+						<p:menuitem value="Ranking funcionários" />
+						<p:menuitem value="Ranking produtos" />
+						<p:menuitem value="Despesas com estoque" />
+						<p:menuitem value="Apurado em caixa" />
+					</p:submenu>
 				</p:panelMenu>
 			</h:form>
 		</div>
