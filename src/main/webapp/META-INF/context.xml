@@ -3,4 +3,12 @@
 	<Resource name="BeanManager" auth="Container"
 		type="javax.enterprise.inject.spi.BeanManager"
 		factory="org.jboss.weld.resources.ManagerObjectFactory" />
+
+	<Resource name="jdbc/edgleChurrascaria" auth="Container"
+		factory="org.apache.naming.factory.BeanFactory"
+		type="com.mchange.v2.c3p0.ComboPooledDataSource"
+		driverClass="org.postgresql.Driver"
+		jdbcUrl="jdbc:postgresql://localhost:5432/EdgleChurrascaria"
+		user="postgres" password="1234" minPoolSize="10" maxPoolSize="10" />
+
 </Context>

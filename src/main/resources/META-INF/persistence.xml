@@ -4,23 +4,13 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
 	<persistence-unit name="persistenceEdgleChurrascaria" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<non-jta-data-source>java:comp/env/jdbc/edgleChurrascaria</non-jta-data-source>
 		
 <!--         <jta-data-source>java:/jboss/PostgreDS</jta-data-source> -->
 		
 		<class>br.com.churrascaria.entities.Funcionario</class>
 
 		<properties>
-		
-			<!-- Database PostgreSQL-->
-			<!-- 
-			 -->
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/EdgleChurrascaria" />
-			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="1234" />
-			<!-- /Database PostgreSQL-->
-						
 
 			<!-- HIBERNATE -->			
 			<!-- Configuração Hibernate -->
