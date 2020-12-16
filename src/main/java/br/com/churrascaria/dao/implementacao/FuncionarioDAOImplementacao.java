@@ -74,33 +74,19 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 //		}
 	}
 
-	public Funcionario getByID(long id) throws PersistenciaEdgleChurrascariaException {
-		EntityManager em = getEntityManager();
-		Funcionario resultado = null;
-		try {
-			resultado = em.find(Funcionario.class, id);
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar recuperar o funcionario com base no ID.",
-					pe);
-		}
-
-		return resultado;
-
-	}
 
 	@Override
 	public List<Funcionario> getAll() throws PersistenciaEdgleChurrascariaException {
 		EntityManager em = getEntityManager();
-		List<Funcionario> resultado = new ArrayList<Funcionario>();
-		try {
-			TypedQuery<Funcionario> query = em.createQuery("SELECT s FROM Funcionario s", Funcionario.class);
-			resultado = query.getResultList();
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-			throw new PersistenciaEdgleChurrascariaException(
-					"Ocorreu algum erro ao tentar recuperar todos os funcionarios.", pe);
-		}
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<Funcionario> criteriaQuery = criteriaBuilder.createQuery(Funcionario.class);
+		Root<Funcionario> root = criteriaQuery.from(Funcionario.class);
+
+		criteriaQuery.select(root);
+
+		TypedQuery<Funcionario> typedQuery = em.createQuery(criteriaQuery);
+
+		List<Funcionario> resultado = typedQuery.getResultList();
 		return resultado;
 	}
 
@@ -121,15 +107,18 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 		List<Funcionario> resultado = typedQuery.getResultList();
 		return resultado;
 	}
+
 	private Predicate[] getPredicateFilter(CriteriaBuilder criteriaBuilder, Root<Funcionario> root,
 			FuncionarioFilter filter) {
 
 		List<Predicate> predicate = new ArrayList<Predicate>();
 		if (notEmpty(filter.getLogin())) {
-			predicate.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("login")), "%" + filter.getLogin().toLowerCase() + "%"));
+			predicate.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("login")),
+					"%" + filter.getLogin().toLowerCase() + "%"));
 		}
 		if (notEmpty(filter.getNome())) {
-			predicate.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("nome")), "%" + filter.getNome().toLowerCase() + "%"));
+			predicate.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("nome")),
+					"%" + filter.getNome().toLowerCase() + "%"));
 		}
 		if (notEmpty(filter.getTipoDeFuncionario())) {
 			predicate.add(criteriaBuilder.equal(root.get("tipoDeFuncionario"), filter.getTipoDeFuncionario()));
@@ -138,7 +127,7 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 			predicate.add(criteriaBuilder.equal(root.get("ativo"), filter.getAtivo()));
 		}
 		if (notEmpty(filter.getId())) {
-			predicate.add(criteriaBuilder.equal(root.get("Id"),   filter.getId()));
+			predicate.add(criteriaBuilder.equal(root.get("Id"), filter.getId()));
 		}
 
 		return predicate.toArray(new Predicate[0]);

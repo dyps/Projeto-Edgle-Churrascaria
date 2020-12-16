@@ -14,13 +14,13 @@ public  class FuncionarioFilter implements Filter{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String id;
+	private Long id;
 	
 	private String nome;
 	
 	private String login;
 	
-	private String ativo;
+	private Boolean ativo;
 	
 	private TipoDeFuncionario tipoDeFuncionario;
 	
@@ -28,13 +28,6 @@ public  class FuncionarioFilter implements Filter{
 		
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getNome() {
 		return nome;
@@ -54,13 +47,28 @@ public  class FuncionarioFilter implements Filter{
 
 
 
-	public String getAtivo() {
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+
+
+	public Boolean getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(String ativo) {
+
+	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
+
 
 	public TipoDeFuncionario getTipoDeFuncionario() {
 		return tipoDeFuncionario;
@@ -71,7 +79,7 @@ public  class FuncionarioFilter implements Filter{
 	}
 	
 	public boolean isEmpty() {
-		if (this.id != null && !this.id.trim().isEmpty()) {
+		if (this.id != null && !this.id.toString().trim().isEmpty()) {
 			return false;
 		}
 		if (this.nome != null && !this.nome.trim().isEmpty()) {
@@ -80,13 +88,9 @@ public  class FuncionarioFilter implements Filter{
 		if (this.login != null && !this.login.trim().isEmpty()) {
 			return false;
 		}
-		if (this.ativo != null && !this.ativo.trim().isEmpty()) {
-			return false;
-		}
 		if (this.tipoDeFuncionario != null) {
 			return false;
 		}
-
 		return true;
 	}
 	

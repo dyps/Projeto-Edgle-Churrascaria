@@ -14,4 +14,5 @@ public interface CRUDService<Entidade, Filtro> {
 
 	public List<Entidade> findBy(Filtro filtro) throws ServiceEdgleChurrascariaException;
 
+	public List<Entidade> getAll() throws ServiceEdgleChurrascariaException;
 }

@@ -1,6 +1,7 @@
 package br.com.churrascaria.services.dataGenerator;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,11 @@ public class FuncionarioDataGeneratorServiceImpl implements Serializable, Funcio
 
 	@Override
 	public void generateData() throws ServiceEdgleChurrascariaException {
+		List<Funcionario> funcionarios = funcionarioService.getAll();
+
+		if (!funcionarios.isEmpty()) {
+			return;
+		}
 		for (int i = 0; i < 3; i++) {
 			try {
 				Funcionario funcionario = novoFunc();

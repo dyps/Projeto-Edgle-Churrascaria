@@ -89,7 +89,8 @@ public class Funcionario implements Identificavel {
 
 	@Override
 	public String toString() {
-		return Id + nome;
+		return "Funcionario [id=" + Id + ", nome=" + nome + ", login=" + login + ", senha" + senha
+				+ ", tipoDeFuncionario" + tipoDeFuncionario + "ativo=" + ativo + "]";
 	}
 
 	public void setPrimeiro(boolean b) {

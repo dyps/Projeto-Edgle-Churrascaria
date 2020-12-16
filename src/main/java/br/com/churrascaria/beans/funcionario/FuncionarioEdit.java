@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.churrascaria.beans.AbstractBean;
+import br.com.churrascaria.beans.EnderecoPaginas;
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.entities.TipoDeFuncionario;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
@@ -31,11 +32,12 @@ public class FuncionarioEdit extends AbstractBean {
 
 	@PostConstruct
 	public void init() {
+		System.out.println(funcionario);
 		try {
 			if (funcionario == null) {
-				// Criando novo funcionario
 				funcionario = new Funcionario();
 			} else {
+				System.out.println("\n\n\n\n\n" + funcionario.getId());
 				funcionario = funcionarioService.getByID(funcionario.getId());
 			}
 		} catch (ServiceEdgleChurrascariaException e) {
@@ -57,8 +59,8 @@ public class FuncionarioEdit extends AbstractBean {
 
 		reportarMensagemDeSucesso("Funcionario '" + funcionario.getNome() + "' saved");
 
-		// return EnderecoPaginas.PAGINA_PRINCIPAL_FUNCIONARIO;
-		return "/paginas/protegidas/pessoas/funcionario/index.xhtml";
+		return EnderecoPaginas.PAGINA_PRINCIPAL_FUNCIONARIO;
+//		return "/paginas/protegidas/pessoas/funcionario/index.xhtml";
 	}
 
 	public boolean isEdicaoDeFuncionario() {

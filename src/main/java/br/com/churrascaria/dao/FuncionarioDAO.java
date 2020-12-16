@@ -11,8 +11,6 @@ public interface FuncionarioDAO {
 
 	public List<Funcionario> getAll() throws PersistenciaEdgleChurrascariaException;
 
-	public Funcionario getByID(long userId) throws PersistenciaEdgleChurrascariaException;
-
 	public List<Funcionario> findBy(FuncionarioFilter filter) throws PersistenciaEdgleChurrascariaException;
 
 }

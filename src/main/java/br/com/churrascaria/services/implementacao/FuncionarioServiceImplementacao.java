@@ -20,7 +20,6 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 	@Inject
 	private FuncionarioDAO funcionarioDAO;
 
-	
 	public void save(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
 		try {
 			// Verificar se login j� existe
@@ -32,7 +31,7 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 		}
 
 	}
-	
+
 	public Funcionario update(long id, Funcionario funcionario) throws ServiceEdgleChurrascariaException {
 		return funcionario;
 //		try {
@@ -57,14 +56,10 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 	}
 
 	public Funcionario getByID(long userId) throws ServiceEdgleChurrascariaException {
-		try {
-			return funcionarioDAO.getByID(userId);
-		} catch (PersistenciaEdgleChurrascariaException e) {
-			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-		}
+		FuncionarioFilter filter = new FuncionarioFilter();
+		filter.setId(userId);
+		return findBy(filter).get(0);
 	}
-
-	
 
 	public List<Funcionario> findBy(FuncionarioFilter filter) throws ServiceEdgleChurrascariaException {
 		try {
@@ -106,6 +101,13 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 //		return senhaHash.equals(supostaSenhaHash);
 	}
 
+	public List<Funcionario> getAll() throws ServiceEdgleChurrascariaException {
+		try {
+			return funcionarioDAO.getAll();
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
+	}
 
 //	private String hash(String password) throws ServiceEdgleChurrascariaException {
 //		MessageDigest md;

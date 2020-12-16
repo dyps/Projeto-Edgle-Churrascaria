@@ -1,10 +1,12 @@
 package br.com.churrascaria.beans;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
@@ -41,12 +43,18 @@ public abstract class AbstractBean implements Serializable {
 		if (!funcs.isEmpty()) {
 			return funcs.get(0);
 		}
-
 		return null;
 	}
 
 	private String getFuncionarioLogin() {
-		return "";
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Principal funcPrincipal = externalContext.getUserPrincipal();
+		if (funcPrincipal == null) {
+			return "";
+		}
+
+		return funcPrincipal.getName();
 	}
 
 	public TipoDeFuncionario[] getTipoDeFuncionario() {
