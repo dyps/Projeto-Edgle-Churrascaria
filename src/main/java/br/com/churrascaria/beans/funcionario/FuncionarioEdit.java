@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.churrascaria.beans.AbstractBean;
-import br.com.churrascaria.beans.EnderecoPaginas;
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.entities.TipoDeFuncionario;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;

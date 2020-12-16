@@ -36,7 +36,7 @@ public class FuncionarioDelete extends AbstractBean {
 
 		reportarMensagemDeSucesso("Funcionario '" + funcionario.getNome() + "' deleted");
 
-		return EnderecoPaginas.PAGINA_PRINCIPAL;
+		return EnderecoPaginas.PAGINA_PRINCIPAL_FUNCIONARIO;
 	}
 
 	public Funcionario getFuncionario() {

@@ -1,25 +1,58 @@
 package br.com.churrascaria.beans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.inject.Inject;
 
+import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.entities.TipoDeFuncionario;
+import br.com.churrascaria.filter.FuncionarioFilter;
+import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
+import br.com.churrascaria.services.implementacao.FuncionarioServiceImplementacao;
 
-public abstract class AbstractBean implements Serializable{
+public abstract class AbstractBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * 
+	 */
+	@Inject
+	private FuncionarioServiceImplementacao funcionarioService;
+
+	public Funcionario getFuncionarioLogado() {
+		FuncionarioFilter filter = new FuncionarioFilter();
+		filter.setLogin(getFuncionarioLogin());
+		List<Funcionario> funcs = null;
+		try {
+			funcs = funcionarioService.findBy(filter);
+		} catch (ServiceEdgleChurrascariaException e) {
+			e.printStackTrace();
+			reportarMensagemDeErro("Erro ao recuperar o funcionario logado!");
+		}
+
+		if (!funcs.isEmpty()) {
+			return funcs.get(0);
+		}
+
+		return null;
+	}
+
+	private String getFuncionarioLogin() {
+		return "";
+	}
+
 	public TipoDeFuncionario[] getTipoDeFuncionario() {
 		return TipoDeFuncionario.values();
 	}
-	
+
 	protected void reportarMensagemDeErro(String detalhe) {
 		reportarMensagem(true, detalhe, false);
 	}
@@ -27,7 +60,7 @@ public abstract class AbstractBean implements Serializable{
 	protected void reportarMensagemDeSucesso(String detalhe) {
 		reportarMensagem(false, detalhe, true);
 	}
-	
+
 	private void reportarMensagem(boolean isErro, String detalhe, boolean keepMessages) {
 		String sumario = "Success!";
 		Severity severity = FacesMessage.SEVERITY_INFO;
