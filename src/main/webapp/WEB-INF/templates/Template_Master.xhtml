@@ -27,7 +27,7 @@
 	<ui:debug hotkey="z" />
 	<!-- Ctrl + Shift + z -->
 
-<!-- 	<h:messages /> -->
+	<!-- 	<h:messages /> -->
 	<div class="ui-g  " id="barra-superior">
 		<div class="ui-g-12 ui-md-12 ui-g-nopad">
 			<div class="ui-g-6">
@@ -106,10 +106,32 @@
 		</div>
 		<div class="ui-g-12 ui-md-10 ui-g-nopad">
 
-			<ui:insert name="content" />
+			<div id="content">
+				<p:growl id="idMessages" showDetail="true" severity="info">
+					<p:autoUpdate />
+				</p:growl>
+
+				<p:growl id="idMessagesErrors" showDetail="true" severity="error"
+					sticky="true">
+					<p:autoUpdate />
+				</p:growl>
+
+				<p:confirmDialog id="confirmDialog" global="true" showEffect="fade"
+					hideEffect="fade">
+					<h:form>
+						<p:commandButton id="confirmYes" value="Yes"
+							styleClass="ui-confirmdialog-yes" icon="fa fa-remove" />
+						<p:commandButton id="confirmNo" value="No"
+							styleClass="ui-confirmdialog-no" icon="fa fa-ban" />
+					</h:form>
+				</p:confirmDialog>
+
+				<ui:insert name="content" />
+			</div>
 
 		</div>
 	</div>
+
 
 </h:body>
 </html>

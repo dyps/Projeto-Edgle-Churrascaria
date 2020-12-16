@@ -62,11 +62,17 @@
 								outcome="funcionario_edit.xhtml" value="Editar">
 								<f:param name="funcionario" value="#{funcionario.id}" />
 							</p:button>
-<!-- 							<h:outputText value=" " /> -->
-<!-- 							<p:link outcome="funcionario_delete.xhtml" -->
-<!-- 								value="Delete Funcionario"> -->
-<!-- 								<f:param name="funcionario" value="#{funcionario.id}" /> -->
-<!-- 							</p:link> -->
+							<p:commandButton value="Excluir" id="deleteFunc" 
+								action="#{manageFuncionario.delete(funcionario)}">
+								<p:confirm header="Confirmação!"
+									message="Do you want to delete '#{funcionario.nome} '?"
+									icon="fa fa-remove" />
+							</p:commandButton>
+							<!-- 							<h:outputText value=" " /> -->
+							<!-- 							<p:link outcome="funcionario_delete.xhtml" -->
+							<!-- 								value="Delete Funcionario"> -->
+							<!-- 								<f:param name="funcionario" value="#{funcionario.id}" /> -->
+							<!-- 							</p:link> -->
 						</h:panelGrid>
 					</h:panelGrid>
 				</p:panel>

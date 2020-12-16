@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.churrascaria.beans.AbstractBean;
+import br.com.churrascaria.beans.EnderecoPaginas;
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.filter.FuncionarioFilter;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
@@ -61,6 +62,19 @@ public class ManageFuncionario extends AbstractBean {
 			return null;
 		}
 		return null;
+	}
+	public String delete(Funcionario funcionario) {
+		try {
+			funcionarioService.delete(funcionario);
+		} catch (ServiceEdgleChurrascariaException e) {
+			reportarMensagemDeErro(e.getMessage());
+			return null;
+		}
+
+		reportarMensagemDeSucesso("Funcionario '" + funcionario.getNome() + "' deleted");
+
+		return EnderecoPaginas.PAGINA_PRINCIPAL_FUNCIONARIO;
+
 	}
 
 	public String limpar() {
