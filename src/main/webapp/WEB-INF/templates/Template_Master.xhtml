@@ -5,7 +5,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" 
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions">
 <!-- 	xmlns:p="http://primefaces.prime.com.tr/ui"> -->
@@ -59,36 +59,54 @@
 
 				<p:panelMenu id="menu">
 					<p:submenu href="label=" label="Vendas" expanded="false">
-						<p:menuitem value="Pedidos" />
-						<p:menuitem value="Clientes" />
-						<p:menuitem value="Abrir/Fechar caixa" />
+						<p:menuitem value="Pedidos"
+							outcome="/paginas/protegidas/vendas/pedidos/index.xhtml" />
+						<p:menuitem value="Clientes"
+							outcome="/paginas/protegidas/vendas/clientes/index.xhtml" />
+						<p:menuitem value="Abrir/Fechar caixa"
+							outcome="/paginas/protegidas/vendas/abrirfecharcaixa/index.xhtml" />
 					</p:submenu>
 					<p:submenu label="Catalogo" expanded="false">
-						<p:menuitem value="Produtos" />
-						<p:menuitem value="Observações" />
+						<p:menuitem value="Produtos"
+							outcome="/paginas/protegidas/catalogo/produtos/index.xhtml" />
+						<p:menuitem value="Observações"
+							outcome="/paginas/protegidas/catalogo/observacoes/index.xhtml" />
 					</p:submenu>
 					<p:submenu label="Estoque" expanded="false">
-						<p:menuitem value="Entradas e saídas" />
-						<p:menuitem value="Fornecedores" />
-						<p:menuitem value="Insumos" />
+						<p:menuitem value="Entradas e saídas"
+							outcome="/paginas/protegidas/estoque/entradasesaidas/index.xhtml" />
+						<p:menuitem value="Fornecedores"
+							outcome="/paginas/protegidas/estoque/fornecedores/index.xhtml" />
+						<p:menuitem value="Insumos"
+							outcome="/paginas/protegidas/estoque/insumos/index.xhtml" />
 					</p:submenu>
 					<p:submenu label="Gestão" expanded="false">
-						<p:menuitem value="Promoções" />
-						<p:menuitem value="Cupons de desconto" />
-						<p:menuitem value="Formas de pagamento" />
-						<p:menuitem value="Setores de cozinha" />
-						<p:menuitem value="Mesas" />
+						<p:menuitem value="Promoções"
+							outcome="/paginas/protegidas/gestao/promocoes/index.xhtml" />
+						<p:menuitem value="Cupons de desconto"
+							outcome="/paginas/protegidas/gestao/cuponsdedesconto/index.xhtml" />
+						<p:menuitem value="Formas de pagamento"
+							outcome="/paginas/protegidas/gestao/formasdepagamento/index.xhtml" />
+						<p:menuitem value="Setores de cozinha"
+							outcome="/paginas/protegidas/gestao/setoresdecozinha/index.xhtml" />
+						<p:menuitem value="Mesas"
+							outcome="/paginas/protegidas/gestao/mesas/index.xhtml" />
 					</p:submenu>
 					<p:submenu id="menuPessoas" label="Pessoas" expanded="false">
 						<p:menuitem value="Funcionários"
 							outcome="/paginas/protegidas/pessoas/funcionario/index.xhtml" />
-						<p:menuitem value="Entregadores" />
+						<p:menuitem value="Entregadores"
+							outcome="/paginas/protegidas/pessoas/entregadores/index.xhtml" />
 					</p:submenu>
 					<p:submenu label="Relatórios" expanded="false">
-						<p:menuitem value="Ranking funcionários" />
-						<p:menuitem value="Ranking produtos" />
-						<p:menuitem value="Despesas com estoque" />
-						<p:menuitem value="Apurado em caixa" />
+						<p:menuitem value="Ranking funcionários"
+							outcome="/paginas/protegidas/relatorios/rankingfuncionarios/index.xhtml" />
+						<p:menuitem value="Ranking produtos"
+							outcome="/paginas/protegidas/relatorios/rankingprodutos/index.xhtml" />
+						<p:menuitem value="Despesas com estoque"
+							outcome="/paginas/protegidas/relatorios/despesascomestoque/index.xhtml" />
+						<p:menuitem value="Apurado em caixa"
+							outcome="/paginas/protegidas/relatorios/apuradoemcaixa/index;xhtml" />
 					</p:submenu>
 				</p:panelMenu>
 			</h:form>
