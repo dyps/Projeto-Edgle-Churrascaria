@@ -9,6 +9,6 @@ public final class EnderecoPaginas {
 	
 	private static final String REDIRECT_TRUE = "?faces-redirect=true";
 	
-	public static final String PAGINA_PRINCIPAL = "/index.xhtml" + REDIRECT_TRUE;
+	public static final String PAGINA_PRINCIPAL_FUNCIONARIO = "/paginas/protegidas/pessoas/funcionario/index.xhtml" + REDIRECT_TRUE;
 
 }

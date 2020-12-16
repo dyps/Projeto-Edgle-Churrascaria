@@ -32,9 +32,15 @@ public class FuncionarioEdit extends AbstractBean {
 
 	@PostConstruct
 	public void init() {
-		if (funcionario == null) {
-			// Criando novo funcionario
-			funcionario = new Funcionario();
+		try {
+			if (funcionario == null) {
+				// Criando novo funcionario
+				funcionario = new Funcionario();
+			} else {
+				funcionario = funcionarioService.getByID(funcionario.getId());
+			}
+		} catch (ServiceEdgleChurrascariaException e) {
+			reportarMensagemDeErro(e.getMessage());
 		}
 	}
 
@@ -52,13 +58,14 @@ public class FuncionarioEdit extends AbstractBean {
 
 		reportarMensagemDeSucesso("Funcionario '" + funcionario.getNome() + "' saved");
 
-		return EnderecoPaginas.PAGINA_PRINCIPAL;
+		// return EnderecoPaginas.PAGINA_PRINCIPAL_FUNCIONARIO;
+		return "/paginas/protegidas/pessoas/funcionario/index.xhtml";
 	}
 
 	public boolean isEdicaoDeFuncionario() {
 		return funcionario != null && funcionario.getId() != null;
 	}
-	
+
 	public boolean isCozinheiro() {
 		return funcionario != null && funcionario.getTipoDeFuncionario() == TipoDeFuncionario.COZINHEIRO;
 	}
