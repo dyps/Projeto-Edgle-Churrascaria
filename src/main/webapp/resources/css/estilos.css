@@ -37,6 +37,10 @@ body .ui-panel .ui-panel-content {
 	height: 14.4em;
 	max-width: 256px;
 }
+body .ui-datagrid-column {
+    padding: 0px;
+    min-width: 14.2em;
+}
 
 .panelGridCenter td, .panelGridCenter tr {
 	text-align: center;

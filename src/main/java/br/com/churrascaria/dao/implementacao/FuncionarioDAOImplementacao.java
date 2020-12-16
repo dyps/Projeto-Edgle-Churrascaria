@@ -192,7 +192,9 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 		EntityManager em = getEntityManager();
 		try {
 			obj = em.find(Funcionario.class, obj.getId());
+			em.getTransaction().begin();
 			em.remove(obj);
+			em.getTransaction().commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover o usuário.", pe);

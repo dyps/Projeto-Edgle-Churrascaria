@@ -65,14 +65,9 @@
 							<p:commandButton value="Excluir" id="deleteFunc" 
 								action="#{manageFuncionario.delete(funcionario)}">
 								<p:confirm header="Confirmação!"
-									message="Do you want to delete '#{funcionario.nome} '?"
+									message="Você quer excliuir '#{funcionario.nome} '?"
 									icon="fa fa-remove" />
 							</p:commandButton>
-							<!-- 							<h:outputText value=" " /> -->
-							<!-- 							<p:link outcome="funcionario_delete.xhtml" -->
-							<!-- 								value="Delete Funcionario"> -->
-							<!-- 								<f:param name="funcionario" value="#{funcionario.id}" /> -->
-							<!-- 							</p:link> -->
 						</h:panelGrid>
 					</h:panelGrid>
 				</p:panel>
