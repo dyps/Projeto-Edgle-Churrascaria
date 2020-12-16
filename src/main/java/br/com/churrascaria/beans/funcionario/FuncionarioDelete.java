@@ -1,4 +1,4 @@
-package br.com.churrascaria.beans.dataGenerator.funcionario;
+package br.com.churrascaria.beans.funcionario;
 
 
 

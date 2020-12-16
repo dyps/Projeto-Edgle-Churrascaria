@@ -38,8 +38,14 @@
 					style="font-family: Sans-serif  ; font-weight: bold; font-size: 36px; color : #FFFFFF" />
 			</div>
 			<div class="ui-g-6" align="right">
-				<h:outputLabel value="Yaggo"
+				<h:outputLabel value="Olá, #{menu.funcionarioLogado.nome}"
 					style=" font-weight: bold; font-size: 36px; color : #FFFFFF" />
+					<f:facet name="options">
+						
+						<p:commandButton id="menuItemLogout" value="Logout" icon="fa fa-fw fa-sign-out" action="#{logout.efetuarLogout}">
+							<p:confirm header="Confirmação!" message="Do you really want to logout?" icon="ui-icon-alert" />
+						</p:commandButton>
+					</f:facet>
 			</div>
 		</div>
 	</div>
