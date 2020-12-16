@@ -13,4 +13,10 @@ public interface FuncionarioDAO {
 
 	public List<Funcionario> findBy(FuncionarioFilter filter) throws PersistenciaEdgleChurrascariaException;
 
+	public boolean existeUsuarioComLogin(Funcionario funcionario) ;
+
+	public Funcionario update(Funcionario funcionario) throws PersistenciaEdgleChurrascariaException;
+
+	public void delete(Funcionario funcionario) throws PersistenciaEdgleChurrascariaException;
+
 }

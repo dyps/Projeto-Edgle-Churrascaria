@@ -90,7 +90,7 @@ public class Funcionario implements Identificavel {
 	@Override
 	public String toString() {
 		return "Funcionario [id=" + Id + ", nome=" + nome + ", login=" + login + ", senha" + senha
-				+ ", tipoDeFuncionario" + tipoDeFuncionario + "ativo=" + ativo + "]";
+				+ ", tipoDeFuncionario=" + tipoDeFuncionario.getNome() + ", ativo=" + ativo + "]";
 	}
 
 	public void setPrimeiro(boolean b) {
@@ -100,6 +100,11 @@ public class Funcionario implements Identificavel {
 
 	public boolean isPrimeiro() {
 		return primeiro;
+	}
+
+	public void limparCamposEspecificos() {
+		// aqui deve ser implementada a logica para que o funcionario do tipo garcon ou gerente nao tenha setores
+		
 	}
 
 }

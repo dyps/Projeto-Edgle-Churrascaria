@@ -1,6 +1,5 @@
 package br.com.churrascaria.beans.funcionario;
 
-import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,7 +18,11 @@ public class FuncionarioEdit extends AbstractBean {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8240621748414014769L;
+
+	/**
+	 * 
+	 */
 
 	@Inject
 	private FuncionarioServiceImplementacao funcionarioService;
@@ -30,25 +33,23 @@ public class FuncionarioEdit extends AbstractBean {
 		return TipoDeFuncionario.values();
 	}
 
-	@PostConstruct
-	public void init() {
-		System.out.println(funcionario);
+	public String init() {
 		try {
 			if (funcionario == null) {
 				funcionario = new Funcionario();
 			} else {
-				System.out.println("\n\n\n\n\n" + funcionario.getId());
 				funcionario = funcionarioService.getByID(funcionario.getId());
 			}
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 		}
+		return null;
 	}
 
 	public String saveFuncionario() {
 		try {
 			if (isEdicaoDeFuncionario()) {
-				funcionarioService.update(funcionario.getId(), funcionario);
+				funcionarioService.update(funcionario);
 			} else {
 				funcionarioService.save(funcionario);
 			}

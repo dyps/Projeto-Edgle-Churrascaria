@@ -11,6 +11,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -74,7 +75,6 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 //		}
 	}
 
-
 	@Override
 	public List<Funcionario> getAll() throws PersistenciaEdgleChurrascariaException {
 		EntityManager em = getEntityManager();
@@ -131,6 +131,73 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 		}
 
 		return predicate.toArray(new Predicate[0]);
+	}
+
+	@Override
+	public boolean existeUsuarioComLogin(Funcionario func) {
+
+		if (empty(func) || empty(func.getLogin())) {
+			return false;
+		}
+
+		// Usar estratégia de contabilizar quantos usuários existem com o dado login, e
+		// que não seja ele mesmo.
+		// Existe algum usuário com o login caso a contagem seja diferente de zero.
+		// Usar COUNT(*), já que cláusula EXISTS não pode ser usada no SELECT pela BNF
+		// do JPQL:
+		// https://javaee.github.io/tutorial/persistence-querylanguage006.html
+
+		EntityManager em = getEntityManager();
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+		Root<Funcionario> rootFunc = criteriaQuery.from(Funcionario.class);
+
+		List<Predicate> predicate = new ArrayList<Predicate>();
+		if (notEmpty(func.getLogin())) {
+			predicate.add(
+					criteriaBuilder.equal(criteriaBuilder.lower(rootFunc.get("login")), func.getLogin().toLowerCase()));
+		}
+		if (notEmpty(func.getId())) {
+			predicate.add(criteriaBuilder.notEqual(rootFunc.get("Id"), func.getId()));
+		}
+		Expression<Long> root = criteriaBuilder.count(rootFunc);
+		criteriaQuery.select(root);
+
+		criteriaQuery.where(predicate.toArray(new Predicate[0]));
+
+		TypedQuery<Long> typedQuery = em.createQuery(criteriaQuery);
+
+		Long count = typedQuery.getSingleResult();
+		return count > 0;
+	}
+
+	@Override
+	public Funcionario update(Funcionario funcionario) throws PersistenciaEdgleChurrascariaException {
+		EntityManager em = getEntityManager();
+		Funcionario resultado = funcionario;
+		try {
+			em.getTransaction().begin();
+			resultado = em.merge(funcionario);
+			em.getTransaction().commit();
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar atualizar o funcionario.",
+					pe);
+		}
+		return resultado;
+	}
+
+	@Override
+	public void delete(Funcionario obj) throws PersistenciaEdgleChurrascariaException {
+		EntityManager em = getEntityManager();
+		try {
+			obj = em.find(Funcionario.class, obj.getId());
+			em.remove(obj);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover o usuário.", pe);
+		}
+
 	}
 
 }

@@ -7,15 +7,13 @@ import javax.inject.Named;
 
 import org.omnifaces.cdi.Eager;
 
-import br.com.churrascaria.EdgleChurrascariaRuntimeException;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.dataGenerator.FuncionarioDataGeneratorService;
 
 //import org.omnifaces.cdi.Eager;
 
-
-@Eager // Thanks, Omnifaces!!!
 @Named
+@Eager // Thanks, Omnifaces!!!
 @ApplicationScoped
 public class InitDatabaseIfNeeded {
 
@@ -23,12 +21,12 @@ public class InitDatabaseIfNeeded {
 	private FuncionarioDataGeneratorService funcionarioDataGeneratorService;
 
 	@PostConstruct
-	public void postConstruct() throws EdgleChurrascariaRuntimeException {
-
+	public void postConstruct()  {
 		try {
 			funcionarioDataGeneratorService.generateData();
+
 		} catch (ServiceEdgleChurrascariaException e) {
-			throw new EdgleChurrascariaRuntimeException("Ocorreu algum erro ao tentar inicializar a base de dados.", e);
+//			throw new EdgleChurrascariaRuntimeException("Ocorreu algum erro ao tentar inicializar a base de dados.", e);
 		}
 	}
 

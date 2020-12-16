@@ -4,6 +4,6 @@ import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
 public interface FuncionarioDataGeneratorService {
 
-	void generateData() throws ServiceEdgleChurrascariaException;
+	public void generateData() throws ServiceEdgleChurrascariaException;
 
 }

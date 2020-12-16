@@ -42,8 +42,7 @@
 				style="width : 100%" var="funcionario"
 				value="#{manageFuncionario.funcionarios}">
 				<p:panel rendered="#{funcionario.primeiro}" header="Novo"
-					styleClass="painel-func"
-					style="white-space: pre-line;">
+					styleClass="painel-func" style="white-space: pre-line;">
 					<p:commandLink type="submit" title="Icon Only"
 						action="funcionario_edit.xhtml?faces-redirect=true">
 						<i class="pi pi-plus" style="color: black;" />
@@ -57,16 +56,17 @@
 						<h:outputText value="Senha: #{funcionario.senha}" />
 						<h:outputText value="Ativo: #{funcionario.ativo}" />
 						<h:outputText value="Cargo: #{funcionario.tipoDeFuncionario}" />
-						<h:panelGrid columns="2" style="width:100%">
+						<h:panelGrid columns="3" style="width:100%">
 							<p:button
 								style="background-color: #660000; border: 1px solid #000000;"
 								outcome="funcionario_edit.xhtml" value="Editar">
 								<f:param name="funcionario" value="#{funcionario.id}" />
 							</p:button>
-							<!-- 			<h:outputText value=" " /> -->
-							<!-- 			<p:link outcome="funcionario_delete.xhtml" value="Delete Funcionario"> -->
-							<!-- 				<f:param name="funcionario" value="#{funcionario.id}" /> -->
-							<!-- 			</p:link> -->
+							<h:outputText value=" " />
+							<p:link outcome="funcionario_delete.xhtml"
+								value="Delete Funcionario">
+								<f:param name="funcionario" value="#{funcionario.id}" />
+							</p:link>
 						</h:panelGrid>
 					</h:panelGrid>
 				</p:panel>

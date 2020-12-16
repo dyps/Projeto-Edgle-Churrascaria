@@ -23,7 +23,7 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 	public void save(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
 		try {
 			// Verificar se login j� existe
-//			validarLogin(funcionario);
+			validarLogin(funcionario);
 //			calcularHashDaSenha(funcionario);
 			funcionarioDAO.save(funcionario);
 		} catch (PersistenciaEdgleChurrascariaException e) {
@@ -32,27 +32,26 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 
 	}
 
-	public Funcionario update(long id, Funcionario funcionario) throws ServiceEdgleChurrascariaException {
-		return funcionario;
-//		try {
-//			// Verificar se login já existe
-//			validarLogin(funcionario);
-//			funcionario.limparCamposEspecificos();
+	public Funcionario update(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
+		try {
+			// Verificar se login já existe
+			validarLogin(funcionario);
+			funcionario.limparCamposEspecificos();
 //			if (passwordChanged) {
 //				calcularHashDaSenha(funcionario);
 //			}
-//			return funcionarioDAO.update(funcionario);
-//		} catch (PersistenciaEdgleChurrascariaException e) {
-//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-//		}
+			return funcionarioDAO.update(funcionario);
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
 	}
 
 	public void delete(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
-//		try {
-//			funcionarioDAO.delete(funcionario);
-//		} catch (PersistenciaEdgleChurrascariaException e) {
-//			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-//		}
+		try {
+			funcionarioDAO.delete(funcionario);
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
 	}
 
 	public Funcionario getByID(long userId) throws ServiceEdgleChurrascariaException {
@@ -122,11 +121,11 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 //		}
 //	}
 //	
-//	private void validarLogin(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
-//		boolean jahExiste = funcionarioDAO.existeUsuarioComLogin(funcionario);
-//		if (jahExiste) {
-//			throw new ServiceEdgleChurrascariaException("Login already exists: " + funcionario.getLogin()); 
-//		}
-//	}
+	private void validarLogin(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
+		boolean jahExiste = funcionarioDAO.existeUsuarioComLogin(funcionario);
+		if (jahExiste) {
+			throw new ServiceEdgleChurrascariaException("Login already exists: " + funcionario.getLogin()); 
+		}
+	}
 
 }
