@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
+	<WatchedResource>WEB-INF/web.xml</WatchedResource>
+	<WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 	<Resource name="BeanManager" auth="Container"
 		type="javax.enterprise.inject.spi.BeanManager"
 		factory="org.jboss.weld.resources.ManagerObjectFactory" />
+		
+	<ResourceLink global="jdbc/edgleChurrascaria"
+		name="jdbc/edgleChurrascaria" type="javax.sql.DataSource" />
 
-	<Resource name="jdbc/edgleChurrascaria" auth="Container"
-		factory="org.apache.naming.factory.BeanFactory"
-		type="com.mchange.v2.c3p0.ComboPooledDataSource"
+	<Resource name="jdbc/edgleChurrascaria"
+		auth="Container" factory="org.apache.naming.factory.BeanFactory"
+		type="javax.sql.DataSource"
 		driverClass="org.postgresql.Driver"
 		jdbcUrl="jdbc:postgresql://localhost:5432/EdgleChurrascaria"
 		user="postgres" password="1234" minPoolSize="10" maxPoolSize="10" />

@@ -1,6 +1,8 @@
 package br.com.churrascaria.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
@@ -21,6 +23,8 @@ public class Funcionario implements Identificavel {
 	private String senha;
 
 	private boolean ativo;
+	
+	@Enumerated(EnumType.STRING)
 	private TipoDeFuncionario tipoDeFuncionario;
 
 	@Transient

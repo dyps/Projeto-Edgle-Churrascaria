@@ -29,6 +29,17 @@ public class FuncionarioDataGeneratorServiceImpl implements Serializable, Funcio
 		if (!funcionarios.isEmpty()) {
 			return;
 		}
+		try {
+			Funcionario func = new Funcionario();
+			func.setLogin("yaggo");
+			func.setNome("yaggo");
+			func.setSenha("123");
+			func.setTipoDeFuncionario(TipoDeFuncionario.GERENTE);
+			func.setAtivo(true);
+			funcionarioService.save(func);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		for (int i = 0; i < 3; i++) {
 			try {
 				Funcionario funcionario = novoFunc();

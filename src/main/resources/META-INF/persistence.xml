@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1"
-	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-	<persistence-unit name="persistenceEdgleChurrascaria" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="persistenceEdgleChurrascaria"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<non-jta-data-source>java:comp/env/jdbc/edgleChurrascaria</non-jta-data-source>
-		
-<!--         <jta-data-source>java:/jboss/PostgreDS</jta-data-source> -->
-		
+
+		<!-- <jta-data-source>java:/jboss/PostgreDS</jta-data-source> -->
+
 		<class>br.com.churrascaria.entities.Funcionario</class>
 
 		<properties>
 
-			<!-- HIBERNATE -->			
+			<!-- HIBERNATE -->
 			<!-- Configuração Hibernate -->
 			<property name="hibernate.hbm2ddl.auto" value="update" /> <!-- TABELAS SERÃO ALTERDAS SE HOUVER ALGUMA MUDANÇA -->
 			<property name="hibernate.show_sql" value="true" /> <!-- UTILIZADO NO CONTEXTO DA AULA PARA VERMOS A EXECUÇÃO DO SCRIPT -->
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.use_sql_comments" value="true" />
 			<!-- /Configuração Hibernate -->
-			
-		
+
+
 			<!-- Configuração Hibernate SGBD Postgresql -->
-			
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
-			<property name="hibernate.default_catalog" value="persistenceEdgleChurrascaria" /> 
-			
+
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.PostgreSQL95Dialect" />
+			<property name="hibernate.default_catalog"
+				value="persistenceEdgleChurrascaria" />
+
 			<!-- O POOL DE CONEXÕES NÃO FOI CONFIGURADO -->
-			
-			
-	
+
+
+
 		</properties>
-		
+
 	</persistence-unit>
-	
+
 </persistence>

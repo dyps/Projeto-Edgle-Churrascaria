@@ -17,51 +17,27 @@
 			<artifactId>omnifaces</artifactId>
 			<version>3.2</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.omnifaces</groupId> -->
-		<!-- <artifactId>omnifaces</artifactId> -->
-		<!-- <version>3.8.1</version> -->
-		<!-- </dependency> -->
-
-
-		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>8.0</version>
 		</dependency>
-		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- JSF API -->
 		<dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>javax.faces-api</artifactId>
 			<version>2.3</version>
 		</dependency>
-		<!-- Java EE 8 API -->
-		<!-- <dependency> -->
-		<!-- <groupId>javax</groupId> -->
-		<!-- <artifactId>javaee-api</artifactId> -->
-		<!-- <version>8.0</version> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>javax.enterprise</groupId> -->
-		<!-- <artifactId>cdi-api</artifactId> -->
-		<!-- <version>1.2</version> -->
-		<!-- </dependency> -->
-
-		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
@@ -73,17 +49,20 @@
 			<artifactId>weld-servlet</artifactId>
 			<version>2.4.8.Final</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.18</version>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
+			<version>5.4.25.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.4.25.Final</version>
 		</dependency>
 
@@ -92,7 +71,6 @@
 			<artifactId>jsf-api</artifactId>
 			<version>2.2.13</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
@@ -103,7 +81,6 @@
 			<artifactId>all-themes</artifactId>
 			<version>1.0.10</version>
 		</dependency>
-
 		<dependency>
 			<groupId>br.com.caelum.stella</groupId>
 			<artifactId>caelum-stella-core</artifactId>

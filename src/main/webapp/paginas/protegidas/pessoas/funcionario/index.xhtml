@@ -42,14 +42,14 @@
 				style="width : 100%" var="funcionario"
 				value="#{manageFuncionario.funcionarios}">
 				<p:panel rendered="#{funcionario.primeiro}" header="Novo"
-					styleClass="painel-func" style="white-space: pre-line;">
+					styleClass="cards" style="white-space: pre-line;">
 					<p:commandLink type="submit" title="Icon Only"
 						action="funcionario_edit.xhtml?faces-redirect=true">
 						<i class="pi pi-plus" style="color: black;" />
 					</p:commandLink>
 				</p:panel>
 				<p:panel rendered="#{!funcionario.primeiro}"
-					header="#{funcionario.nome}" styleClass="painel-func">
+					header="#{funcionario.nome}" styleClass="cards">
 					<h:panelGrid columns="1" style="width:100%">
 						<h:outputText value="ID: #{funcionario.id}" />
 						<h:outputText value="Login: #{funcionario.login}" />
