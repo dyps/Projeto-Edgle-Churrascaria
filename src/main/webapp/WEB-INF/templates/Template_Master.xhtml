@@ -31,22 +31,23 @@
 	<div class="ui-g  " id="barra-superior">
 		<div class="ui-g-12 ui-md-12 ui-g-nopad">
 			<div class="ui-g-6">
-				<h:outputLabel value="Edglê churrascaria"
-					style="color : #FFFFFF" styleClass="fontNomeEdglechurrascaria"/>
+				<h:outputLabel value="Edglê churrascaria" style="color : #FFFFFF"
+					styleClass="fontNomeEdglechurrascaria" />
 			</div>
 			<h:form>
 				<div class="ui-g-6" align="right">
-						<h:outputLabel value="Olá, #{menu.funcionarioLogado.nome}"
+					<h:outputLabel value="Olá, #{menu.funcionarioLogado.nome}"
 						style=" font-weight: bold; font-size: 20px; color : #FFFFFF" />
-					<f:facet name="options">
-						<p:commandButton id="menuItemLogout" value="Logout"
-							icon="fa fa-fw fa-sign-out" action="#{logout.efetuarLogout()}">
-							<p:confirm header="Confirmação!"
-								message="Você realmente deseja sair?" icon="ui-icon-alert" />
-						</p:commandButton>
-					</f:facet>
-					</div>
-				
+					<p:commandLink action="#{logout.efetuarLogout()}">
+						<i class="fa fa-times"
+							style="color: black; border-radius: 50%; height: 2.2rem; width: 2.2rem; text-align: center; background-color: #ccc; border: solid; font-size: 1.8rem;" />
+
+						<p:confirm header="
+							Confirmação!"
+							message="Você realmente deseja sair?" icon="ui-icon-alert" />
+					</p:commandLink>
+				</div>
+
 			</h:form>
 		</div>
 	</div>

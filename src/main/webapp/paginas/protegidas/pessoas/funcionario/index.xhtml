@@ -17,24 +17,16 @@
 	<ui:define name="content">
 		<h:form id="formFilter">
 
-			<p:panelGrid columns="4" style="border : 0">
-				<f:facet name="caption">
-					<h:outputText value="Filters" />
-				</f:facet>
-				<f:facet name="header">
-					<h:outputText value="Funcionario" style="width:10%" />
-				</f:facet>
+			<p:panelGrid columns="4" style="display: list-item;" >
 				<p:outputLabel value="Nome: " for="itNomeFilter" />
 				<p:inputText id="itNomeFilter"
 					value="#{manageFuncionario.funcionarioFilter.nome}" label="Nome"
 					style="width: 300px " />
-
-
-
 				<p:commandButton id="btnFiltrarBotao" value="Buscar"
 					action="#{manageFuncionario.filtrar()}" update="@form" />
-				<p:commandButton id="btnLimparBotao" value="Limpar"
-					action="#{manageFuncionario.limpar()}" update="@form" />
+					
+				<p:outputLabel  value=" "  />
+
 			</p:panelGrid>
 
 
@@ -62,7 +54,7 @@
 								outcome="funcionario_edit.xhtml" value="Editar">
 								<f:param name="funcionario" value="#{funcionario.id}" />
 							</p:button>
-							<p:commandButton value="Excluir" id="deleteFunc" 
+							<p:commandButton value="Excluir" id="deleteFunc"
 								action="#{manageFuncionario.delete(funcionario)}">
 								<p:confirm header="Confirmação!"
 									message="Você quer excliuir '#{funcionario.nome} '?"

@@ -13,7 +13,7 @@
 
 <h:body>
 
-<f:metadata>
+	<f:metadata>
 		<f:viewAction
 			action="#{erroPaginaLogin.dispararMensagemLoginErro(param['error'])}"
 			onPostback="true" />
@@ -40,17 +40,15 @@
 
 				<h:panelGrid columns="1" style="text-align:left; margin: auto;"
 					styleClass="painelLogin">
-					<h:outputLabel for="j_username" value="Login:" />
-					<h:inputText id="j_username" />
+					<h:outputLabel for="j_username" value="Login: " />
+					<p:inputText id="j_username" />
 
-					<h:outputLabel for="j_password" value="Senha:" />
-					<h:inputSecret id="j_password" />
+					<h:outputLabel for="j_password" value="Senha: " />
+					<p:password id="j_password" />
 
 					<p:commandButton id="btnLogin" value="Acessar" ajax="false" />
 
-					<!-- <h:outputLabel for="btnNovoUsuario" value="" /> -->
 				</h:panelGrid>
-				<!-- </form> -->
 			</h:form>
 		</h:panelGrid>
 	</h:panelGrid>

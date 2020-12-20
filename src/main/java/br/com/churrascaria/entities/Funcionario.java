@@ -7,6 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.checkerframework.common.aliasing.qual.Unique;
+
+import com.sun.istack.NotNull;
+
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
@@ -18,13 +23,19 @@ public class Funcionario implements Identificavel {
 	@SequenceGenerator(name = "FuncionarioSeq", sequenceName = "FUNCIONARIO_SEQ", allocationSize = 1)
 	private Long Id;
 
+	@NotNull
 	private String nome;
+	@NotNull
+	@Unique
 	private String login;
+	@NotNull
 	private String senha;
 
+	@NotNull
 	private boolean ativo;
-	
+
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private TipoDeFuncionario tipoDeFuncionario;
 
 	@Transient
@@ -107,8 +118,9 @@ public class Funcionario implements Identificavel {
 	}
 
 	public void limparCamposEspecificos() {
-		// aqui deve ser implementada a logica para que o funcionario do tipo garcon ou gerente nao tenha setores
-		
+		// aqui deve ser implementada a logica para que o funcionario do tipo garcon ou
+		// gerente nao tenha setores
+
 	}
 
 }
