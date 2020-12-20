@@ -16,19 +16,22 @@
 
 	<ui:define name="content">
 		<h:form id="formFilter">
+			<div class="ui-g ui-md-12 ui-g-nopad">
+				<div class="ui-g-1 ">
+					<p:outputLabel value="Nome: " for="itNomeFilter" />
+				</div>
+				<div class="ui-g-3 ">
+					<p:inputText id="itNomeFilter"
+						value="#{manageFuncionario.funcionarioFilter.nome}" label="Nome"
+						style="width: 16rem; " />
+				</div>
+				<div class="ui-g-6 ">
+					<p:commandButton id="btnFiltrarBotao" value="Buscar"
+						action="#{manageFuncionario.filtrar()}" update="@form" />
+				</div>
 
-			<p:panelGrid columns="4" style="display: list-item;" >
-				<p:outputLabel value="Nome: " for="itNomeFilter" />
-				<p:inputText id="itNomeFilter"
-					value="#{manageFuncionario.funcionarioFilter.nome}" label="Nome"
-					style="width: 300px " />
-				<p:commandButton id="btnFiltrarBotao" value="Buscar"
-					action="#{manageFuncionario.filtrar()}" update="@form" />
-					
-				<p:outputLabel  value=" "  />
 
-			</p:panelGrid>
-
+			</div>
 
 			<p:dataGrid columns="4" id="dataTableFuncionarios" border="1"
 				style="width : 100%" var="funcionario"
@@ -42,26 +45,76 @@
 				</p:panel>
 				<p:panel rendered="#{!funcionario.primeiro}"
 					header="#{funcionario.nome}" styleClass="cards">
-					<h:panelGrid columns="1" style="width:100%">
-						<h:outputText value="ID: #{funcionario.id}" />
-						<h:outputText value="Login: #{funcionario.login}" />
-						<h:outputText value="Senha: #{funcionario.senha}" />
-						<h:outputText value="Ativo: #{funcionario.ativo}" />
-						<h:outputText value="Cargo: #{funcionario.tipoDeFuncionario}" />
-						<h:panelGrid columns="3" style="width:100%">
-							<p:button
-								style="background-color: #660000; border: 1px solid #000000;"
-								outcome="funcionario_edit.xhtml" value="Editar">
-								<f:param name="funcionario" value="#{funcionario.id}" />
-							</p:button>
-							<p:commandButton value="Excluir" id="deleteFunc"
-								action="#{manageFuncionario.delete(funcionario)}">
-								<p:confirm header="Confirmação!"
-									message="Você quer excliuir '#{funcionario.nome} '?"
-									icon="fa fa-remove" />
-							</p:commandButton>
-						</h:panelGrid>
-					</h:panelGrid>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-3 ">
+							<h:outputText style="font-weight:bold" value="ID: " />
+						</div>
+						<div class="ui-g-9 ">
+							<h:outputText value="#{funcionario.id}" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-3 ">
+							<h:outputText style="font-weight:bold" value="Login: " />
+						</div>
+						<div class="ui-g-9 ">
+							<h:outputText value="#{funcionario.login}" />
+						</div>
+					</div>
+
+
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-3 ">
+							<h:outputText style="font-weight:bold" value="Senha: " />
+						</div>
+						<div class="ui-g-9 ">
+							<h:outputText id="senha" value="#{funcionario.senhaFechada}" />
+						</div>
+					</div>
+
+
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-3 ">
+							<h:outputText style="font-weight:bold" value="Ativo: " />
+						</div>
+						<div class="ui-g-9 ">
+							<h:outputText value="#{funcionario.ativo}" />
+						</div>
+					</div>
+
+
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-3 ">
+							<h:outputText style="font-weight:bold" value="Cargo: " />
+						</div>
+						<div class="ui-g-9 ">
+							<h:outputText value="#{funcionario.tipoDeFuncionario}" />
+						</div>
+					</div>
+
+
+
+					<div class="ui-g ">
+						<div class="ui-g-2" />
+						<div class="ui-g-10">
+							<div class="ui-g-3" />
+							<div class="ui-g-5">
+								<p:button
+									style="background-color: #660000; border: 1px solid #000000;"
+									outcome="funcionario_edit.xhtml" value="Editar">
+									<f:param name="funcionario" value="#{funcionario.id}" />
+								</p:button>
+							</div>
+							<div class="ui-g-4">
+								<p:commandButton value="Excluir" id="deleteFunc"
+									action="#{manageFuncionario.delete(funcionario)}">
+									<p:confirm header="Confirmação!"
+										message="Você quer excliuir '#{funcionario.nome} '?"
+										icon="fa fa-remove" />
+								</p:commandButton>
+							</div>
+						</div>
+					</div>
 				</p:panel>
 			</p:dataGrid>
 		</h:form>

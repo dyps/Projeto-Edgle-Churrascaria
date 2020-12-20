@@ -39,10 +39,14 @@ table {
 	max-width: 256px;
 }
 
+.cards div > div {
+	text-align: left;
+	line-height: 0.8;
+}
+
 .painelLogin {
 	margin: 0px;
 	background-color: #CCCCCC;
-	
 }
 
 .panelGridCenter td, .panelGridCenter tr {
@@ -52,8 +56,11 @@ table {
 	border-color: initial !important;
 	border-image: initial !important;
 }
-.fontNomeEdglechurrascaria{
-	font-family: Sans-serif  ; font-weight: bold; font-size: 36px;
+
+.fontNomeEdglechurrascaria {
+	font-family: Sans-serif;
+	font-weight: bold;
+	font-size: 36px;
 }
 
 #barra-superior {

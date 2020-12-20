@@ -2,6 +2,7 @@ package br.com.churrascaria.services.dataGenerator;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -32,7 +33,7 @@ public class FuncionarioDataGeneratorServiceImpl implements Serializable, Funcio
 		try {
 			Funcionario func = new Funcionario();
 			func.setLogin("yaggo");
-			func.setNome("yaggo");
+			func.setNome("Yaggo");
 			func.setSenha("123");
 			func.setTipoDeFuncionario(TipoDeFuncionario.GERENTE);
 			func.setAtivo(true);
@@ -40,16 +41,17 @@ public class FuncionarioDataGeneratorServiceImpl implements Serializable, Funcio
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		for (int i = 0; i < 3; i++) {
+		int repetidos = 0;
+		for (int i = 0; i < 5; i++) {
 			try {
 				Funcionario funcionario = novoFunc();
 				funcionarioService.save(funcionario);
 			} catch (ServiceEdgleChurrascariaException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				repetidos++;
 			}
 
 		}
+		System.out.println(repetidos);
 	}
 
 	private static Funcionario novoFunc() {
@@ -62,7 +64,8 @@ public class FuncionarioDataGeneratorServiceImpl implements Serializable, Funcio
 		funcionario.setLogin(nomefunc);
 		funcionario.setSenha(senha);
 		funcionario.setAtivo(Faker.instance().bool().bool());
-		funcionario.setTipoDeFuncionario(TipoDeFuncionario.GERENTE);
+		int tipoInt = new Random().nextInt(TipoDeFuncionario.values().length);
+		funcionario.setTipoDeFuncionario(TipoDeFuncionario.values()[tipoInt]);
 		return funcionario;
 
 	}
