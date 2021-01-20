@@ -70,10 +70,10 @@ public abstract class AbstractBean implements Serializable {
 	}
 
 	private void reportarMensagem(boolean isErro, String detalhe, boolean keepMessages) {
-		String sumario = "Success!";
+		String sumario = "Sucesso: ";
 		Severity severity = FacesMessage.SEVERITY_INFO;
 		if (isErro) {
-			sumario = "Error!";
+			sumario = "Erro: ";
 			severity = FacesMessage.SEVERITY_ERROR;
 			FacesContext.getCurrentInstance().validationFailed();
 		}

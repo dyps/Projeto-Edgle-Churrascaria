@@ -41,17 +41,17 @@ public class FuncionarioDataGeneratorServiceImpl implements Serializable, Funcio
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		int repetidos = 0;
+//		int repetidos = 0;
 		for (int i = 0; i < 5; i++) {
 			try {
 				Funcionario funcionario = novoFunc();
 				funcionarioService.save(funcionario);
 			} catch (ServiceEdgleChurrascariaException e) {
-				repetidos++;
+//				repetidos++;
 			}
 
 		}
-		System.out.println(repetidos);
+//		System.out.println(repetidos);
 	}
 
 	private static Funcionario novoFunc() {
