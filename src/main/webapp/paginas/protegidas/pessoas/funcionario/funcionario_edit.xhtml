@@ -43,7 +43,7 @@
 
 				<h:panelGrid columns="1"
 					rendered="#{!funcionarioEdit.edicaoDeFuncionario}">
-					<p:outputLabel for="password" value="Password:" />
+					<p:outputLabel for="password" value="Senha:" />
 					<p:password id="password"
 						value="#{funcionarioEdit.funcionario.senha}" label="Password"
 						required="true" />
@@ -51,7 +51,7 @@
 
 				<h:panelGrid columns="1"
 					rendered="#{!funcionarioEdit.edicaoDeFuncionario}">
-					<p:outputLabel for="confirmacaoPassword" value="Confirm Password:" />
+					<p:outputLabel for="confirmacaoPassword" value="Confirmar senha:" />
 					<p:password id="confirmacaoPassword"
 						value="#{funcionarioEdit.funcionario.senha}"
 						label="Confirm Password" required="true">
@@ -76,20 +76,15 @@
 							noSelectionOption="true" itemDisabled="true" />
 						<f:selectItems value="#{funcionarioEdit.getTipoDeFuncionario()}"
 							var="g" itemLabel="#{g.nome}" itemValue="#{g}" />
-						<f:ajax render="formEdit:pgCozinheiro" />
 					</p:selectOneMenu>
 				</h:panelGrid>
 
-				<h:panelGrid columns="1" id="pgCozinheiro">
-					<p:outputLabel value="Setores"
-						rendered="#{funcionarioEdit.isCozinheiro()}" />
-				</h:panelGrid>
 
 				<p:panelGrid columns="2">
-					<p:button id="botaoCancelar" outcome="index.xhtml" value="Cancel" />
+					<p:button id="botaoCancelar" outcome="index.xhtml" value="Cancelar" />
 					<p:commandButton id="botaoSubmeter"
 						action="#{funcionarioEdit.saveFuncionario()}" update="@form"
-						value="Submit" />
+						value="Salvar" />
 				</p:panelGrid>
 			</p:panelGrid>
 

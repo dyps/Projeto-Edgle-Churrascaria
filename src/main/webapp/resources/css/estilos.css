@@ -39,7 +39,8 @@ table {
 	max-width: 256px;
 }
 
-.cards div > div {
+.cards div>div {
+	place-content: flex-end;
 	text-align: left;
 	line-height: 0.8;
 }

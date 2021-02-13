@@ -44,36 +44,7 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 
 	}
 
-	public void deletar(int id) {
-		EntityManager en = getEntityManager();
-		try {
-			en.remove(en.find(Funcionario.class, id));
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-			// TODO: handle exception
-		}
-//		finally {
-//			en.close();
-//		}
-
-	}
-
-	public void atualizar(Funcionario obj) {
-		EntityManager en = getEntityManager();
-		EntityTransaction transaction = en.getTransaction();
-		transaction.begin();
-		try {
-			en.merge(obj);
-			transaction.commit();
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-			transaction.rollback();
-			// TODO: handle exception
-		}
-//		finally {
-//			en.close();
-//		}
-	}
+	
 
 	@Override
 	public List<Funcionario> getAll() throws PersistenciaEdgleChurrascariaException {

@@ -26,6 +26,11 @@ public class FuncionarioDataGeneratorServiceImpl implements Serializable, Funcio
 	@Override
 	public void generateData() throws ServiceEdgleChurrascariaException {
 		List<Funcionario> funcionarios = funcionarioService.getAll();
+		//limpar banco kkk
+		for (Funcionario funcionario : funcionarios) {
+			funcionarioService.delete(funcionario);
+		}
+		funcionarios = funcionarioService.getAll();
 
 		if (!funcionarios.isEmpty()) {
 			return;

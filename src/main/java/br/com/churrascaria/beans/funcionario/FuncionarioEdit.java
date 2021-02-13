@@ -68,10 +68,6 @@ public class FuncionarioEdit extends AbstractBean {
 		return funcionario != null && funcionario.getId() != null;
 	}
 
-	public boolean isCozinheiro() {
-		return funcionario != null && funcionario.getTipoDeFuncionario() == TipoDeFuncionario.COZINHEIRO;
-	}
-
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}

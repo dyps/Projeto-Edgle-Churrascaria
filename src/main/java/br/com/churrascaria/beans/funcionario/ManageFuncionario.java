@@ -25,7 +25,7 @@ public class ManageFuncionario extends AbstractBean {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private FuncionarioServiceImplementacao funcionarioService ;
+	private FuncionarioServiceImplementacao funcionarioService;
 
 	private List<Funcionario> funcionarios;
 
@@ -54,7 +54,7 @@ public class ManageFuncionario extends AbstractBean {
 		Funcionario func = new Funcionario();
 		func.setPrimeiro(true);
 		array.add(func);
-		funcionarios =array;
+		funcionarios = array;
 		try {
 			array.addAll(funcionarioService.findBy(funcionarioFilter));
 		} catch (ServiceEdgleChurrascariaException e) {
@@ -63,21 +63,32 @@ public class ManageFuncionario extends AbstractBean {
 		}
 		return null;
 	}
+
 	public String delete(Funcionario funcionario) {
 		try {
-			funcionarioService.delete(funcionario);
+			if (getFuncionarioLogado().getId().equals(funcionario.getId())) {
+				reportarMensagemDeErro("Funcionario '" + funcionario.getNome() + "' está logado");
+				return null;
+			} else {
+				funcionarioService.delete(funcionario);
+				reportarMensagemDeSucesso("Funcionario '" + funcionario.getNome() + "' excluído");
+			}
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 			return null;
 		}
-
-		reportarMensagemDeSucesso("Funcionario '" + funcionario.getNome() + "' deleted");
-
 		return EnderecoPaginas.PAGINA_PRINCIPAL_FUNCIONARIO;
 
 	}
+	public boolean podeSerExcluido(Funcionario funcionario){
+		if (getFuncionarioLogado().getId() == funcionario.getId()) {
+			return false;
+		}
+		
+		return true;
+	}
 
-	public String limpar() {
+	public Object limpar() {
 		this.funcionarioFilter = new FuncionarioFilter();
 		return null;
 	}

@@ -23,31 +23,25 @@
 
 	<h:messages />
 	<h:panelGrid style="text-align: center;	margin: auto;" columns="1">
-		<br />
-		<br />
-		<br />
-		<br />
-		<br />
-		<h:outputLabel value="Edglê Churrascaria"
-			styleClass="fontNomeEdglechurrascaria"
-			style="color: #660000; width: 100%;" />
-		<br />
+		<h:graphicImage id="logo" library="imagens" name="logo_churrascaria.png" width="315" height="272" />
 		<h:panelGrid style="width: 15%;	text-align: center;	margin: auto;"
 			columns="1" styleClass="painelLogin">
 
 			<h:form id="formLogin" prependId="false"
 				onsubmit="action='j_security_check';">
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="1" style="text-align:left; margin: auto;"
+						styleClass="painelLogin">
+						<h:outputLabel for="j_username" value="Login: " />
+						<p:inputText id="j_username" />
 
-				<h:panelGrid columns="1" style="text-align:left; margin: auto;"
-					styleClass="painelLogin">
-					<h:outputLabel for="j_username" value="Login: " />
-					<p:inputText id="j_username" />
+						<h:outputLabel for="j_password" value="Senha: " />
+						<p:password id="j_password" />
 
-					<h:outputLabel for="j_password" value="Senha: " />
-					<p:password id="j_password" />
-
-					<p:commandButton id="btnLogin" value="Acessar" ajax="false" />
-
+					</h:panelGrid>
+					<h:panelGrid columns="1" style="text-align:center; margin: auto">
+						<p:commandButton id="btnLogin" value="Acessar" ajax="false" />
+					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>
 		</h:panelGrid>

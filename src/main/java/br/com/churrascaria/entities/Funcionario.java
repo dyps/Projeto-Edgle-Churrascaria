@@ -83,11 +83,7 @@ public class Funcionario implements Identificavel {
 	}
 
 	public String getSenhaFechada() {
-		String retorno = "";
-		for (int i = 0; i < senha.length(); i++) {
-			retorno += "*";
-		}
-		return retorno;
+		return "********";
 	}
 
 	public void setSenha(String senha) {
