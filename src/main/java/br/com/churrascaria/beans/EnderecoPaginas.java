@@ -3,6 +3,7 @@ package br.com.churrascaria.beans;
 
 public final class EnderecoPaginas {
 	
+
 	public EnderecoPaginas() {
 		throw new UnsupportedOperationException("Esta classe não deve ser instanciada!");
 	}
@@ -11,4 +12,7 @@ public final class EnderecoPaginas {
 	
 	public static final String PAGINA_PRINCIPAL_FUNCIONARIO = "/paginas/protegidas/pessoas/funcionario/index.xhtml" + REDIRECT_TRUE;
 
+	public static final String PAGINA_PRINCIPAL_OBSERVACAO ="/paginas/protegidas/catalogo/observacoes/index.xhtml"+ REDIRECT_TRUE;
+	
+	public static final String PAGINA_PRINCIPAL_MESA = "/paginas/protegidas/gestao/mesas/index.xhtml" + REDIRECT_TRUE;
 }

@@ -1,33 +1,27 @@
 package br.com.churrascaria.filter;
 
 import br.com.churrascaria.entities.TipoDeFuncionario;
-import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
-public  class FuncionarioFilter implements Filter{
-	public void validate() throws ServiceEdgleChurrascariaException {
-		// TODO Auto-generated method stub
-		Filter.super.validate();
-	}
+public class FuncionarioFilter implements Filter {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private Long id;
-	
-	private String nome;
-	
-	private String login;
-	
-	private Boolean ativo;
-	
-	private TipoDeFuncionario tipoDeFuncionario;
-	
-	public FuncionarioFilter() {
-		
-	}
 
+	private Long id;
+
+	private String nome;
+
+	private String login;
+
+	private Boolean ativo;
+
+	private TipoDeFuncionario tipoDeFuncionario;
+
+	public FuncionarioFilter() {
+
+	}
 
 	public String getNome() {
 		return nome;
@@ -45,30 +39,21 @@ public  class FuncionarioFilter implements Filter{
 		this.login = login;
 	}
 
-
-
-
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-
-
 	public Boolean getAtivo() {
 		return ativo;
 	}
 
-
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
-
 
 	public TipoDeFuncionario getTipoDeFuncionario() {
 		return tipoDeFuncionario;
@@ -77,7 +62,7 @@ public  class FuncionarioFilter implements Filter{
 	public void setTipoDeFuncionario(TipoDeFuncionario tipoDeFuncionario) {
 		this.tipoDeFuncionario = tipoDeFuncionario;
 	}
-	
+
 	public boolean isEmpty() {
 		if (this.id != null && !this.id.toString().trim().isEmpty()) {
 			return false;
@@ -93,12 +78,11 @@ public  class FuncionarioFilter implements Filter{
 		}
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "FuncionarioFilter [id=" + id + ", nome=" + nome + ", login="
-				+ login  + ", ativo=" + ativo + ", tipoDeFuncionario="
-				+ tipoDeFuncionario + "]";
+		return "FuncionarioFilter [id=" + id + ", nome=" + nome + ", login=" + login + ", ativo=" + ativo
+				+ ", tipoDeFuncionario=" + tipoDeFuncionario + "]";
 	}
 
 }

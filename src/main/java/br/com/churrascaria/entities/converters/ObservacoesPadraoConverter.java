@@ -8,25 +8,25 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import br.com.churrascaria.entities.Funcionario;
+import br.com.churrascaria.entities.ObservacaoPadrao;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
-import br.com.churrascaria.services.implementacao.FuncionarioServiceImplementacao;
+import br.com.churrascaria.services.implementacao.ObservacoesPadraoServiceImplementacao;
 
-@FacesConverter(forClass = Funcionario.class)
-public class FuncionarioConverter implements Converter<Funcionario> {
+@FacesConverter(forClass = ObservacaoPadrao.class)
+public class ObservacoesPadraoConverter implements Converter<ObservacaoPadrao> {
 
 	@Inject
-	private FuncionarioServiceImplementacao funcionarioService;
+	private ObservacoesPadraoServiceImplementacao observacoesPadraoService;
 
 	@Override
-	public Funcionario getAsObject(FacesContext context, UIComponent component, String value) {
+	public ObservacaoPadrao getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value == null || value.trim().isEmpty()) {
 			return null;
 		}
 
 		try {
 			long id = Long.parseLong(value);
-			return funcionarioService.getByID(id);
+			return observacoesPadraoService.getByID(id);
 		} catch (ServiceEdgleChurrascariaException | NumberFormatException e) {
 			String msgErroStr = String.format(
 					"Erro de conversão! Não foi possível realizar a conversão da string '%s' para o tipo esperado.",
@@ -37,13 +37,13 @@ public class FuncionarioConverter implements Converter<Funcionario> {
 	}
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component, Funcionario value) {
+	public String getAsString(FacesContext context, UIComponent component, ObservacaoPadrao value) {
 
-		if (!(value instanceof Funcionario)) {
+		if (!(value instanceof ObservacaoPadrao)) {
 			return null;
 		}
 
-		Long id = ((Funcionario) value).getId();
+		Long id = ((ObservacaoPadrao) value).getId();
 		return (id != null) ? id.toString() : null;
 	}
 

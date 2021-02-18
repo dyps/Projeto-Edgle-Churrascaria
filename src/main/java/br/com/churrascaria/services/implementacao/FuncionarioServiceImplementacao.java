@@ -15,7 +15,7 @@ import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
 @Named
 @RequestScoped
-public class FuncionarioServiceImplementacao implements CRUDService<Funcionario, FuncionarioFilter> {
+public class FuncionarioServiceImplementacao implements CRUDService<Funcionario> {
 
 	@Inject
 	private FuncionarioDAO funcionarioDAO;
@@ -54,7 +54,7 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario,
 		}
 	}
 
-	public Funcionario getByID(long userId) throws ServiceEdgleChurrascariaException {
+	public Funcionario getByID(Long userId) throws ServiceEdgleChurrascariaException {
 		FuncionarioFilter filter = new FuncionarioFilter();
 		filter.setId(userId);
 		return findBy(filter).get(0);

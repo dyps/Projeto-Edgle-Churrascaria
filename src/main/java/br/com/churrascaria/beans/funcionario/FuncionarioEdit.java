@@ -58,7 +58,7 @@ public class FuncionarioEdit extends AbstractBean {
 			return null;
 		}
 
-		reportarMensagemDeSucesso("Funcionario '" + funcionario.getNome() + "' saved");
+		reportarMensagemDeSucesso("Funcionario '" + funcionario.getNome() + "' salvo");
 
 		return EnderecoPaginas.PAGINA_PRINCIPAL_FUNCIONARIO;
 //		return "/paginas/protegidas/pessoas/funcionario/index.xhtml";

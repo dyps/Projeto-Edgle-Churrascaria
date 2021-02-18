@@ -8,7 +8,51 @@
 <ui:composition template="/WEB-INF/templates/Template_Master.xhtml">
 
 	<ui:define name="title">
-		Oservações
+		Observações
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formFilter">
+			<div class="ui-g ui-md-12 ui-g-nopad">
+				<div class="ui-g-10 "></div>
+				<div class="ui-g-2 ">
+					<p:commandButton value="Nova Observação"
+						oncomplete="PF('novaObs').show();" />
+				</div>
+			</div>
+			<p:dialog modal="true" widgetVar="novaObs" resizable="false"
+				id="idNovaObs" global="true" showEffect="fade" hideEffect="fade"
+				header="Nova Observação">
+				<p:panelGrid>
+					<p:outputLabel value="Descrição: " for="idDescrição" />
+					<p:inputText id="idDescrição"
+						value="#{manageObservacoes.novaObservacao.descricao}" />
+				</p:panelGrid>
+				<br />
+				<p:commandButton id="botaoSubmeter" style="width: 100%;"
+					action="#{manageObservacoes.saveObservacao()}" update="@form"
+					value="Salvar" />
+			</p:dialog>
+			<div class="ui-g-4 "></div>
+			<div class="ui-g-4 " style="text-align: left;">
+				<p:dataTable var="obs" value="#{manageObservacoes.observacoes}">
+					<p:column headerText="Descrição" style="text-align: left;"
+						responsivePriority="3">
+						<p:outputLabel value="#{obs.descricao}"></p:outputLabel>
+					</p:column>
+					<p:column headerText="Opção" style="text-align: left;width: 25%;"
+						responsivePriority="1">
+						<p:commandLink action="#{manageObservacoes.delete(obs)}">
+							<i class="fa fa-trash" style="color: black; font-size: 1.187rem;" />
+
+							<p:confirm header="
+							Confirmação!"
+								message="Você realmente apagar a observação?"
+								icon="fa fa-exclamation-triangle" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</div>
+		</h:form>
 	</ui:define>
 
 </ui:composition>
