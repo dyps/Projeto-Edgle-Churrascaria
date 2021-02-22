@@ -19,11 +19,7 @@ public final class EnderecoPaginas {
 	public static final String PAGINA_PRINCIPAL_ENTREGADOR = "/paginas/protegidas/pessoas/entregadores/index.xhtml"
 			+ REDIRECT_TRUE;
 
-<<<<<<< Updated upstream
 	public static final String PAGINA_PRINCIPAL_OBSERVACAO = "/paginas/protegidas/catalogo/observacoes/index.xhtml"
 			+ REDIRECT_TRUE;
 
-=======
-	public static final String PAGINA_PRINCIPAL_OBSERVACAO ="/paginas/protegidas/catalogo/observacoes/index.xhtml"+ REDIRECT_TRUE;
->>>>>>> Stashed changes
 }
