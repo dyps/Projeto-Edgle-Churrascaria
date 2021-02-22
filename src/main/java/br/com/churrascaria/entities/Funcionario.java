@@ -1,19 +1,15 @@
 package br.com.churrascaria.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.checkerframework.common.aliasing.qual.Unique;
-
-import com.sun.istack.NotNull;
-
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "TB_Funcionarios")
@@ -23,19 +19,19 @@ public class Funcionario implements Identificavel {
 	@SequenceGenerator(name = "FuncionarioSeq", sequenceName = "FUNCIONARIO_SEQ", allocationSize = 1)
 	private Long Id;
 
-	@NotNull
+	@Column(nullable = false)
 	private String nome;
-	@NotNull
-	@Unique
+
+	@Column(nullable = false, unique = true)
 	private String login;
-	@NotNull
+	@Column(nullable = false)
 	private String senha;
 
-	@NotNull
+	@Column(nullable = false)
 	private boolean ativo;
 
 	@Enumerated(EnumType.STRING)
-	@NotNull
+	@Column(nullable = false)
 	private TipoDeFuncionario tipoDeFuncionario;
 
 	@Transient

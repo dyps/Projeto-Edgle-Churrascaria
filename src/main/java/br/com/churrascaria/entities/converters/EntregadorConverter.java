@@ -14,7 +14,7 @@ import br.com.churrascaria.services.implementacao.EntregadorServiceImplementacao
 
 @FacesConverter(forClass = Entregador.class)
 public class EntregadorConverter implements Converter<Entregador> {
-	
+
 	@Inject
 	private EntregadorServiceImplementacao entregadorService;
 
@@ -25,7 +25,7 @@ public class EntregadorConverter implements Converter<Entregador> {
 		}
 
 		try {
-			int id = Integer.parseInt(value);
+			long id = Long.parseLong(value);
 			return entregadorService.getByID(id);
 		} catch (ServiceEdgleChurrascariaException | NumberFormatException e) {
 			String msgErroStr = String.format(

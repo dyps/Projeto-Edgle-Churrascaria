@@ -15,8 +15,8 @@ import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
 @Named
 @RequestScoped
-public class MesaServiceImplementacao implements CRUDService<Mesa, MesaFilter> {
-	
+public class MesaServiceImplementacao implements CRUDService<Mesa> {
+
 	@Inject
 	private MesaDAO mesaDAO;
 
@@ -48,13 +48,12 @@ public class MesaServiceImplementacao implements CRUDService<Mesa, MesaFilter> {
 	}
 
 	@Override
-	public Mesa getByID(long userId) throws ServiceEdgleChurrascariaException {
+	public Mesa getByID(Long userId) throws ServiceEdgleChurrascariaException {
 		MesaFilter filter = new MesaFilter();
 		filter.setId(userId);
 		return findBy(filter).get(0);
 	}
 
-	@Override
 	public List<Mesa> findBy(MesaFilter filter) throws ServiceEdgleChurrascariaException {
 		try {
 			filter.validate();

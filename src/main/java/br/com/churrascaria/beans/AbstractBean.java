@@ -1,5 +1,6 @@
 package br.com.churrascaria.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.List;
@@ -10,6 +11,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.entities.TipoDeFuncionario;
@@ -29,20 +32,28 @@ public abstract class AbstractBean implements Serializable {
 	@Inject
 	private FuncionarioServiceImplementacao funcionarioService;
 
-	public Funcionario getFuncionarioLogado() {
+	public Funcionario getFuncionarioLogado() throws IOException {
 		FuncionarioFilter filter = new FuncionarioFilter();
 		filter.setLogin(getFuncionarioLogin());
 		List<Funcionario> funcs = null;
 		try {
 			funcs = funcionarioService.findBy(filter);
+			if (!funcs.isEmpty()) {
+				return funcs.get(0);
+			}
 		} catch (ServiceEdgleChurrascariaException e) {
-			e.printStackTrace();
+
+			FacesContext fc = FacesContext.getCurrentInstance();
+			ExternalContext ec = fc.getExternalContext();
+			HttpSession session = (HttpSession) ec.getSession(false);
+			session.invalidate();
+			// XXX Chamada #logout() abaixo necessária, pois:
+			// https://stackoverflow.com/a/26421775/4023351
+			HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+			ec.redirect(request.getContextPath());
 			reportarMensagemDeErro("Erro ao recuperar o funcionario logado!");
 		}
 
-		if (!funcs.isEmpty()) {
-			return funcs.get(0);
-		}
 		return null;
 	}
 

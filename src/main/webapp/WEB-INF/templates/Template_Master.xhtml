@@ -28,104 +28,108 @@
 	<!-- Ctrl + Shift + z -->
 
 	<!-- 	<h:messages /> -->
-	<div class="ui-g  " id="barra-superior">
-		<div class="ui-g-12 ui-md-12 ui-g-nopad">
-			<div class="ui-g-6">
-				<h:outputLabel value="Edglê churrascaria" style="color : #FFFFFF"
-					styleClass="fontNomeEdglechurrascaria" />
-			</div>
-			<h:form>
-				<div class="ui-g-6" align="right">
-					<h:outputLabel value="Olá, #{menu.funcionarioLogado.nome}"
-						style=" font-weight: bold; font-size: 20px; color : #FFFFFF" />
-					<p:commandLink action="#{logout.efetuarLogout()}">
-						<i class="fa fa-times"
-							style="color: black; border-radius: 50%; height: 2.2rem; width: 2.2rem; text-align: center; background-color: #ccc; border: solid; font-size: 1.8rem;" />
+	<ui:insert name="interior">
+		<div class="ui-g  " id="barra-superior">
+			<div class="ui-g-12 ui-md-12 ui-g-nopad">
+				<ui:insert name="barrasuperior">
+					<div class="ui-g-6">
+						<h:outputLabel value="Edglê churrascaria" style="color : #FFFFFF"
+							styleClass="fontNomeEdglechurrascaria" />
+					</div>
+					<h:form>
+						<div class="ui-g-6" align="right">
+							<h:outputLabel  value="Olá, #{menu.funcionarioLogado.nome}"
+								style=" font-weight: bold; font-size: 20px; color : #FFFFFF" />
+							<p:commandLink action="#{logout.efetuarLogout()}">
+								<i class="fa fa-times"
+									style="color: black; border-radius: 50%; height: 2.2rem; width: 2.2rem; text-align: center; background-color: #ccc; border: solid; font-size: 1.8rem;" />
 
-						<p:confirm header="
+								<p:confirm header="
 							Confirmação!"
-							message="Você realmente deseja sair?" icon="fa fa-exclamation-triangle" />
-					</p:commandLink>
+									message="Você realmente deseja sair?"
+									icon="fa fa-exclamation-triangle" />
+							</p:commandLink>
+						</div>
+
+					</h:form>
+				</ui:insert>
+			</div>
+		</div>
+		<div class="ui-g  ">
+			<div class="ui-g-12 ui-md-2 ui-g-nopad">
+				<ui:insert name="barralateral">
+					<h:form>
+						<p:growl>
+							<p:autoUpdate />
+						</p:growl>
+
+						<p:panelMenu id="menu">
+							<p:submenu href="label=" label="Vendas" expanded="false">
+								<p:menuitem value="Pedidos"
+									outcome="/paginas/protegidas/vendas/pedidos/index.xhtml" />
+								<p:menuitem value="Clientes"
+									outcome="/paginas/protegidas/vendas/clientes/index.xhtml" />
+								<p:menuitem value="Abrir/Fechar caixa"
+									outcome="/paginas/protegidas/vendas/abrirfecharcaixa/index.xhtml" />
+							</p:submenu>
+							<p:submenu label="Catalogo" expanded="false">
+								<p:menuitem value="Produtos"
+									outcome="/paginas/protegidas/catalogo/produtos/index.xhtml" />
+								<p:menuitem value="Observações"
+									outcome="/paginas/protegidas/catalogo/observacoes/index.xhtml" />
+							</p:submenu>
+							<p:submenu label="Gestão" expanded="false">
+								<p:menuitem value="Formas de pagamento"
+									outcome="/paginas/protegidas/gestao/formasdepagamento/index.xhtml" />
+								<p:menuitem value="Mesas"
+									outcome="/paginas/protegidas/gestao/mesas/index.xhtml" />
+							</p:submenu>
+							<p:submenu id="menuPessoas" label="Pessoas" expanded="false">
+								<p:menuitem value="Funcionários"
+									outcome="/paginas/protegidas/pessoas/funcionario/index.xhtml" />
+								<p:menuitem value="Entregadores"
+									outcome="/paginas/protegidas/pessoas/entregadores/index.xhtml" />
+							</p:submenu>
+							<p:submenu label="Relatórios" expanded="false">
+								<p:menuitem value="Ranking funcionários"
+									outcome="/paginas/protegidas/relatorios/rankingfuncionarios/index.xhtml" />
+								<p:menuitem value="Ranking produtos"
+									outcome="/paginas/protegidas/relatorios/rankingprodutos/index.xhtml" />
+								<p:menuitem value="Apurado em caixa"
+									outcome="/paginas/protegidas/relatorios/apuradoemcaixa/index.xhtml" />
+							</p:submenu>
+						</p:panelMenu>
+					</h:form>
+				</ui:insert>
+			</div>
+			<div class="ui-g-12 ui-md-10 ui-g-nopad">
+
+				<div id="content">
+					<p:growl id="idMessages" showDetail="true" severity="info">
+						<p:autoUpdate />
+					</p:growl>
+
+					<p:growl id="idMessagesErrors" showDetail="true" severity="error"
+						sticky="true">
+						<p:autoUpdate />
+					</p:growl>
+
+					<p:confirmDialog id="confirmDialog" global="true" showEffect="fade"
+						hideEffect="fade">
+						<h:form>
+							<p:commandButton id="confirmYes" value="Sim" type="button"
+								styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+							<p:commandButton id="confirmNo" value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+						</h:form>
+					</p:confirmDialog>
+
+					<ui:insert name="content" />
 				</div>
 
-			</h:form>
-		</div>
-	</div>
-
-	<div class="ui-g  ">
-		<div class="ui-g-12 ui-md-2 ui-g-nopad">
-			<h:form>
-				<p:growl>
-					<p:autoUpdate />
-				</p:growl>
-
-				<p:panelMenu id="menu">
-					<p:submenu href="label=" label="Vendas" expanded="false">
-						<p:menuitem value="Pedidos"
-							outcome="/paginas/protegidas/vendas/pedidos/index.xhtml" />
-						<p:menuitem value="Clientes"
-							outcome="/paginas/protegidas/vendas/clientes/index.xhtml" />
-						<p:menuitem value="Abrir/Fechar caixa"
-							outcome="/paginas/protegidas/vendas/abrirfecharcaixa/index.xhtml" />
-					</p:submenu>
-					<p:submenu label="Catalogo" expanded="false">
-						<p:menuitem value="Produtos"
-							outcome="/paginas/protegidas/catalogo/produtos/index.xhtml" />
-						<p:menuitem value="Observações"
-							outcome="/paginas/protegidas/catalogo/observacoes/index.xhtml" />
-					</p:submenu>
-					<p:submenu label="Gestão" expanded="false">
-						<p:menuitem value="Formas de pagamento"
-							outcome="/paginas/protegidas/gestao/formasdepagamento/index.xhtml" />
-						<p:menuitem value="Mesas"
-							outcome="/paginas/protegidas/gestao/mesas/index.xhtml" />
-					</p:submenu>
-					<p:submenu id="menuPessoas" label="Pessoas" expanded="false">
-						<p:menuitem value="Funcionários"
-							outcome="/paginas/protegidas/pessoas/funcionario/index.xhtml" />
-						<p:menuitem value="Entregadores"
-							outcome="/paginas/protegidas/pessoas/entregadores/index.xhtml" />
-					</p:submenu>
-					<p:submenu label="Relatórios" expanded="false">
-						<p:menuitem value="Ranking funcionários"
-							outcome="/paginas/protegidas/relatorios/rankingfuncionarios/index.xhtml" />
-						<p:menuitem value="Ranking produtos"
-							outcome="/paginas/protegidas/relatorios/rankingprodutos/index.xhtml" />
-						<p:menuitem value="Apurado em caixa"
-							outcome="/paginas/protegidas/relatorios/apuradoemcaixa/index.xhtml" />
-					</p:submenu>
-				</p:panelMenu>
-			</h:form>
-		</div>
-		<div class="ui-g-12 ui-md-10 ui-g-nopad">
-
-			<div id="content">
-				<p:growl id="idMessages" showDetail="true" severity="info">
-					<p:autoUpdate />
-				</p:growl>
-
-				<p:growl id="idMessagesErrors" showDetail="true" severity="error"
-					sticky="true">
-					<p:autoUpdate />
-				</p:growl>
-
-				<p:confirmDialog id="confirmDialog" global="true" showEffect="fade"
-					hideEffect="fade">
-					<h:form>
-						<p:commandButton id="confirmYes" value="Sim" type="button"
-							styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
-						<p:commandButton id="confirmNo" value="Não" type="button"
-							styleClass="ui-confirmdialog-no" icon="fa fa-times" />
-					</h:form>
-				</p:confirmDialog>
-
-				<ui:insert name="content" />
 			</div>
-
 		</div>
-	</div>
-
-
+	</ui:insert>
 </h:body>
 </html>
 

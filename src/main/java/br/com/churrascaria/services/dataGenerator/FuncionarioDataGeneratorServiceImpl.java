@@ -47,7 +47,7 @@ public class FuncionarioDataGeneratorServiceImpl implements Serializable, Funcio
 			// TODO: handle exception
 		}
 //		int repetidos = 0;
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < (int)(Math.random()*5)+5; i++) {
 			try {
 				Funcionario funcionario = novoFunc();
 				funcionarioService.save(funcionario);

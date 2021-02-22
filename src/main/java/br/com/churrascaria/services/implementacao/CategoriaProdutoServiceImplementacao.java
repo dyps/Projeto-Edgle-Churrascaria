@@ -15,7 +15,7 @@ import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
 @Named
 @RequestScoped
-public class CategoriaProdutoServiceImplementacao implements CRUDService<CategoriaProduto, CategoriaProdutoFilter> {
+public class CategoriaProdutoServiceImplementacao implements CRUDService<CategoriaProduto> {
 	
 	@Inject
 	private CategoriaProdutoDAO categoriaProdutoDAO;
@@ -47,14 +47,12 @@ public class CategoriaProdutoServiceImplementacao implements CRUDService<Categor
 		}
 	}
 
-	@Override
-	public CategoriaProduto getByID(long userId) throws ServiceEdgleChurrascariaException {
+	public CategoriaProduto getByID(Long userId) throws ServiceEdgleChurrascariaException {
 		CategoriaProdutoFilter filter = new CategoriaProdutoFilter();
 		filter.setId(userId);
 		return findBy(filter).get(0);
 	}
 
-	@Override
 	public List<CategoriaProduto> findBy(CategoriaProdutoFilter filter) throws ServiceEdgleChurrascariaException {
 		try {
 			filter.validate();

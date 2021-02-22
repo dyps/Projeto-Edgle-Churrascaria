@@ -15,6 +15,14 @@
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/paginas/publicas/500.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>408</error-code>
+		<location>/paginas/publicas/sessionTimeout.xhtml</location>
+	</error-page>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -58,7 +66,7 @@
 			<form-error-page>/paginas/publicas/login.xhtml?error=true</form-error-page>
 		</form-login-config>
 	</login-config>
-	
+
 	<security-constraint>
 		<display-name>Páginas do administrador</display-name>
 		<web-resource-collection>
@@ -88,8 +96,7 @@
 		<display-name>Acesso permitido a todos usuários autenticados</display-name>
 		<web-resource-collection>
 			<web-resource-name>Área protegida que não exige autorização
-				específica
-			</web-resource-name>
+				específica</web-resource-name>
 			<description />
 			<url-pattern>/paginas/publicas/*</url-pattern>
 			<http-method>GET</http-method>
@@ -109,7 +116,7 @@
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
-	
+
 	<security-role>
 		<role-name>GERENTE</role-name>
 	</security-role>

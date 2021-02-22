@@ -1,5 +1,6 @@
 package br.com.churrascaria.beans.funcionario;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,15 +77,24 @@ public class ManageFuncionario extends AbstractBean {
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 			return null;
+		} catch (IOException e) {
+			reportarMensagemDeErro(e.getMessage());
+			e.printStackTrace();
 		}
 		return EnderecoPaginas.PAGINA_PRINCIPAL_FUNCIONARIO;
 
 	}
-	public boolean podeSerExcluido(Funcionario funcionario){
-		if (getFuncionarioLogado().getId() == funcionario.getId()) {
-			return false;
+
+	public boolean podeSerExcluido(Funcionario funcionario) {
+		try {
+			if (getFuncionarioLogado().getId() == funcionario.getId()) {
+				return false;
+			}
+		} catch (IOException e) {
+			reportarMensagemDeErro(e.getMessage());
+			e.printStackTrace();
 		}
-		
+
 		return true;
 	}
 

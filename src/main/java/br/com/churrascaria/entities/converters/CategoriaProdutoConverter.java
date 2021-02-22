@@ -25,7 +25,7 @@ public class CategoriaProdutoConverter implements Converter<CategoriaProduto> {
 		}
 
 		try {
-			int id = Integer.parseInt(value);
+			long id = Long.parseLong(value);
 			return categoriaProdutoService.getByID(id);
 		} catch (ServiceEdgleChurrascariaException | NumberFormatException e) {
 			String msgErroStr = String.format(

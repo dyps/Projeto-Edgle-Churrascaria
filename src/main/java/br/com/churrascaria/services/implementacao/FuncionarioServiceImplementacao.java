@@ -62,7 +62,11 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario>
 	public List<Funcionario> findBy(FuncionarioFilter filter) throws ServiceEdgleChurrascariaException {
 		try {
 			filter.validate();
-			return funcionarioDAO.findBy(filter);
+			List<Funcionario> list = funcionarioDAO.findBy(filter);
+			if (list.size()==0) {
+				throw new ServiceEdgleChurrascariaException("Não há funcionário logado");
+			}
+			return list;
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
@@ -123,7 +127,7 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario>
 	private void validarLogin(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
 		boolean jahExiste = funcionarioDAO.existeUsuarioComLogin(funcionario);
 		if (jahExiste) {
-			throw new ServiceEdgleChurrascariaException("Login already exists: " + funcionario.getLogin()); 
+			throw new ServiceEdgleChurrascariaException("Login já existente: " + funcionario.getLogin()); 
 		}
 	}
 

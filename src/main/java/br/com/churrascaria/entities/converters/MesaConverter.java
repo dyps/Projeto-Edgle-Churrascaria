@@ -25,7 +25,7 @@ public class MesaConverter implements Converter<Mesa> {
 		}
 
 		try {
-			int id = Integer.parseInt(value);
+			long id = Long.parseLong(value);
 			return mesaService.getByID(id);
 		} catch (ServiceEdgleChurrascariaException | NumberFormatException e) {
 			String msgErroStr = String.format(

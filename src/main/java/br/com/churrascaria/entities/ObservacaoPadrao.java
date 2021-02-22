@@ -1,5 +1,6 @@
 package br.com.churrascaria.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ public class ObservacaoPadrao implements Identificavel {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ObservacaoPadraoSeq")
 	@SequenceGenerator(name = "ObservacaoPadraoSeq", sequenceName = "OBSERVACAOPADRAO_SEQ", allocationSize = 1)
 	private Long id;
+	@Column(nullable = false, unique = true)
 	private String descricao;
 
 	public Long getId() {

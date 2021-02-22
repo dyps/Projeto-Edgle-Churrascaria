@@ -15,7 +15,7 @@ import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
 @Named
 @RequestScoped
-public class EntregadorServiceImplementacao implements CRUDService<Entregador, EntregadorFilter> {
+public class EntregadorServiceImplementacao implements CRUDService<Entregador> {
 
 	@Inject
 	private EntregadorDAO entregadorDAO;
@@ -48,13 +48,12 @@ public class EntregadorServiceImplementacao implements CRUDService<Entregador, E
 	}
 
 	@Override
-	public Entregador getByID(long userId) throws ServiceEdgleChurrascariaException {
+	public Entregador getByID(Long userId) throws ServiceEdgleChurrascariaException {
 		EntregadorFilter filter = new EntregadorFilter();
 		filter.setId(userId);
 		return findBy(filter).get(0);
 	}
 
-	@Override
 	public List<Entregador> findBy(EntregadorFilter filter) throws ServiceEdgleChurrascariaException {
 		try {
 			filter.validate();
