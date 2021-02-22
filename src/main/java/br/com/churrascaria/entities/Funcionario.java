@@ -121,10 +121,4 @@ public class Funcionario implements Identificavel {
 		return primeiro;
 	}
 
-	public void limparCamposEspecificos() {
-		// aqui deve ser implementada a logica para que o funcionario do tipo garcon ou
-		// gerente nao tenha setores
-
-	}
-
 }

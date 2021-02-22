@@ -36,7 +36,6 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario>
 		try {
 			// Verificar se login já existe
 			validarLogin(funcionario);
-			funcionario.limparCamposEspecificos();
 //			if (passwordChanged) {
 //				calcularHashDaSenha(funcionario);
 //			}

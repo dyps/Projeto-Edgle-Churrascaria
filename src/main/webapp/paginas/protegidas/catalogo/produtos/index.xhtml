@@ -8,7 +8,69 @@
 <ui:composition template="/WEB-INF/templates/Template_Master.xhtml">
 
 	<ui:define name="title">
-		Produtos
+		Categorias de Produtos
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form id="formFilter">
+			<div class="ui-g ui-md-12 ui-g-nopad">
+				<div class="ui-g-1 ">
+					<p:outputLabel value="Nome: " for="itNomeFilter" />
+				</div>
+				<div class="ui-g-3 ">
+					<p:inputText id="itNomeFilter"
+						value="#{manageCategoriaProduto.categoriaProdutoFilter.nome}" label="Nome"
+						style="width: 16rem; " />
+				</div>
+				<div class="ui-g-6 ">
+					<p:commandButton id="btnFiltrarBotao" value="Buscar"
+						action="#{manageCategoriaProduto.filtrar()}" update="@form" />
+				</div>
+
+
+			</div>
+
+			<p:dataGrid columns="4" id="dataTableCategoriaProdutos" border="1"
+				style="width : 100%" var="categoriaProduto" value="#{manageCategoriaProduto.categoriaProdutos}">
+				<p:panel rendered="#{categoriaProduto.primeiro}" header="Novo"
+					styleClass="cards">
+					<br />
+					<p:commandLink type="submit" title="Icon Only"
+						oncomplete="PF('novaCategoriaProduto').show();">
+						<i class="pi pi-plus" style="color: black;" />
+					</p:commandLink>
+				</p:panel>
+				<p:panel rendered="#{!categoriaProduto.primeiro}" header="#{categoriaProduto.nome}"
+					styleClass="cards">
+
+					<div class="ui-g ">
+						<p:panelGrid style="place-content: flex-end;">
+							<p:commandButton value="Excluir" id="deleteCategoriaProduto"
+								action="#{manageCategoriaProduto.delete(categoriaProduto)}">
+								<p:confirm header="Confirmação!"
+									message="Você quer excliuir '#{categoriaProduto.nome} '?"
+									icon="fa fa-remove" />
+							</p:commandButton>
+						</p:panelGrid>
+					</div>
+				</p:panel>
+			</p:dataGrid>
+
+			<p:dialog modal="true" widgetVar="novaCategoriaProduto" resizable="false"
+				id="idNovaCategoriaProduto" global="true" showEffect="fade" hideEffect="fade"
+				header="Nova Categoria de Produto">
+				<p:panelGrid>
+					<p:outputLabel value="Nome:" for="idNome" />
+					<p:inputText id="idNome" value="#{manageCategoriaProduto.novaCategoriaProduto.nome}"
+						label="Nome:" required="true" />
+				</p:panelGrid>
+				<p:commandButton id="botaoSubmeter"
+                        action="#{manageCategoriaProduto.saveCategoriaProduto()}" update="@form"
+                        value="Salvar" />
+			</p:dialog>
+
+		</h:form>
+
 	</ui:define>
 
 </ui:composition>

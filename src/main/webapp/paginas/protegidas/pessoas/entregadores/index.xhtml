@@ -11,6 +11,76 @@
 		Entregadores
 	</ui:define>
 
+	<ui:define name="content">
+		<h:form id="formFilter">
+			<div class="ui-g ui-md-12 ui-g-nopad">
+				<div class="ui-g-1 ">
+					<p:outputLabel value="Nome: " for="itNomeFilter" />
+				</div>
+				<div class="ui-g-3 ">
+					<p:inputText id="itNomeFilter"
+						value="#{manageEntregador.entregadorFilter.nome}" label="Nome"
+						style="width: 16rem; " />
+				</div>
+				<div class="ui-g-6 ">
+					<p:commandButton id="btnFiltrarBotao" value="Buscar"
+						action="#{manageEntregador.filtrar()}" update="@form" />
+				</div>
+
+
+			</div>
+
+			<p:dataGrid columns="4" id="dataTableEntregadores" border="1"
+				style="width : 100%" var="entregador"
+				value="#{manageEntregador.entregadores}">
+				<p:panel rendered="#{entregador.primeiro}" header="Novo"
+					styleClass="cards">
+					<br />
+					<p:commandLink type="submit" title="Icon Only"
+						action="entregador_edit.xhtml?faces-redirect=true">
+						<i class="pi pi-plus" style="color: black;" />
+					</p:commandLink>
+				</p:panel>
+				<p:panel rendered="#{!entregador.primeiro}"
+					header="#{entregador.nome}" styleClass="cards">
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-3 ">
+							<h:outputText style="font-weight:bold" value="ID: " />
+						</div>
+						<div class="ui-g-9 ">
+							<h:outputText value="#{entregador.id}" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-3 ">
+							<h:outputText style="font-weight:bold" value="Telefone: " />
+						</div>
+						<div class="ui-g-9 ">
+							<h:outputText value="#{entregador.telefone}" />
+						</div>
+					</div>
+
+					<div class="ui-g ">
+						<p:panelGrid style="place-content: flex-end;">
+							<p:button
+								style="background-color: #660000; border: 1px solid #000000;"
+								outcome="entregador_edit.xhtml" value="Editar">
+								<f:param name="entregador" value="#{entregador.id}" />
+							</p:button>
+							<p:commandButton value="Excluir" id="deleteFunc"
+								action="#{manageEntregador.delete(entregador)}">
+								<p:confirm header="Confirmação!"
+									message="Você quer excliuir '#{entregador.nome} '?"
+									icon="fa fa-remove" />
+							</p:commandButton>
+						</p:panelGrid>
+					</div>
+				</p:panel>
+			</p:dataGrid>
+		</h:form>
+
+	</ui:define>
+
 </ui:composition>
 
 </html>

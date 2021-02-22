@@ -44,8 +44,6 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 
 	}
 
-	
-
 	@Override
 	public List<Funcionario> getAll() throws PersistenciaEdgleChurrascariaException {
 		EntityManager em = getEntityManager();

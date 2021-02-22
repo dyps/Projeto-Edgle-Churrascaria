@@ -11,6 +11,68 @@
 		Mesas
 	</ui:define>
 
+	<ui:define name="content">
+		<h:form id="formFilter">
+			<div class="ui-g ui-md-12 ui-g-nopad">
+				<div class="ui-g-1 ">
+					<p:outputLabel value="Numero: " for="itNumeroFilter" />
+				</div>
+				<div class="ui-g-3 ">
+					<p:inputText id="itNumeroFilter"
+						value="#{manageMesa.mesaFilter.numero}" label="Numero"
+						style="width: 16rem; " />
+				</div>
+				<div class="ui-g-6 ">
+					<p:commandButton id="btnFiltrarBotao" value="Buscar"
+						action="#{manageMesa.filtrar()}" update="@form" />
+				</div>
+
+
+			</div>
+
+			<p:dataGrid columns="4" id="dataTableMesas" border="1"
+				style="width : 100%" var="mesa" value="#{manageMesa.mesas}">
+				<p:panel rendered="#{mesa.primeiro}" header="Novo"
+					styleClass="cards">
+					<br />
+					<p:commandLink type="submit" title="Icon Only"
+						oncomplete="PF('novaMesa').show();">
+						<i class="pi pi-plus" style="color: black;" />
+					</p:commandLink>
+				</p:panel>
+				<p:panel rendered="#{!mesa.primeiro}" header="#{mesa.numero}"
+					styleClass="cards">
+
+					<div class="ui-g ">
+						<p:panelGrid style="place-content: flex-end;">
+							<p:commandButton value="Excluir" id="deleteMesa"
+								action="#{manageMesa.delete(mesa)}">
+								<p:confirm header="Confirmação!"
+									message="Você quer excliuir '#{mesa.numero} '?"
+									icon="fa fa-remove" />
+							</p:commandButton>
+						</p:panelGrid>
+					</div>
+				</p:panel>
+			</p:dataGrid>
+
+			<p:dialog modal="true" widgetVar="novaMesa" resizable="false"
+				id="idNovaMesa" global="true" showEffect="fade" hideEffect="fade"
+				header="Nova Mesa">
+				<p:panelGrid>
+					<p:outputLabel value="Numero:" for="idNumero" />
+					<p:inputText id="idNumero" value="#{manageMesa.novaMesa.numero}"
+						label="Numero:" required="true" />
+				</p:panelGrid>
+				<p:commandButton id="botaoSubmeter"
+                        action="#{manageMesa.saveMesa()}" update="@form"
+                        value="Salvar" />
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+
 </ui:composition>
 
 </html>
