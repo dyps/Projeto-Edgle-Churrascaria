@@ -13,27 +13,6 @@
 
 
 	<ui:define name="interior">
-		<p:ajaxExceptionHandler type="java.lang.Throwable" />
-
-		<b>Message:</b> #{pfExceptionHandler.message}
-		<br />
-		<br />
-
-		<p:fieldset legend="Error details" toggleable="true" collapsed="true">
-			<b>Exception: </b> #{pfExceptionHandler.exception} <br />
-			<b>Type: </b> #{pfExceptionHandler.type} <br />
-			<b>Message: </b> #{pfExceptionHandler.message} <br />
-			<b>StackTrace: </b> #{pfExceptionHandler.stackTrace} <br />
-			<b>Timestamp: </b> #{pfExceptionHandler.timestamp} <br />
-			<b>FormattedTimestamp: </b> #{pfExceptionHandler.formattedTimestamp} <br />
-			<p:fieldset legend="Formatted StackTrace" toggleable="true"
-				collapsed="true">
-				<h:outputText value="#{pfExceptionHandler.formattedStackTrace}"
-					escape="false" />
-			</p:fieldset>
-		</p:fieldset>
-		<br />
-		<br />
 
 		<p:link
 			value="Erro! Entre em contato com seu administrador Go to main page..."

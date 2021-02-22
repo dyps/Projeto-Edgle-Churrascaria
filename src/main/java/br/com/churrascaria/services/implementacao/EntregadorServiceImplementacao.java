@@ -41,5 +41,11 @@ public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
 		return entregadorDAO;
 	}
 
+	@Override
+	protected void validar(Entregador entidade) throws ServiceEdgleChurrascariaException {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

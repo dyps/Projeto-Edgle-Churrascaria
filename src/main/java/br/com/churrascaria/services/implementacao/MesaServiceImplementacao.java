@@ -42,5 +42,11 @@ public class MesaServiceImplementacao extends CRUDService<Mesa> {
 		return mesaDAO;
 	}
 
+	@Override
+	protected void validar(Mesa entidade) throws ServiceEdgleChurrascariaException {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

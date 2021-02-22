@@ -11,14 +11,17 @@ public abstract class CRUDService<Entidade> {
 	@TransacionalCdi
 	public void save(Entidade entidade) throws ServiceEdgleChurrascariaException {
 		try {
+			validar(entidade);
 			getEntidadeDAO().save(entidade);
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
 	}
+	protected abstract void validar(Entidade entidade) throws ServiceEdgleChurrascariaException;
 	@TransacionalCdi
 	public Entidade update(Entidade entidade) throws ServiceEdgleChurrascariaException {
 		try {
+			validar(entidade);
 			return getEntidadeDAO().update(entidade);
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);

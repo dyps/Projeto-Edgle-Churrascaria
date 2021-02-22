@@ -41,4 +41,10 @@ public class TaxaEntregaServiceImplementacao extends CRUDService<TaxaEntrega> {
 		return taxaEntregaDAO;
 	}
 
+	@Override
+	protected void validar(TaxaEntrega entidade) throws ServiceEdgleChurrascariaException {
+		// TODO Auto-generated method stub
+
+	}
+
 }

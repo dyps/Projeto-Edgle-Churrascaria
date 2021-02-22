@@ -41,4 +41,10 @@ public class CategoriaProdutoServiceImplementacao extends CRUDService<CategoriaP
 		return categoriaProdutoDAO;
 	}
 
+	@Override
+	protected void validar(CategoriaProduto entidade) throws ServiceEdgleChurrascariaException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

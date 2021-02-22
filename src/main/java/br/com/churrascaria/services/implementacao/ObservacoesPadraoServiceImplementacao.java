@@ -53,4 +53,12 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 		return observacoesPadraoDAO;
 	}
 
+	@Override
+	protected void validar(ObservacaoPadrao entidade) throws ServiceEdgleChurrascariaException {
+		if (entidade== null || entidade.getDescricao()==null || entidade.getDescricao().equals("") ) {
+			throw new ServiceEdgleChurrascariaException("Erro ao validar");
+		}
+		
+	}
+
 }

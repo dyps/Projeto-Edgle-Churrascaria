@@ -124,4 +124,10 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 		return funcionarioDAO;
 	}
 
+	@Override
+	protected void validar(Funcionario entidade) throws ServiceEdgleChurrascariaException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
