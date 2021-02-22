@@ -43,8 +43,14 @@ public class CategoriaProdutoServiceImplementacao extends CRUDService<CategoriaP
 
 	@Override
 	protected void validar(CategoriaProduto entidade) throws ServiceEdgleChurrascariaException {
-		// TODO Auto-generated method stub
-		
+		if (entidade == null || entidade.getNome() == null || entidade.getNome().equals("") ) {
+			throw new ServiceEdgleChurrascariaException("O nome da categoria é necessário");
+		}
+		List<CategoriaProduto> list = getAll();
+        for (CategoriaProduto categoriaProduto : list) {
+            if(categoriaProduto.getNome().toLowerCase().equals(entidade.getNome().toLowerCase()))
+                throw new ServiceEdgleChurrascariaException("O nome da categoria não pode ser repetida");
+        }
 	}
 
 }

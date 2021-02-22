@@ -47,26 +47,6 @@
 							oncomplete="PF('novaTaxaEntrega').show();" />
 					</div>
 				</div>
-				<p:dialog modal="true" widgetVar="novaTaxaEntrega" resizable="false"
-					id="idNovaTaxaEntrega" global="true" showEffect="fade"
-					hideEffect="fade" header="Nova Taxa de Entrega">
-					<p:panelGrid columns="2" styleClass="ui-noborder">
-						<p:outputLabel value="Valor: " for="idValor" />
-						<p:inputText id="idValor"
-							value="#{manageTaxaEntrega.novaTaxaEntrega.valor}" />
-						<p:outputLabel value="Distância máxima: " for="idDistanciaMaxima" />
-						<p:inputText id="idDistanciaMaxima"
-							value="#{manageTaxaEntrega.novaTaxaEntrega.distanciaMaxima}" />
-						<p:outputLabel for="vigente" value="Vigente:" />
-						<p:toggleSwitch id="vigente"
-							value="#{manageTaxaEntrega.novaTaxaEntrega.vigente}" label="Vigente" />
-					</p:panelGrid>
-					<br />
-					<p:commandButton id="botaoSubmeter" style="width: 100%;"
-						action="#{manageTaxaEntrega.saveTaxaEntrega()}" update="@form"
-						value="Salvar" />
-				</p:dialog>
-
 
 				<div class="ui-g-4 " style="text-align: left;">
 					<p:dataTable var="taxaEntrega"
@@ -91,7 +71,7 @@
 
 								<p:confirm header="
 							Confirmação!"
-									message="Você realmente apagar a observação?"
+									message="Você realmente apagar a taxa de entrega?"
 									icon="fa fa-exclamation-triangle" />
 							</p:commandLink>
 						</p:column>
@@ -107,6 +87,29 @@
 			</p:panelGrid>
 
 		</h:form>
+		
+		<h:form id="formEditPopUp">
+		<p:dialog modal="true" widgetVar="novaTaxaEntrega" resizable="false"
+					id="idNovaTaxaEntrega" global="true" showEffect="fade"
+					hideEffect="fade" header="Nova Taxa de Entrega">
+					<p:panelGrid columns="2" styleClass="ui-noborder">
+						<p:outputLabel value="Valor: " for="idValor" />
+						<p:inputText id="idValor"
+							value="#{manageTaxaEntrega.novaTaxaEntrega.valor}" />
+						<p:outputLabel value="Distância máxima: " for="idDistanciaMaxima" />
+						<p:inputText id="idDistanciaMaxima"
+							value="#{manageTaxaEntrega.novaTaxaEntrega.distanciaMaxima}" />
+						<p:outputLabel for="vigente" value="Vigente:" />
+						<p:toggleSwitch id="vigente"
+							value="#{manageTaxaEntrega.novaTaxaEntrega.vigente}" label="Vigente" />
+					</p:panelGrid>
+					<br />
+					<p:commandButton id="botaoSubmeter" style="width: 100%;"
+						action="#{manageTaxaEntrega.saveTaxaEntrega()}" update="@form"
+						value="Salvar" />
+				</p:dialog>
+		</h:form>
+		
 	</ui:define>
 </ui:composition>
 

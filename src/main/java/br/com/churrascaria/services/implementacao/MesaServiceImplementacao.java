@@ -44,8 +44,14 @@ public class MesaServiceImplementacao extends CRUDService<Mesa> {
 
 	@Override
 	protected void validar(Mesa entidade) throws ServiceEdgleChurrascariaException {
-		// TODO Auto-generated method stub
-		
+		if (entidade == null || entidade.getNumero() == null ) {
+			throw new ServiceEdgleChurrascariaException("O número da mesa é necessário");
+		}
+		List<Mesa> list = getAll();
+        for (Mesa mesa : list) {
+            if(mesa.getNumero().equals(entidade.getNumero()))
+                throw new ServiceEdgleChurrascariaException("O número da mesa não pode ser repetida");
+        }
 	}
 
 

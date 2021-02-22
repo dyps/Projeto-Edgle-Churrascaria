@@ -56,9 +56,13 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 	@Override
 	protected void validar(ObservacaoPadrao entidade) throws ServiceEdgleChurrascariaException {
 		if (entidade== null || entidade.getDescricao()==null || entidade.getDescricao().equals("") ) {
-			throw new ServiceEdgleChurrascariaException("Erro ao validar");
+			throw new ServiceEdgleChurrascariaException("A descrição da observação é necessário");
 		}
-		
+		List<ObservacaoPadrao> list = getAll();
+        for (ObservacaoPadrao observacaoPadrao : list) {
+            if(observacaoPadrao.getDescricao().toLowerCase().equals(entidade.getDescricao().toLowerCase()))
+                throw new ServiceEdgleChurrascariaException("A descrição da observação não pode ser repetida");
+        }
 	}
 
 }
