@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.churrascaria.dao.CategoriaProdutoDAO;
+import br.com.churrascaria.dao.EntidadeDAO;
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
 import br.com.churrascaria.entities.CategoriaProduto;
 import br.com.churrascaria.filter.CategoriaProdutoFilter;
@@ -15,37 +16,10 @@ import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
 @Named
 @RequestScoped
-public class CategoriaProdutoServiceImplementacao implements CRUDService<CategoriaProduto> {
-	
+public class CategoriaProdutoServiceImplementacao extends CRUDService<CategoriaProduto> {
+
 	@Inject
 	private CategoriaProdutoDAO categoriaProdutoDAO;
-
-	@Override
-	public void save(CategoriaProduto categoriaProduto) throws ServiceEdgleChurrascariaException {
-		try {
-			categoriaProdutoDAO.save(categoriaProduto);
-		} catch (PersistenciaEdgleChurrascariaException e) {
-			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-		}
-	}
-
-	@Override
-	public CategoriaProduto update(CategoriaProduto categoriaProduto) throws ServiceEdgleChurrascariaException {
-		try {
-			return categoriaProdutoDAO.update(categoriaProduto);
-		} catch (PersistenciaEdgleChurrascariaException e) {
-			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-		}
-	}
-
-	@Override
-	public void delete(CategoriaProduto categoriaProduto) throws ServiceEdgleChurrascariaException {
-		try {
-			categoriaProdutoDAO.delete(categoriaProduto);
-		} catch (PersistenciaEdgleChurrascariaException e) {
-			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-		}
-	}
 
 	public CategoriaProduto getByID(Long userId) throws ServiceEdgleChurrascariaException {
 		CategoriaProdutoFilter filter = new CategoriaProdutoFilter();
@@ -63,12 +37,8 @@ public class CategoriaProdutoServiceImplementacao implements CRUDService<Categor
 	}
 
 	@Override
-	public List<CategoriaProduto> getAll() throws ServiceEdgleChurrascariaException {
-		try {
-			return categoriaProdutoDAO.getAll();
-		} catch (PersistenciaEdgleChurrascariaException e) {
-			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-		}
+	protected EntidadeDAO<CategoriaProduto> getEntidadeDAO() {
+		return categoriaProdutoDAO;
 	}
 
 }

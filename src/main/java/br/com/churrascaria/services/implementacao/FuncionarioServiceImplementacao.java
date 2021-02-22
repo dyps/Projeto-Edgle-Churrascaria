@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.churrascaria.dao.EntidadeDAO;
 import br.com.churrascaria.dao.FuncionarioDAO;
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
 import br.com.churrascaria.entities.Funcionario;
@@ -15,7 +16,7 @@ import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
 @Named
 @RequestScoped
-public class FuncionarioServiceImplementacao implements CRUDService<Funcionario> {
+public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 
 	@Inject
 	private FuncionarioDAO funcionarioDAO;
@@ -40,14 +41,6 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario>
 //				calcularHashDaSenha(funcionario);
 //			}
 			return funcionarioDAO.update(funcionario);
-		} catch (PersistenciaEdgleChurrascariaException e) {
-			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-		}
-	}
-
-	public void delete(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
-		try {
-			funcionarioDAO.delete(funcionario);
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
@@ -103,13 +96,7 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario>
 //		return senhaHash.equals(supostaSenhaHash);
 	}
 
-	public List<Funcionario> getAll() throws ServiceEdgleChurrascariaException {
-		try {
-			return funcionarioDAO.getAll();
-		} catch (PersistenciaEdgleChurrascariaException e) {
-			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
-		}
-	}
+	
 
 //	private String hash(String password) throws ServiceEdgleChurrascariaException {
 //		MessageDigest md;
@@ -130,5 +117,10 @@ public class FuncionarioServiceImplementacao implements CRUDService<Funcionario>
 			throw new ServiceEdgleChurrascariaException("Login já existente: " + funcionario.getLogin()); 
 		}
 	}
+
+@Override
+protected EntidadeDAO<Funcionario> getEntidadeDAO() {
+	return funcionarioDAO;
+}
 
 }
