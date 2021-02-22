@@ -4,9 +4,11 @@ import java.util.List;
 
 import br.com.churrascaria.dao.EntidadeDAO;
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
+import br.com.churrascaria.util.TransacionalCdi;
 
 public abstract class CRUDService<Entidade> {
 
+	@TransacionalCdi
 	public void save(Entidade entidade) throws ServiceEdgleChurrascariaException {
 		try {
 			getEntidadeDAO().save(entidade);
@@ -15,6 +17,7 @@ public abstract class CRUDService<Entidade> {
 		}
 	}
 
+	@TransacionalCdi
 	public Entidade update(Entidade entidade) throws ServiceEdgleChurrascariaException {
 		try {
 			return getEntidadeDAO().update(entidade);
@@ -23,6 +26,7 @@ public abstract class CRUDService<Entidade> {
 		}
 	}
 
+	@TransacionalCdi
 	public void delete(Entidade entidade) throws ServiceEdgleChurrascariaException {
 		try {
 			getEntidadeDAO().delete(entidade);
