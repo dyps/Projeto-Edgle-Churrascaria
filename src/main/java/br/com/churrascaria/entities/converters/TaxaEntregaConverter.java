@@ -10,10 +10,11 @@ import javax.inject.Inject;
 
 import br.com.churrascaria.entities.TaxaEntrega;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
+import br.com.churrascaria.services.implementacao.TaxaEntregaServiceImplementacao;
 
 @FacesConverter(forClass = TaxaEntrega.class)
 public class TaxaEntregaConverter implements Converter<TaxaEntrega> {
-	
+
 	@Inject
 	private TaxaEntregaServiceImplementacao taxaEntregaService;
 

@@ -24,6 +24,8 @@ public class TaxaEntrega {
 	@Column(nullable = false)
 	private Double distanciaMaxima;
 	
+	private boolean vigente;
+	
 	@ManyToOne
 	private Entregador entregador;
 
@@ -57,6 +59,14 @@ public class TaxaEntrega {
 
 	public void setEntregador(Entregador entregador) {
 		this.entregador = entregador;
+	}
+
+	public boolean isVigente() {
+		return vigente;
+	}
+
+	public void setVigente(boolean vigente) {
+		this.vigente = vigente;
 	}
 
 }

@@ -40,6 +40,64 @@
 						required="true" />
 				</h:panelGrid>
 
+				<div class="ui-g ui-md-12 ui-g-nopad">
+					<div class="ui-g-10 "></div>
+					<div class="ui-g-2 ">
+						<p:commandButton value="Nova Taxa"
+							oncomplete="PF('novaTaxaEntrega').show();" />
+					</div>
+				</div>
+				<p:dialog modal="true" widgetVar="novaTaxaEntrega" resizable="false"
+					id="idNovaTaxaEntrega" global="true" showEffect="fade"
+					hideEffect="fade" header="Nova Taxa de Entrega">
+					<p:panelGrid columns="2" styleClass="ui-noborder">
+						<p:outputLabel value="Valor: " for="idValor" />
+						<p:inputText id="idValor"
+							value="#{manageTaxaEntrega.novaTaxaEntrega.valor}" />
+						<p:outputLabel value="Distância máxima: " for="idDistanciaMaxima" />
+						<p:inputText id="idDistanciaMaxima"
+							value="#{manageTaxaEntrega.novaTaxaEntrega.distanciaMaxima}" />
+						<p:outputLabel for="vigente" value="Vigente:" />
+						<p:toggleSwitch id="vigente"
+							value="#{manageTaxaEntrega.novaTaxaEntrega.vigente}" label="Vigente" />
+					</p:panelGrid>
+					<br />
+					<p:commandButton id="botaoSubmeter" style="width: 100%;"
+						action="#{manageTaxaEntrega.saveTaxaEntrega()}" update="@form"
+						value="Salvar" />
+				</p:dialog>
+
+
+				<div class="ui-g-4 " style="text-align: left;">
+					<p:dataTable var="taxaEntrega"
+						value="#{manageTaxaEntrega.taxaEntregas}">
+						<p:column headerText="Valor" style="text-align: left;"
+							responsivePriority="3">
+							<p:outputLabel value="#{taxaEntrega.valor}"></p:outputLabel>
+						</p:column>
+						<p:column headerText="Distância máxima" style="text-align: left;"
+							responsivePriority="3">
+							<p:outputLabel value="#{taxaEntrega.distanciaMaxima}"></p:outputLabel>
+						</p:column>
+						<p:column headerText="Vigente" style="text-align: left;"
+							responsivePriority="3">
+							<p:outputLabel value="#{taxaEntrega.vigente}"></p:outputLabel>
+						</p:column>
+						<p:column headerText="Opções" style="text-align: left;width: 25%;"
+							responsivePriority="1">
+							<p:commandLink action="#{manageTaxaEntrega.delete(taxaEntrega)}">
+								<i class="fa fa-trash"
+									style="color: black; font-size: 1.187rem;" />
+
+								<p:confirm header="
+							Confirmação!"
+									message="Você realmente apagar a observação?"
+									icon="fa fa-exclamation-triangle" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</div>
+
 				<p:panelGrid columns="2">
 					<p:button id="botaoCancelar" outcome="index.xhtml" value="Cancelar" />
 					<p:commandButton id="botaoSubmeter"

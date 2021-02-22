@@ -7,39 +7,38 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.churrascaria.dao.EntidadeDAO;
-import br.com.churrascaria.dao.EntregadorDAO;
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
-import br.com.churrascaria.entities.Entregador;
-import br.com.churrascaria.filter.EntregadorFilter;
+import br.com.churrascaria.dao.TaxaEntregaDAO;
+import br.com.churrascaria.entities.TaxaEntrega;
+import br.com.churrascaria.filter.TaxaEntregaFilter;
 import br.com.churrascaria.services.CRUDService;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 
 @Named
 @RequestScoped
-public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
+public class TaxaEntregaServiceImplementacao extends CRUDService<TaxaEntrega> {
 
 	@Inject
-	private EntregadorDAO entregadorDAO;
+	private TaxaEntregaDAO taxaEntregaDAO;
 
-	public Entregador getByID(Long userId) throws ServiceEdgleChurrascariaException {
-		EntregadorFilter filter = new EntregadorFilter();
+	public TaxaEntrega getByID(Long userId) throws ServiceEdgleChurrascariaException {
+		TaxaEntregaFilter filter = new TaxaEntregaFilter();
 		filter.setId(userId);
 		return findBy(filter).get(0);
 	}
 
-	public List<Entregador> findBy(EntregadorFilter filter) throws ServiceEdgleChurrascariaException {
+	public List<TaxaEntrega> findBy(TaxaEntregaFilter filter) throws ServiceEdgleChurrascariaException {
 		try {
 			filter.validate();
-			return entregadorDAO.findBy(filter);
+			return taxaEntregaDAO.findBy(filter);
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
 	}
 
 	@Override
-	protected EntidadeDAO<Entregador> getEntidadeDAO() {
-		return entregadorDAO;
+	protected EntidadeDAO<TaxaEntrega> getEntidadeDAO() {
+		return taxaEntregaDAO;
 	}
-
 
 }
