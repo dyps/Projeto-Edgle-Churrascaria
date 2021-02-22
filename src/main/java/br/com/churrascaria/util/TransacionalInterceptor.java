@@ -1,5 +1,7 @@
 package br.com.churrascaria.util;
 
+import java.io.Serializable;
+
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
@@ -9,8 +11,12 @@ import javax.persistence.EntityTransaction;
 
 @Interceptor
 @TransacionalCdi
-public class TransacionalInterceptor {
+public class TransacionalInterceptor implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Inject
 	private EntityManager em;
 

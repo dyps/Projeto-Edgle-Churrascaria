@@ -13,6 +13,7 @@ import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.filter.FuncionarioFilter;
 import br.com.churrascaria.services.CRUDService;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
+import br.com.churrascaria.util.TransacionalCdi;
 
 @Named
 @RequestScoped
@@ -21,6 +22,7 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 	@Inject
 	private FuncionarioDAO funcionarioDAO;
 
+	@TransacionalCdi
 	public void save(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
 		try {
 			// Verificar se login j� existe
@@ -33,6 +35,7 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 
 	}
 
+	@TransacionalCdi
 	public Funcionario update(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
 		try {
 			// Verificar se login já existe
@@ -56,7 +59,7 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 		try {
 			filter.validate();
 			List<Funcionario> list = funcionarioDAO.findBy(filter);
-			if (list.size()==0) {
+			if (list.size() == 0) {
 				throw new ServiceEdgleChurrascariaException("Não há funcionário logado");
 			}
 			return list;
@@ -96,8 +99,6 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 //		return senhaHash.equals(supostaSenhaHash);
 	}
 
-	
-
 //	private String hash(String password) throws ServiceEdgleChurrascariaException {
 //		MessageDigest md;
 //		try {
@@ -114,13 +115,13 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 	private void validarLogin(Funcionario funcionario) throws ServiceEdgleChurrascariaException {
 		boolean jahExiste = funcionarioDAO.existeUsuarioComLogin(funcionario);
 		if (jahExiste) {
-			throw new ServiceEdgleChurrascariaException("Login já existente: " + funcionario.getLogin()); 
+			throw new ServiceEdgleChurrascariaException("Login já existente: " + funcionario.getLogin());
 		}
 	}
 
-@Override
-protected EntidadeDAO<Funcionario> getEntidadeDAO() {
-	return funcionarioDAO;
-}
+	@Override
+	protected EntidadeDAO<Funcionario> getEntidadeDAO() {
+		return funcionarioDAO;
+	}
 
 }

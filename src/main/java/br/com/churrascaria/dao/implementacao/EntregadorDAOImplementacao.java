@@ -6,7 +6,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -31,14 +30,10 @@ public class EntregadorDAOImplementacao extends InDatabaseDAO implements Entrega
 	@Override
 	public void save(Entregador entregador) throws PersistenciaEdgleChurrascariaException {
 		EntityManager en = getEntityManager();
-		EntityTransaction transaction = en.getTransaction();
-		transaction.begin();
 		try {
 			en.persist(entregador);
-			transaction.commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			transaction.rollback();
 			throw new PersistenciaEdgleChurrascariaException(
 					"Ocorreu algum erro ao tentar salvar o entregador.", pe);
 		}
@@ -100,9 +95,7 @@ public class EntregadorDAOImplementacao extends InDatabaseDAO implements Entrega
 		EntityManager em = getEntityManager();
 		Entregador resultado = entregador;
 		try {
-			em.getTransaction().begin();
 			resultado = em.merge(entregador);
-			em.getTransaction().commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException(
@@ -116,9 +109,7 @@ public class EntregadorDAOImplementacao extends InDatabaseDAO implements Entrega
 		EntityManager em = getEntityManager();
 		try {
 			obj = em.find(Entregador.class, obj.getId());
-			em.getTransaction().begin();
 			em.remove(obj);
-			em.getTransaction().commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException(

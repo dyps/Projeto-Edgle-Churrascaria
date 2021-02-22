@@ -6,7 +6,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -31,14 +30,10 @@ public class MesaDAOImplementacao extends InDatabaseDAO implements MesaDAO {
 	@Override
 	public void save(Mesa mesa) throws PersistenciaEdgleChurrascariaException {
 		EntityManager en = getEntityManager();
-		EntityTransaction transaction = en.getTransaction();
-		transaction.begin();
 		try {
 			en.persist(mesa);
-			transaction.commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			transaction.rollback();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar salvar a mesa.", pe);
 		}
 	}
@@ -79,8 +74,8 @@ public class MesaDAOImplementacao extends InDatabaseDAO implements MesaDAO {
 	private Predicate[] getPredicateFilter(CriteriaBuilder criteriaBuilder, Root<Mesa> root, MesaFilter filter) {
 		List<Predicate> predicate = new ArrayList<Predicate>();
 		if (notEmpty(filter.getNumero())) {
-			predicate.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("numero")),
-					"%" + filter.getNumero() + "%"));
+			predicate.add(
+					criteriaBuilder.like(criteriaBuilder.lower(root.get("numero")), "%" + filter.getNumero() + "%"));
 		}
 		if (notEmpty(filter.getId())) {
 			predicate.add(criteriaBuilder.equal(root.get("Id"), filter.getId()));
@@ -94,13 +89,10 @@ public class MesaDAOImplementacao extends InDatabaseDAO implements MesaDAO {
 		EntityManager em = getEntityManager();
 		Mesa resultado = mesa;
 		try {
-			em.getTransaction().begin();
 			resultado = em.merge(mesa);
-			em.getTransaction().commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar atualizar a mesa.",
-					pe);
+			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar atualizar a mesa.", pe);
 		}
 		return resultado;
 	}
@@ -110,9 +102,7 @@ public class MesaDAOImplementacao extends InDatabaseDAO implements MesaDAO {
 		EntityManager em = getEntityManager();
 		try {
 			obj = em.find(Mesa.class, obj.getId());
-			em.getTransaction().begin();
 			em.remove(obj);
-			em.getTransaction().commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover a mesa.", pe);

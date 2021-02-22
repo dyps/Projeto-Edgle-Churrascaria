@@ -67,7 +67,7 @@ public class ManageFuncionario extends AbstractBean {
 
 	public String delete(Funcionario funcionario) {
 		try {
-			if (getFuncionarioLogado().getId().equals(funcionario.getId())) {
+			if (funcionarioLogado.getId().equals(funcionario.getId())) {
 				reportarMensagemDeErro("Funcionario '" + funcionario.getNome() + "' está logado");
 				return null;
 			} else {
@@ -77,17 +77,18 @@ public class ManageFuncionario extends AbstractBean {
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 			return null;
-		} catch (IOException e) {
-			reportarMensagemDeErro(e.getMessage());
-			e.printStackTrace();
-		}
+		} 
 		return EnderecoPaginas.PAGINA_PRINCIPAL_FUNCIONARIO;
 
 	}
+	private Funcionario funcionarioLogado ;
 
 	public boolean podeSerExcluido(Funcionario funcionario) {
 		try {
-			if (getFuncionarioLogado().getId() == funcionario.getId()) {
+			if (funcionarioLogado == null) {
+				funcionarioLogado = getFuncionarioLogado();
+			}
+			if (funcionarioLogado.getId() == funcionario.getId()) {
 				return false;
 			}
 		} catch (IOException e) {

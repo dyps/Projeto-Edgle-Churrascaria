@@ -16,7 +16,6 @@ public abstract class CRUDService<Entidade> {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
 	}
-
 	@TransacionalCdi
 	public Entidade update(Entidade entidade) throws ServiceEdgleChurrascariaException {
 		try {

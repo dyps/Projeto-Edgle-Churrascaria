@@ -5,7 +5,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -28,14 +27,10 @@ public class ObservacoesPadraoDAOImplementacao extends InDatabaseDAO implements 
 	@Override
 	public void save(ObservacaoPadrao observacao) throws PersistenciaEdgleChurrascariaException {
 		EntityManager en = getEntityManager();
-		EntityTransaction transaction = en.getTransaction();
-		transaction.begin();
 		try {
 			en.persist(observacao);
-			transaction.commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			transaction.rollback();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar salvar a Observação.", pe);
 		}
 
@@ -61,9 +56,7 @@ public class ObservacoesPadraoDAOImplementacao extends InDatabaseDAO implements 
 		EntityManager em = getEntityManager();
 		ObservacaoPadrao resultado = observacao;
 		try {
-			em.getTransaction().begin();
 			resultado = em.merge(observacao);
-			em.getTransaction().commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar atualizar a observacao.",
@@ -76,9 +69,7 @@ public class ObservacoesPadraoDAOImplementacao extends InDatabaseDAO implements 
 		EntityManager em = getEntityManager();
 		try {
 			obj = em.find(ObservacaoPadrao.class, obj.getId());
-			em.getTransaction().begin();
 			em.remove(obj);
-			em.getTransaction().commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover a observacao.", pe);

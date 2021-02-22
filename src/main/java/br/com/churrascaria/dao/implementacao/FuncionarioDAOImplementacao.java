@@ -6,7 +6,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -31,14 +30,10 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 
 	public void save(Funcionario funcionario) throws PersistenciaEdgleChurrascariaException {
 		EntityManager en = getEntityManager();
-		EntityTransaction transaction = en.getTransaction();
-		transaction.begin();
 		try {
 			en.persist(funcionario);
-			transaction.commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			transaction.rollback();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar salvar o funcionario.", pe);
 		}
 
@@ -145,9 +140,7 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 		EntityManager em = getEntityManager();
 		Funcionario resultado = funcionario;
 		try {
-			em.getTransaction().begin();
 			resultado = em.merge(funcionario);
-			em.getTransaction().commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar atualizar o funcionario.",
@@ -161,9 +154,7 @@ public class FuncionarioDAOImplementacao extends InDatabaseDAO implements Funcio
 		EntityManager em = getEntityManager();
 		try {
 			obj = em.find(Funcionario.class, obj.getId());
-			em.getTransaction().begin();
 			em.remove(obj);
-			em.getTransaction().commit();
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover o usuário.", pe);
