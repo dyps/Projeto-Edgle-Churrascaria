@@ -20,9 +20,6 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 	@Inject
 	private ObservacoesPadraoDAO observacoesPadraoDAO;
 
-
-
-
 	@Override
 	public List<ObservacaoPadrao> getAll() throws ServiceEdgleChurrascariaException {
 		try {
@@ -55,14 +52,19 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 
 	@Override
 	protected void validar(ObservacaoPadrao entidade) throws ServiceEdgleChurrascariaException {
-		if (entidade== null || entidade.getDescricao()==null || entidade.getDescricao().equals("") ) {
+
+		if (entidade == null || entidade.getDescricao() == null || entidade.getDescricao().split(" ").length == 0) {
 			throw new ServiceEdgleChurrascariaException("A descrição da observação é necessário");
 		}
+		if (entidade.getDescricao().length() <= 3) {
+			throw new ServiceEdgleChurrascariaException("A descrição da observação esta pequena");
+		}
 		List<ObservacaoPadrao> list = getAll();
-        for (ObservacaoPadrao observacaoPadrao : list) {
-            if(observacaoPadrao.getDescricao().toLowerCase().equals(entidade.getDescricao().toLowerCase()))
-                throw new ServiceEdgleChurrascariaException("A descrição da observação não pode ser repetida");
-        }
+		for (ObservacaoPadrao observacaoPadrao : list) {
+			if (observacaoPadrao.getDescricao().toLowerCase().equals(entidade.getDescricao().toLowerCase()))
+				throw new ServiceEdgleChurrascariaException("A descrição da observação não pode ser repetida");
+		}
+
 	}
 
 }
