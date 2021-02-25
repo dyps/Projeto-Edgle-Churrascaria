@@ -30,14 +30,13 @@
 				<h:panelGrid columns="1">
 					<p:outputLabel for="nome" value="Nome:" />
 					<p:inputText id="nome" value="#{entregadorEdit.entregador.nome}"
-						label="Nome" required="true" />
+						label="Nome" />
 				</h:panelGrid>
 
 				<h:panelGrid columns="1">
 					<p:outputLabel for="telefone" value="Telefone:" />
 					<p:inputText id="telefone"
-						value="#{entregadorEdit.entregador.telefone}" label="Telefone"
-						required="true" />
+						value="#{entregadorEdit.entregador.telefone}" label="Telefone" />
 				</h:panelGrid>
 
 				<div class="ui-g ui-md-12 ui-g-nopad">
@@ -49,8 +48,8 @@
 				</div>
 
 				<div class="ui-g-4 " style="text-align: left;">
-					<p:dataTable var="taxaEntrega"
-						value="#{manageTaxaEntrega.taxaEntregas}">
+					<p:dataTable var="taxaEntrega" id="taxaEntrega"
+						value="#{entregadorEdit.entregador.taxas}">
 						<p:column headerText="Valor" style="text-align: left;"
 							responsivePriority="3">
 							<p:outputLabel value="#{taxaEntrega.valor}"></p:outputLabel>
@@ -65,13 +64,14 @@
 						</p:column>
 						<p:column headerText="Opções" style="text-align: left;width: 25%;"
 							responsivePriority="1">
-							<p:commandLink action="#{manageTaxaEntrega.delete(taxaEntrega)}">
+							<p:commandLink action="#{entregadorEdit.deleteTaxa(taxaEntrega)}"
+								update="@form">
 								<i class="fa fa-trash"
 									style="color: black; font-size: 1.187rem;" />
 
 								<p:confirm header="
 							Confirmação!"
-									message="Você realmente apagar a taxa de entrega?"
+									message="Você realmente deseja apagar a taxa de entrega?"
 									icon="fa fa-exclamation-triangle" />
 							</p:commandLink>
 						</p:column>
@@ -86,30 +86,28 @@
 				</p:panelGrid>
 			</p:panelGrid>
 
+			<p:dialog modal="true" widgetVar="novaTaxaEntrega" resizable="false"
+				id="idNovaTaxaEntrega" global="true" showEffect="fade"
+				hideEffect="fade" header="Nova Taxa de Entrega">
+				<p:panelGrid columns="2" styleClass="ui-noborder">
+					<p:outputLabel value="Valor: " for="idValor" />
+					<p:inputText id="idValor"
+						value="#{entregadorEdit.taxaEntrega.valor}" />
+					<p:outputLabel value="Distância máxima: " for="idDistanciaMaxima" />
+					<p:inputText id="idDistanciaMaxima"
+						value="#{entregadorEdit.taxaEntrega.distanciaMaxima}" />
+					<p:outputLabel for="vigente" value="Vigente:" />
+					<p:toggleSwitch id="vigente"
+						value="#{entregadorEdit.taxaEntrega.vigente}" label="Vigente" />
+				</p:panelGrid>
+				<br />
+				<p:commandButton id="botaoSubmeter" style="width: 100%;"
+					action="#{entregadorEdit.saveTaxaEntrega()}" update="@form"
+					value="Salvar" />
+			</p:dialog>
+
 		</h:form>
-		
-		<h:form id="formEditPopUp">
-		<p:dialog modal="true" widgetVar="novaTaxaEntrega" resizable="false"
-					id="idNovaTaxaEntrega" global="true" showEffect="fade"
-					hideEffect="fade" header="Nova Taxa de Entrega">
-					<p:panelGrid columns="2" styleClass="ui-noborder">
-						<p:outputLabel value="Valor: " for="idValor" />
-						<p:inputText id="idValor"
-							value="#{manageTaxaEntrega.novaTaxaEntrega.valor}" />
-						<p:outputLabel value="Distância máxima: " for="idDistanciaMaxima" />
-						<p:inputText id="idDistanciaMaxima"
-							value="#{manageTaxaEntrega.novaTaxaEntrega.distanciaMaxima}" />
-						<p:outputLabel for="vigente" value="Vigente:" />
-						<p:toggleSwitch id="vigente"
-							value="#{manageTaxaEntrega.novaTaxaEntrega.vigente}" label="Vigente" />
-					</p:panelGrid>
-					<br />
-					<p:commandButton id="botaoSubmeter" style="width: 100%;"
-						action="#{manageTaxaEntrega.saveTaxaEntrega()}" update="@form"
-						value="Salvar" />
-				</p:dialog>
-		</h:form>
-		
+
 	</ui:define>
 </ui:composition>
 

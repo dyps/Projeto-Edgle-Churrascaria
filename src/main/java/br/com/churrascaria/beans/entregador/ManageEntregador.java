@@ -87,7 +87,7 @@ public class ManageEntregador extends AbstractBean {
 
 	}
 
-	public String saveCategoriaProduto() {
+	public String saveEntregador() {
 		try {
 			entregadorService.save(novoEntregador);
 		} catch (ServiceEdgleChurrascariaException e) {
@@ -95,7 +95,7 @@ public class ManageEntregador extends AbstractBean {
 			return null;
 		}
 
-		reportarMensagemDeSucesso("entregador '" + novoEntregador.getNome() + "' salvo");
+		reportarMensagemDeSucesso("Entregador '" + novoEntregador.getNome() + "' salvo");
 
 		return EnderecoPaginas.PAGINA_PRINCIPAL_ENTREGADOR;
 	}

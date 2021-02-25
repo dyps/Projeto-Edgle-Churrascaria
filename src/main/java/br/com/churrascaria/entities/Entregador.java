@@ -66,4 +66,12 @@ public class Entregador {
 		this.primeiro = primeiro;
 	}
 
+	public List<TaxaEntrega> getTaxas() {
+		return taxas;
+	}
+
+	public void setTaxas(List<TaxaEntrega> taxas) {
+		this.taxas = taxas;
+	}
+
 }
