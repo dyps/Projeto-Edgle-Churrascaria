@@ -21,7 +21,7 @@ public class InitDatabaseIfNeeded {
 	private FuncionarioDataGeneratorService funcionarioDataGeneratorService;
 
 	@PostConstruct
-	public void postConstruct()  {
+	public void postConstruct() {
 		try {
 			funcionarioDataGeneratorService.generateData();
 

@@ -10,8 +10,8 @@
 		<non-jta-data-source>java:comp/env/jdbc/edgleChurrascaria</non-jta-data-source>
 
 		<!-- <jta-data-source>java:/jboss/PostgreDS</jta-data-source> -->
-
-		<!-- <class>br.com.churrascaria.entities.Funcionario</class> -->
+		
+<!-- 		<class>br.com.churrascaria.entities.Produto</class> -->
 
 		<properties>
 

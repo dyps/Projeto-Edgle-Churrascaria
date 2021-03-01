@@ -63,7 +63,6 @@ public class MesaDAOImplementacao extends InDatabaseDAO implements MesaDAO {
 		Predicate[] predicate = getPredicateFilter(criteriaBuilder, root, filter);
 		criteriaQuery.select(root);
 		criteriaQuery.where(predicate);
-		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("ativo")));
 
 		TypedQuery<Mesa> typedQuery = em.createQuery(criteriaQuery);
 

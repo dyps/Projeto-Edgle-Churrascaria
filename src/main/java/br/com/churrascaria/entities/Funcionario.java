@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "TB_Funcionarios")
+@Table(name = "TB_Funcionario")
 public class Funcionario implements Identificavel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FuncionarioSeq")

@@ -65,6 +65,7 @@ public class EntregadorEdit extends AbstractBean {
 		try {
 			entregadorService.validar(taxaEntrega);
 			entregador.getTaxas().add(taxaEntrega);
+			taxaEntrega.setEntregador(entregador);
 			taxaEntrega = new TaxaEntrega();
 		} catch (Exception e) {
 			reportarMensagemDeErro(e.getMessage());

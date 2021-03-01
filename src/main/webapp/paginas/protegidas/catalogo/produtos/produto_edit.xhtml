@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/templates/Template_Master.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="categoria" value="#{produtoEdit.categoriaProduto}" />
+			<f:viewParam name="id" value="#{produtoEdit.produto}" />
+			<f:viewAction action="#{produtoEdit.init()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="title">
+		Criar/Editar Produto
+	</ui:define>
+
+	<ui:define name="content">
+
+
+		<h:form id="formEdit">
+			<div class="ui-g-4 "></div>
+			<div class="ui-g-4 " style="text-align: left;">
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Id: #{produtoEdit.produto.id}"
+						rendered="#{produtoEdit.edicaoDeProduto}" />
+
+					<p:outputLabel for="nome" value="Nome do produto: " />
+					<p:inputText id="nome" value="#{produtoEdit.produto.nome}"
+						label="Nome" />
+
+					<p:selectBooleanCheckbox value="#{produtoEdit.produto.habilitado}"
+						itemLabel="Habilitado" />
+
+				</h:panelGrid>
+			</div>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+
+</html>

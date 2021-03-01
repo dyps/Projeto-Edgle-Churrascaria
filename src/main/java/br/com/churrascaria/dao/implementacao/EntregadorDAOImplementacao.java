@@ -64,7 +64,6 @@ public class EntregadorDAOImplementacao extends InDatabaseDAO implements Entrega
 		Predicate[] predicate = getPredicateFilter(criteriaBuilder, root, filter);
 		criteriaQuery.select(root);
 		criteriaQuery.where(predicate);
-		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("ativo")));
 
 		TypedQuery<Entregador> typedQuery = em.createQuery(criteriaQuery);
 

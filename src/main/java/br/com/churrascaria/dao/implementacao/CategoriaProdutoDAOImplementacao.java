@@ -64,7 +64,6 @@ public class CategoriaProdutoDAOImplementacao extends InDatabaseDAO implements C
 		Predicate[] predicate = getPredicateFilter(criteriaBuilder, root, filter);
 		criteriaQuery.select(root);
 		criteriaQuery.where(predicate);
-		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("ativo")));
 
 		TypedQuery<CategoriaProduto> typedQuery = em.createQuery(criteriaQuery);
 

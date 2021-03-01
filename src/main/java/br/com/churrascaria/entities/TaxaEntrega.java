@@ -12,21 +12,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "TB_TaxaEntregas")
 public class TaxaEntrega {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TaxaEntregaSeq")
 	@SequenceGenerator(name = "TaxaEntregaSeq", sequenceName = "TAXAENTREGA_SEQ", allocationSize = 1)
 	private Long Id;
-	
+
 	@Column(nullable = false)
 	private Double valor;
-	
+
 	@Column(nullable = false)
 	private Double distanciaMaxima;
-	
+
 	private boolean vigente;
-	
-	@ManyToOne
+
+	@ManyToOne(optional = false)
 	private Entregador entregador;
 
 	public Long getId() {

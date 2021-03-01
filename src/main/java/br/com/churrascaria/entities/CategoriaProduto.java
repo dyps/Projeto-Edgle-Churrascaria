@@ -1,16 +1,21 @@
 package br.com.churrascaria.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "TB_CategoriaProdutos")
+@Table(name = "TB_CategoriaProduto")
 public class CategoriaProduto {
 
 	@Id
@@ -20,6 +25,24 @@ public class CategoriaProduto {
 
 	@Column(nullable = false, unique = true)
 	private String nome;
+
+	@OneToMany(mappedBy = "categoriaProduto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<Produto> produtos;
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public boolean isDeletavel() {
+		if (produtos != null && produtos.isEmpty() && produtos.size() > 0) {
+			return false;
+		}
+		return true;
+	}
 
 	@Transient
 	private boolean primeiro = false;

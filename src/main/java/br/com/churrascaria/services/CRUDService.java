@@ -45,5 +45,6 @@ public abstract class CRUDService<Entidade> {
 		}
 	}
 
+	public abstract Entidade getByID(Long id) throws ServiceEdgleChurrascariaException;
 	protected abstract EntidadeDAO<Entidade> getEntidadeDAO();
 }

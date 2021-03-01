@@ -17,15 +17,12 @@
 	<ui:define name="content">
 		<h:form id="formFilter">
 			<div class="ui-g ui-md-12 ui-g-nopad">
-				<div class="ui-g-1 ">
+				<div class="ui-g-5 ">
 					<p:outputLabel value="Nome: " for="itNomeFilter" />
-				</div>
-				<div class="ui-g-3 ">
 					<p:inputText id="itNomeFilter"
 						value="#{manageFuncionario.funcionarioFilter.nome}" label="Nome"
 						style="width: 16rem; " />
-				</div>
-				<div class="ui-g-6 ">
+					<p:outputLabel value="	" />
 					<p:commandButton id="btnFiltrarBotao" value="Buscar"
 						action="#{manageFuncionario.filtrar()}" update="@form" />
 				</div>

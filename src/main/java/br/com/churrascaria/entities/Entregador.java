@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "TB_Entregadores")
+@Table(name = "TB_Entregador")
 public class Entregador {
 
 	@Id

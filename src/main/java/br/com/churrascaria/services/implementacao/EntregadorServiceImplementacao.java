@@ -49,10 +49,10 @@ public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
 
 	@Override
 	protected void validar(Entregador entidade) throws ServiceEdgleChurrascariaException {
-		if (entidade == null || entidade.getNome() == null || entidade.getNome().split(" ").length == 0) {
+		if (entidade == null || entidade.getNome() == null || entidade.getNome().trim().equals("")) {
 			throw new ServiceEdgleChurrascariaException("O nome do entregador é necessário");
 		}
-		if (entidade == null || entidade.getTelefone() == null || entidade.getTelefone().split(" ").length == 0) {
+		if (entidade == null || entidade.getTelefone() == null || entidade.getTelefone().trim().equals("")) {
 			throw new ServiceEdgleChurrascariaException("O telefone do entregador é necessário");
 		}
 	}

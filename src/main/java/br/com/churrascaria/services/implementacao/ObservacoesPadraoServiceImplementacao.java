@@ -53,7 +53,7 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 	@Override
 	protected void validar(ObservacaoPadrao entidade) throws ServiceEdgleChurrascariaException {
 
-		if (entidade == null || entidade.getDescricao() == null || entidade.getDescricao().split(" ").length == 0) {
+		if (entidade == null || entidade.getDescricao() == null || entidade.getDescricao().trim().equals("")) {
 			throw new ServiceEdgleChurrascariaException("A descrição da observação é necessário");
 		}
 		if (entidade.getDescricao().length() <= 3) {

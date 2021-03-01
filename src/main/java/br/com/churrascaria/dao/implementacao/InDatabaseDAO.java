@@ -10,17 +10,9 @@ public abstract class InDatabaseDAO implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 807230061124569753L;
-
+	private static final long serialVersionUID = 1L;
 	@Inject
 	private EntityManager entityManager;
-
-	public InDatabaseDAO() {
-//		EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistenceEdgleChurrascaria");
-//		if (entityManager == null) {
-//			entityManager = factory.createEntityManager();
-//		}
-	}
 
 	protected EntityManager getEntityManager() {
 		return entityManager;

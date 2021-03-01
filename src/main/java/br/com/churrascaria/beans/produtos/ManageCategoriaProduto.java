@@ -1,4 +1,4 @@
-package br.com.churrascaria.beans.categoriaProduto;
+package br.com.churrascaria.beans.produtos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +53,13 @@ public class ManageCategoriaProduto extends AbstractBean {
 		this.novaCategoriaProduto = novaCategoriaProduto;
 	}
 
+	public void setCategoriaProdutos(List<CategoriaProduto> categoriaProdutos) {
+		this.categoriaProdutos = categoriaProdutos;
+	}
+
 	@PostConstruct
 	public void init() {
-		setNovaCategoriaProduto(new CategoriaProduto());
+		novaCategoriaProduto = new CategoriaProduto();
 		categoriaProdutoFilter = new CategoriaProdutoFilter();
 		filtrar();
 	}

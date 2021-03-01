@@ -7,9 +7,8 @@ import javax.inject.Named;
 import br.com.churrascaria.beans.AbstractBean;
 import br.com.churrascaria.beans.EnderecoPaginas;
 import br.com.churrascaria.entities.Funcionario;
-import br.com.churrascaria.entities.TipoDeFuncionario;
+import br.com.churrascaria.services.CRUDService;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
-import br.com.churrascaria.services.implementacao.FuncionarioServiceImplementacao;
 
 @ViewScoped
 @Named
@@ -25,13 +24,10 @@ public class FuncionarioEdit extends AbstractBean {
 	 */
 
 	@Inject
-	private FuncionarioServiceImplementacao funcionarioService;
+	private CRUDService<Funcionario> funcionarioService;
 
 	private Funcionario funcionario;
 
-	public TipoDeFuncionario[] getTipoDeFuncionario() {
-		return TipoDeFuncionario.values();
-	}
 
 	public String init() {
 		try {

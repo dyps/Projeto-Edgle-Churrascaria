@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/Template_Master.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="categoria"
+				value="#{produtosDaCategoria.categoriaProduto}" />
+			<f:viewAction action="#{produtosDaCategoria.init()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="title">
+		Produtos da categoria
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<div class="ui-g ">
+				<p:commandLink type="submit" title="Icon Only"
+					action="index.xhtml?faces-redirect=true">
+					<i class="pi pi-home" style="color: black; font-size: 2.5rem;" />
+				</p:commandLink>
+				<p:outputLabel
+					style="font-size: 1rem;font-weight: bolder;align-self: center;"
+					value=" > #{produtosDaCategoria.categoriaProduto.nome}" />
+			</div>
+			<div class="ui-g-5 ">
+
+
+				<p:outputLabel value="Nome: " for="itNomeFilter" />
+				<p:inputText id="itNomeFilter"
+					value="#{produtosDaCategoria.produtoFilter.nome}" label="Nome"
+					style="width: 16rem; " />
+				<p:outputLabel value="	" />
+				<p:commandButton id="btnFiltrarBotao" value="Buscar"
+					action="#{produtosDaCategoria.filtrar()}" update="@form" />
+
+
+
+
+			</div>
+			<div class="ui-g-7" style="text-align: right;">
+				<p:button value="Novo produto padrão" outcome="produto_edit.xhtml">
+					<f:param name="categoria"
+						value="#{produtosDaCategoria.categoriaProduto.id}" />
+				</p:button>
+				<p:button value="Novo produto personalizado"
+					outcome="produto_edit.xhtml">
+					<f:param name="categoria"
+						value="#{produtosDaCategoria.categoriaProduto.id}" />
+				</p:button>
+			</div>
+			<div class="ui-g-12">
+				<p:tabView>
+					<p:tab title="Produtos Padrão">
+						<p:dataGrid columns="4" id="dataTableEntregadores" border="1"
+							style="width : 100%" var="produto"
+							value="#{produtosDaCategoria.produtosPadrao}">
+							<!-- 							<p:panel header="#{produto.nome}" styleClass="cards"> -->
+							<!-- 								<div class="ui-g ui-md-12 ui-g-nopad"> -->
+							<!-- 									<div class="ui-g-3 "> -->
+							<!-- 										<h:outputText style="font-weight:bold" value="ID: " /> -->
+							<!-- 									</div> -->
+							<!-- 									<div class="ui-g-9 "> -->
+							<!-- 										<h:outputText value="#{entregador.id}" /> -->
+							<!-- 									</div> -->
+							<!-- 								</div> -->
+							<!-- 								<div class="ui-g ui-md-12 ui-g-nopad"> -->
+							<!-- 									<div class="ui-g-3 "> -->
+							<!-- 										<h:outputText style="font-weight:bold" value="Telefone: " /> -->
+							<!-- 									</div> -->
+							<!-- 									<div class="ui-g-9 "> -->
+							<!-- 										<h:outputText value="#{entregador.telefone}" /> -->
+							<!-- 									</div> -->
+							<!-- 								</div> -->
+
+							<!-- 								<div class="ui-g "> -->
+							<!-- 									<p:panelGrid style="place-content: flex-end;"> -->
+							<!-- 										<p:button -->
+							<!-- 											style="background-color: #660000; border: 1px solid #000000;" -->
+							<!-- 											outcome="entregador_edit.xhtml" value="Editar"> -->
+							<!-- 											<f:param name="entregador" value="#{entregador.id}" /> -->
+							<!-- 										</p:button> -->
+							<!-- 										<p:commandButton value="Excluir" id="deleteFunc" -->
+							<!-- 											action="#{manageEntregador.delete(entregador)}"> -->
+							<!-- 											<p:confirm header="Confirmação!" -->
+							<!-- 												message="Você quer excliuir '#{entregador.nome} '?" -->
+							<!-- 												icon="fa fa-remove" /> -->
+							<!-- 										</p:commandButton> -->
+							<!-- 									</p:panelGrid> -->
+							<!-- 								</div> -->
+							<!-- 							</p:panel> -->
+						</p:dataGrid>
+					</p:tab>
+					<p:tab title="Produtos Personalizados">
+					</p:tab>
+				</p:tabView>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>
