@@ -13,7 +13,7 @@
 		auth="Container" factory="org.apache.naming.factory.BeanFactory"
 		type="javax.sql.DataSource"
 		driverClass="org.postgresql.Driver"
-		jdbcUrl="jdbc:postgresql://localhost:5432/EdgleChurrascaria"
+		jdbcUrl="jdbc:postgresql://localhost:5432/EdgleChurrascaria?createDatabaseIfNotExist=true&amp;usessl=false);"
 		user="postgres" password="1234" minPoolSize="10" maxPoolSize="10" />
 
 </Context>

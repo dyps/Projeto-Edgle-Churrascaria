@@ -59,9 +59,6 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 		try {
 			filter.validate();
 			List<Funcionario> list = funcionarioDAO.findBy(filter);
-			if (list.size() == 0) {
-				throw new ServiceEdgleChurrascariaException("Não há funcionário logado");
-			}
 			return list;
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);

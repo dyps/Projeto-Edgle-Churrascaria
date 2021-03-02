@@ -28,7 +28,7 @@ public class Entregador {
 	@Column(unique = true, nullable = false)
 	private String telefone;
 	
-	@OneToMany(mappedBy = "entregador", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "entregador", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TaxaEntrega> taxas;
 
 	@Transient

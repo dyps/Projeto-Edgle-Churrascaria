@@ -73,17 +73,6 @@ public class EntregadorEdit extends AbstractBean {
 	}
 	
 	public String deleteTaxa(TaxaEntrega taxaEntrega) {
-		if(isEdicaoDeEntregador()) {
-			try {
-				entregadorService.deleteTaxa(taxaEntrega);
-				entregador.getTaxas().remove(taxaEntrega);
-				reportarMensagemDeSucesso("Taxa de Entrega '" + taxaEntrega.getValor() + "' excluída");
-			} catch (ServiceEdgleChurrascariaException e) {
-				reportarMensagemDeErro(e.getMessage());
-				return null;
-			}
-			return EnderecoPaginas.paginaEditEntregador(entregador.getId());
-		}
 		entregador.getTaxas().remove(taxaEntrega);
 		return null;
 	}

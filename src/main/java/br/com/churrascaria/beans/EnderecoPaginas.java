@@ -22,10 +22,4 @@ public final class EnderecoPaginas {
 	public static final String PAGINA_PRINCIPAL_OBSERVACAO = "/paginas/protegidas/catalogo/observacoes/index.xhtml"
 			+ REDIRECT_TRUE;
 
-	public static String paginaEditEntregador(Long id) {
-		String PAGINA_EDITAR_ENTREGADOR = "/paginas/protegidas/pessoas/entregadores/entregador_edit.xhtml?entregador="
-				+ id + REDIRECT_TRUE;
-		return PAGINA_EDITAR_ENTREGADOR;
-	}
-
 }
