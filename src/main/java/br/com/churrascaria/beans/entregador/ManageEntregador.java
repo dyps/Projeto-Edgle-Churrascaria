@@ -55,8 +55,9 @@ public class ManageEntregador extends AbstractBean {
 
 	@PostConstruct
 	public void init() {
-		setNovoEntregador(new Entregador());
-		entregadorFilter = new EntregadorFilter();
+		limpar();
+//		setNovoEntregador(new Entregador());
+//		entregadorFilter = new EntregadorFilter();
 		filtrar();
 	}
 
@@ -67,7 +68,7 @@ public class ManageEntregador extends AbstractBean {
 		array.add(entregador);
 		entregadores = array;
 		try {
-			array.addAll(entregadorService.getAll());
+			array.addAll(entregadorService.findBy(entregadorFilter));
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 			return null;
@@ -98,6 +99,11 @@ public class ManageEntregador extends AbstractBean {
 		reportarMensagemDeSucesso("Entregador '" + novoEntregador.getNome() + "' salvo");
 
 		return EnderecoPaginas.PAGINA_PRINCIPAL_ENTREGADOR;
+	}
+	
+	public Object limpar() {
+		this.entregadorFilter = new EntregadorFilter();
+		return null;
 	}
 
 }

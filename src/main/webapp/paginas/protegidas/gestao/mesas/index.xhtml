@@ -32,7 +32,7 @@
 
 			<p:dataGrid columns="4" id="dataTableMesas" border="1"
 				style="width : 100%" var="mesa" value="#{manageMesa.mesas}">
-				<p:panel rendered="#{mesa.primeiro}" header="Novo"
+				<p:panel rendered="#{mesa.primeiro}" header="Nova Mesa"
 					styleClass="cards">
 					<br />
 					<p:commandLink type="submit" title="Icon Only"
@@ -40,9 +40,15 @@
 						<i class="pi pi-plus" style="color: black;" />
 					</p:commandLink>
 				</p:panel>
-				<p:panel rendered="#{!mesa.primeiro}" header="#{mesa.numero}"
+				<p:panel rendered="#{!mesa.primeiro}" header="Mesa #{mesa.numero}"
 					styleClass="cards">
-
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
 					<div class="ui-g ">
 						<p:panelGrid style="place-content: flex-end;">
 							<p:commandButton value="Excluir" id="deleteMesa"
@@ -60,13 +66,13 @@
 				id="idNovaMesa" global="true" showEffect="fade" hideEffect="fade"
 				header="Nova Mesa">
 				<p:panelGrid>
-					<p:outputLabel value="Numero:" for="idNumero" />
+					<p:outputLabel value="Numero: " for="idNumero" />
 					<p:inputText id="idNumero" value="#{manageMesa.novaMesa.numero}"
 						label="Numero:" />
 				</p:panelGrid>
-				<p:commandButton id="botaoSubmeter"
-                        action="#{manageMesa.saveMesa()}" update="@form"
-                        value="Salvar" />
+				<br />
+				<p:commandButton id="botaoSubmeter" style="width: 100%;"
+					action="#{manageMesa.saveMesa()}" update="@form" value="Salvar" />
 			</p:dialog>
 
 		</h:form>

@@ -36,7 +36,11 @@ public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
 	public List<Entregador> findBy(EntregadorFilter filter) throws ServiceEdgleChurrascariaException {
 		try {
 			filter.validate();
-			return entregadorDAO.findBy(filter);
+			List<Entregador> list = entregadorDAO.findBy(filter);
+//			if (list.size() == 0) {
+//				throw new ServiceEdgleChurrascariaException("Não foi possível encontrar nenhum funcionário com esse nome.");
+//			}
+			return list;
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
@@ -57,7 +61,7 @@ public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
 		}
 	}
 	
-	public void validar(TaxaEntrega entidade) throws ServiceEdgleChurrascariaException {
+	public void validarTaxa(TaxaEntrega entidade) throws ServiceEdgleChurrascariaException {
 		// valor e distanciaMaxima
 		if (entidade == null || entidade.getValor() == null) {
 			throw new ServiceEdgleChurrascariaException("O valor da taxa de entrega é necessária");
@@ -70,7 +74,7 @@ public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
 	@TransacionalCdi
 	public void saveTaxa(TaxaEntrega entidade) throws ServiceEdgleChurrascariaException {
 		try {
-			validar(entidade);
+			validarTaxa(entidade);
 			this.taxaEntregaDAO.save(entidade);
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);

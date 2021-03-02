@@ -63,7 +63,7 @@ public class EntregadorEdit extends AbstractBean {
 
 	public void saveTaxaEntrega() {
 		try {
-			entregadorService.validar(taxaEntrega);
+			entregadorService.validarTaxa(taxaEntrega);
 			entregador.getTaxas().add(taxaEntrega);
 			taxaEntrega.setEntregador(entregador);
 			taxaEntrega = new TaxaEntrega();
@@ -74,6 +74,7 @@ public class EntregadorEdit extends AbstractBean {
 	
 	public String deleteTaxa(TaxaEntrega taxaEntrega) {
 		entregador.getTaxas().remove(taxaEntrega);
+		reportarMensagemDeSucesso("Taxa de Entrega '" + taxaEntrega.getValor() + "' excluída");
 		return null;
 	}
 

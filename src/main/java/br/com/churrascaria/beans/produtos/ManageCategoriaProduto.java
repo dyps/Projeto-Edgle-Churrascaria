@@ -71,7 +71,7 @@ public class ManageCategoriaProduto extends AbstractBean {
 		array.add(categoriaProduto);
 		categoriaProdutos = array;
 		try {
-			array.addAll(categoriaProdutoService.getAll());
+			array.addAll(categoriaProdutoService.findBy(categoriaProdutoFilter));
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 			return null;

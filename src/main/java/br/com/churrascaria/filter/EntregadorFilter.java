@@ -1,13 +1,7 @@
 package br.com.churrascaria.filter;
 
-import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
-
 public class EntregadorFilter implements Filter {
-	public void validate() throws ServiceEdgleChurrascariaException {
-		// TODO Auto-generated method stub
-		Filter.super.validate();
-	}
-
+	
 	/**
 	 * 
 	 */

@@ -55,8 +55,9 @@ public class ManageMesa extends AbstractBean {
 
 	@PostConstruct
 	public void init() {
-		setNovaMesa(new Mesa());
-		mesaFilter = new MesaFilter();
+		limpar();
+//		setNovaMesa(new Mesa());
+//		mesaFilter = new MesaFilter();
 		filtrar();
 	}
 
@@ -67,7 +68,7 @@ public class ManageMesa extends AbstractBean {
 		array.add(mesa);
 		mesas = array;
 		try {
-			array.addAll(mesaService.getAll());
+			array.addAll(mesaService.findBy(mesaFilter));
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 			return null;
@@ -98,6 +99,11 @@ public class ManageMesa extends AbstractBean {
 		reportarMensagemDeSucesso("Mesa '" + novaMesa.getNumero() + "' salva");
 
 		return EnderecoPaginas.PAGINA_PRINCIPAL_MESA;
+	}
+	
+	public Object limpar() {
+		this.mesaFilter = new MesaFilter();
+		return null;
 	}
 
 }

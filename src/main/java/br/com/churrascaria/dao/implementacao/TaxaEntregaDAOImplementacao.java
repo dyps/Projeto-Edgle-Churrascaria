@@ -91,7 +91,7 @@ public class TaxaEntregaDAOImplementacao extends InDatabaseDAO implements TaxaEn
 		Predicate[] predicate = getPredicateFilter(criteriaBuilder, root, filter);
 		criteriaQuery.select(root);
 		criteriaQuery.where(predicate);
-		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("ativo")));
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("valor")));
 
 		TypedQuery<TaxaEntrega> typedQuery = em.createQuery(criteriaQuery);
 

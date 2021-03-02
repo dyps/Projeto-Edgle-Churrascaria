@@ -33,7 +33,8 @@ public class MesaServiceImplementacao extends CRUDService<Mesa> {
 	public List<Mesa> findBy(MesaFilter filter) throws ServiceEdgleChurrascariaException {
 		try {
 			filter.validate();
-			return mesaDAO.findBy(filter);
+			List<Mesa> list = mesaDAO.findBy(filter);
+			return list;
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}

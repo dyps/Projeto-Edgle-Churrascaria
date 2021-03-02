@@ -30,7 +30,7 @@
 			<p:dataGrid columns="4" id="dataTableEntregadores" border="1"
 				style="width : 100%" var="entregador"
 				value="#{manageEntregador.entregadores}">
-				<p:panel rendered="#{entregador.primeiro}" header="Novo"
+				<p:panel rendered="#{entregador.primeiro}" header="Novo Entregador"
 					styleClass="cards">
 					<br />
 					<p:commandLink type="submit" title="Icon Only"
@@ -41,22 +41,25 @@
 				<p:panel rendered="#{!entregador.primeiro}"
 					header="#{entregador.nome}" styleClass="cards">
 					<div class="ui-g ui-md-12 ui-g-nopad">
-						<div class="ui-g-3 ">
+						<div class="ui-g-4 ">
 							<h:outputText style="font-weight:bold" value="ID: " />
 						</div>
-						<div class="ui-g-9 ">
+						<div class="ui-g-8 ">
 							<h:outputText value="#{entregador.id}" />
 						</div>
 					</div>
 					<div class="ui-g ui-md-12 ui-g-nopad">
-						<div class="ui-g-3 ">
+						<div class="ui-g-4 ">
 							<h:outputText style="font-weight:bold" value="Telefone: " />
 						</div>
-						<div class="ui-g-9 ">
+						<div class="ui-g-8 ">
 							<h:outputText value="#{entregador.telefone}" />
 						</div>
 					</div>
-
+					<br />
+					<br />
+					<br />
+					<br />
 					<div class="ui-g ">
 						<p:panelGrid style="place-content: flex-end;">
 							<p:button

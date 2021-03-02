@@ -35,7 +35,8 @@ public class CategoriaProdutoServiceImplementacao extends CRUDService<CategoriaP
 	public List<CategoriaProduto> findBy(CategoriaProdutoFilter filter) throws ServiceEdgleChurrascariaException {
 		try {
 			filter.validate();
-			return categoriaProdutoDAO.findBy(filter);
+			List<CategoriaProduto> list = categoriaProdutoDAO.findBy(filter);
+			return list;
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
