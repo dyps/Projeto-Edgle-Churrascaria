@@ -14,8 +14,11 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.event.UnselectEvent;
+
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.entities.TipoDeFuncionario;
+import br.com.churrascaria.entities.TipoDeMedida;
 import br.com.churrascaria.filter.FuncionarioFilter;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.FuncionarioServiceImplementacao;
@@ -72,6 +75,10 @@ public abstract class AbstractBean implements Serializable {
 		return TipoDeFuncionario.values();
 	}
 
+	public TipoDeMedida[] getTipoDeMedida() {
+		return TipoDeMedida.values();
+	}
+
 	protected void reportarMensagemDeErro(String detalhe) {
 		reportarMensagem(true, detalhe, false);
 	}
@@ -94,6 +101,16 @@ public abstract class AbstractBean implements Serializable {
 		Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
 		flash.setKeepMessages(keepMessages);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onItemUnselect(UnselectEvent<?> event) {
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		FacesMessage msg = new FacesMessage();
+		msg.setSummary("Item removido: " + event.getObject().toString());
+		msg.setSeverity(FacesMessage.SEVERITY_INFO);
+
+		context.addMessage(null, msg);
 	}
 
 }

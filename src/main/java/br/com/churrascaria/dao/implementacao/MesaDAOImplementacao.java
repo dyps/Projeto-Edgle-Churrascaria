@@ -75,7 +75,7 @@ public class MesaDAOImplementacao extends InDatabaseDAO implements MesaDAO {
 		List<Predicate> predicate = new ArrayList<Predicate>();
 		if (notEmpty(filter.getNumero())) {
 			predicate.add(
-					criteriaBuilder.like(criteriaBuilder.lower(root.get("numero")), "%" + filter.getNumero() + "%"));
+					criteriaBuilder.equal(root.get("numero"), filter.getNumero()));
 		}
 		if (notEmpty(filter.getId())) {
 			predicate.add(criteriaBuilder.equal(root.get("Id"), filter.getId()));

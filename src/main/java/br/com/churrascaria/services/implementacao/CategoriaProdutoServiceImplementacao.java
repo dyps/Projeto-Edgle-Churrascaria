@@ -49,25 +49,23 @@ public class CategoriaProdutoServiceImplementacao extends CRUDService<CategoriaP
 
 	@Override
 	protected void validar(CategoriaProduto entidade) throws ServiceEdgleChurrascariaException {
-		if (entidade == null || entidade.getNome() == null || entidade.getNome().trim().equals("")) {
+		if (entidade == null || entidade.getNome() == null || entidade.getNome().trim().equals(""))
 			throw new ServiceEdgleChurrascariaException("O nome da categoria é necessário");
-		}
+
 		List<CategoriaProduto> list = getAll();
-		for (CategoriaProduto categoriaProduto : list) {
+		for (CategoriaProduto categoriaProduto : list)
 			if (categoriaProduto.getNome().toLowerCase().equals(entidade.getNome().toLowerCase()))
 				throw new ServiceEdgleChurrascariaException("O nome da categoria não pode ser repetida");
-		}
+
 	}
 
 	public List<ProdutoPadrao> getByIDProdutosPadrao(ProdutoFilter produtoFilter)
 			throws ServiceEdgleChurrascariaException {
 		List<Produto> list = buscarFiltrar(produtoFilter);
 		List<ProdutoPadrao> retorno = new ArrayList<>();
-		for (Produto produto : list) {
-			if (produto.getClass() == ProdutoPadrao.class) {
+		for (Produto produto : list)
+			if (produto.getClass() == ProdutoPadrao.class)
 				retorno.add((ProdutoPadrao) produto);
-			}
-		}
 		return retorno;
 	}
 
@@ -75,23 +73,21 @@ public class CategoriaProdutoServiceImplementacao extends CRUDService<CategoriaP
 			throws ServiceEdgleChurrascariaException {
 		List<Produto> list = buscarFiltrar(produtoFilter);
 		List<ProdutoPersonalizado> retorno = new ArrayList<>();
-		for (Produto produto : list) {
-			if (produto.getClass() == ProdutoPersonalizado.class) {
+		for (Produto produto : list)
+			if (produto.getClass() == ProdutoPersonalizado.class)
 				retorno.add((ProdutoPersonalizado) produto);
-			}
-		}
 		return retorno;
 	}
 
 	private List<Produto> buscarFiltrar(ProdutoFilter produtoFilter) throws ServiceEdgleChurrascariaException {
 		List<Produto> list = new ArrayList<Produto>();
-		list.addAll(getByID(produtoFilter.getIdCategoria()).getProdutos());
+		List<Produto> a = getByID(produtoFilter.getIdCategoria()).getProdutos();
+		list.addAll(a);
 		List<Produto> retorno = new ArrayList<Produto>();
-		for (Produto produto : list) {
-			if (produto.getNome().contains(produtoFilter.getNome())) {
-				retorno.add(produto);
-			}
-		}
+		if (produtoFilter.getNome() != null)
+			for (Produto produto : list)
+				if (produto.getNome().contains(produtoFilter.getNome()))
+					retorno.add(produto);
 		return retorno;
 	}
 

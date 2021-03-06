@@ -1,5 +1,6 @@
 package br.com.churrascaria.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,13 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "TB_CategoriaProduto")
-public class CategoriaProduto {
+public class CategoriaProduto implements Serializable{
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CategoriaProdutoSeq")
@@ -70,5 +77,11 @@ public class CategoriaProduto {
 	public void setPrimeiro(boolean primeiro) {
 		this.primeiro = primeiro;
 	}
+
+	@Override
+	public String toString() {
+		return nome;
+	}
+
 
 }

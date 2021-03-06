@@ -30,7 +30,7 @@ public class ManageMesa extends AbstractBean {
 	private List<Mesa> mesas;
 
 	private MesaFilter mesaFilter;
-	
+
 	private Mesa novaMesa;
 
 	public List<Mesa> getMesas() {
@@ -44,7 +44,7 @@ public class ManageMesa extends AbstractBean {
 	public void setMesaFilter(MesaFilter mesaFilter) {
 		this.mesaFilter = mesaFilter;
 	}
-	
+
 	public Mesa getNovaMesa() {
 		return novaMesa;
 	}
@@ -55,9 +55,8 @@ public class ManageMesa extends AbstractBean {
 
 	@PostConstruct
 	public void init() {
-		limpar();
-//		setNovaMesa(new Mesa());
-//		mesaFilter = new MesaFilter();
+		setNovaMesa(new Mesa());
+		mesaFilter = new MesaFilter();
 		filtrar();
 	}
 
@@ -87,7 +86,7 @@ public class ManageMesa extends AbstractBean {
 		return EnderecoPaginas.PAGINA_PRINCIPAL_MESA;
 
 	}
-	
+
 	public String saveMesa() {
 		try {
 			mesaService.save(novaMesa);
@@ -95,15 +94,10 @@ public class ManageMesa extends AbstractBean {
 			reportarMensagemDeErro(e.getMessage());
 			return null;
 		}
-		
+
 		reportarMensagemDeSucesso("Mesa '" + novaMesa.getNumero() + "' salva");
 
 		return EnderecoPaginas.PAGINA_PRINCIPAL_MESA;
-	}
-	
-	public Object limpar() {
-		this.mesaFilter = new MesaFilter();
-		return null;
 	}
 
 }

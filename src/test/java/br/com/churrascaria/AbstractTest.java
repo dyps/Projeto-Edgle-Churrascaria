@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestWatcher;
@@ -17,6 +18,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.codeborne.selenide.WebDriverRunner;
 
+import br.com.churrascaria.pageObject.MesaPage;
 import br.com.churrascaria.util.DriverFactory;
 import br.com.churrascaria.util.DriverType;
 
@@ -53,10 +55,17 @@ public abstract class AbstractTest {
 		}
 	};
 
+	protected MesaPage mesasPage;
+
 	protected static DateFormat DATE_FORMAT;
 
 
 	protected static WebDriver driver;
+	
+	@Before
+	public void setUp() throws Exception {
+		mesasPage = new MesaPage(driver);
+	}
 
 
 	@BeforeClass

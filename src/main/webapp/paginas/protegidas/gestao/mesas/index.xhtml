@@ -30,14 +30,14 @@
 
 			</div>
 
-			<p:dataGrid columns="4" id="dataTableMesas" border="1"
+			<p:dataGrid columns="4" id="dataTableMesas" border="1" 
 				style="width : 100%" var="mesa" value="#{manageMesa.mesas}">
-				<p:panel rendered="#{mesa.primeiro}" header="Nova Mesa"
+				<p:panel rendered="#{mesa.primeiro}"  header="Nova Mesa"
 					styleClass="cards">
 					<br />
-					<p:commandLink type="submit" title="Icon Only"
+					<p:commandLink  type="submit" title="Icon Only"
 						oncomplete="PF('novaMesa').show();">
-						<i class="pi pi-plus" style="color: black;" />
+						<i class="pi pi-plus" style="color: black;" id="idNovaMesa" />
 					</p:commandLink>
 				</p:panel>
 				<p:panel rendered="#{!mesa.primeiro}" header="Mesa #{mesa.numero}"

@@ -2,6 +2,7 @@ package br.com.churrascaria.beans.produtos;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,7 +20,6 @@ import br.com.churrascaria.services.implementacao.CategoriaProdutoServiceImpleme
 @Named
 public class ProdutosDaCategoria extends AbstractBean {
 
-
 	/**
 	 * 
 	 */
@@ -31,31 +31,31 @@ public class ProdutosDaCategoria extends AbstractBean {
 
 	private List<ProdutoPadrao> produtosPadrao;
 	private List<ProdutoPersonalizado> produtosPersonalizado;
+
 	public Class<ProdutoPadrao> getTipoProdutoPadrao() {
 		return ProdutoPadrao.class;
-
-	}
-	public Class<ProdutoPersonalizado> getTipoProdutoPersonalizado() {
-		return ProdutoPersonalizado.class;
 
 	}
 
 	@Inject
 	private CategoriaProdutoServiceImplementacao categoriaProdutoService;
 
+//	@PostConstruct
 	public String init() {
 		produtoFilter = new ProdutoFilter();
 		try {
 			if (categoriaProduto == null) {
+				System.out.println("aqi");
 				return EnderecoPaginas.PAGINA_PRINCIPAL_CATEGORIAPRODUTO;
 			} else {
 				categoriaProduto = categoriaProdutoService.getByID(categoriaProduto.getId());
+				produtoFilter.setIdCategoria(categoriaProduto.getId());
+				filtrar();
 			}
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
+			return EnderecoPaginas.PAGINA_PRINCIPAL_CATEGORIAPRODUTO;
 		}
-		produtoFilter.setIdCategoria(categoriaProduto.getId());
-		filtrar();
 		return null;
 	}
 
@@ -102,6 +102,5 @@ public class ProdutosDaCategoria extends AbstractBean {
 	public void setProdutosPersonalizado(List<ProdutoPersonalizado> produtosPersonalizado) {
 		this.produtosPersonalizado = produtosPersonalizado;
 	}
-	
 
 }

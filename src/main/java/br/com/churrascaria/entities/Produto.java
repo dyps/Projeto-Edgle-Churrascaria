@@ -10,9 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+
+import org.primefaces.model.file.UploadedFile;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -26,9 +29,11 @@ public abstract class Produto {
 	@Column(nullable = false, unique = true)
 	private String nome;
 
-	private String imagem;
+	@Lob
+	private UploadedFile imagem;
+	
 
-	private boolean habilitado;
+	private boolean habilitado = true;
 
 	@ManyToOne
 	private CategoriaProduto categoriaProduto;
@@ -53,11 +58,12 @@ public abstract class Produto {
 		this.observacoesPadrao = observacoesPadrao;
 	}
 
-	public String getImagem() {
+
+	public UploadedFile getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(UploadedFile imagem) {
 		this.imagem = imagem;
 	}
 

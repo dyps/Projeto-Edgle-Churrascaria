@@ -66,6 +66,15 @@ public abstract class AbstractPage {
 	public String getTitulo() {
 		return driver.getTitle();
 	}
+	public void verificaERealizarLogin() {
+		if (!getTitulo().equals("Login")) {
+			return;
+		}
+		setInputText("j_username", "yaggo");
+		setInputText("j_password", "123");
+		$(By.xpath("//*[@id='btnLogin']")).click();
+	}
+
 
 //	public MenuWidget menu() {
 //		return new MenuWidget(driver);
