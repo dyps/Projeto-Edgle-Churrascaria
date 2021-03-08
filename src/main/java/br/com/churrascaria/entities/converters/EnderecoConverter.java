@@ -8,25 +8,25 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import br.com.churrascaria.entities.Cliente;
+import br.com.churrascaria.entities.Endereco;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
-import br.com.churrascaria.services.implementacao.ClienteServiceImplementacao;
+import br.com.churrascaria.services.implementacao.EnderecoServiceImplementacao;
 
-@FacesConverter(forClass = Cliente.class)
-public class ClienteConverter implements Converter<Cliente> {
+@FacesConverter(forClass = Endereco.class)
+public class EnderecoConverter implements Converter<Endereco> {
 	
 	@Inject
-	private ClienteServiceImplementacao clienteService;
+	private EnderecoServiceImplementacao enderecoService;
 
 	@Override
-	public Cliente getAsObject(FacesContext context, UIComponent component, String value) {
+	public Endereco getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value == null || value.trim().isEmpty()) {
 			return null;
 		}
 
 		try {
 			long id = Long.parseLong(value);
-			return clienteService.getByID(id);
+			return enderecoService.getByID(id);
 		} catch (ServiceEdgleChurrascariaException | NumberFormatException e) {
 			String msgErroStr = String.format(
 					"Erro de conversão! Não foi possível realizar a conversão da string '%s' para o tipo esperado.",
@@ -37,12 +37,12 @@ public class ClienteConverter implements Converter<Cliente> {
 	}
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component, Cliente value) {
-		if (!(value instanceof Cliente)) {
+	public String getAsString(FacesContext context, UIComponent component, Endereco value) {
+		if (!(value instanceof Endereco)) {
 			return null;
 		}
 
-		Long id = ((Cliente) value).getId();
+		Long id = ((Endereco) value).getId();
 		return (id != null) ? id.toString() : null;
 	}
 

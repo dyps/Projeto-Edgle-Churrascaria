@@ -43,7 +43,7 @@
 					<div class="ui-g-10 "></div>
 					<div class="ui-g-2 ">
 						<p:commandButton value="Nova Taxa"
-							oncomplete="PF('novaTaxaEntrega').show();" />
+							oncomplete="PF('novaTaxaEntrega').show();" id="idNovaTaxa" />
 					</div>
 				</div>
 
@@ -66,7 +66,7 @@
 						<p:column headerText="Opções" style="text-align: left;width: 25%;"
 							responsivePriority="1">
 							<p:commandLink action="#{entregadorEdit.deleteTaxa(taxaEntrega)}"
-								update="@form">
+								update="@form" id="idDeleteTaxa">
 								<i class="fa fa-trash"
 									style="color: black; font-size: 1.187rem;" />
 

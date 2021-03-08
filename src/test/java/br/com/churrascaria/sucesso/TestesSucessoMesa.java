@@ -24,5 +24,21 @@ public class TestesSucessoMesa extends AbstractTest {
 		.confirmar();
 		assertTrue(mesasPage.foiExibidaMensagemDeSucesso("Sucesso: Mesa '"+ numero+"' salva"));
 	}
+	
+	@Test
+	public void excluirMesa() {
+		mesasPage.visita();
+		mesasPage.verificaERealizarLogin();
+		mesasPage.apagar().confirmar();
+		assertTrue(mesasPage.foiExibidaMensagemDeSucesso("Sucesso: Mesa '1' excluída"));
+	}
+	
+	@Test
+	public void buscarMesa() {
+		mesasPage.visita();
+		mesasPage.verificaERealizarLogin();
+		String numeroMesa = "1";
+		mesasPage.buscar(numeroMesa);
+	}
 
 }

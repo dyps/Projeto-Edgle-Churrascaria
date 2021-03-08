@@ -14,9 +14,9 @@
 		<h:form id="formFilter">
 			<div class="ui-g ui-md-12 ui-g-nopad">
 				<div class="ui-g-10 "></div>
-				<div class="ui-g-2 ">
+				<div class="ui-g-2 " style="text-align: right">
 					<p:commandButton value="Nova Observação"
-						oncomplete="PF('novaObs').show();" />
+						oncomplete="PF('novaObs').show();" id="idNovaObservacao" />
 				</div>
 			</div>
 			<p:dialog modal="true" widgetVar="novaObs" resizable="false"
@@ -41,7 +41,7 @@
 					</p:column>
 					<p:column headerText="Opção" style="text-align: left;width: 25%;"
 						responsivePriority="1">
-						<p:commandLink action="#{manageObservacoes.delete(obs)}">
+						<p:commandLink action="#{manageObservacoes.delete(obs)}" id="deleteObservacao">
 							<i class="fa fa-trash" style="color: black; font-size: 1.187rem;" />
 
 							<p:confirm header="

@@ -56,9 +56,9 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 		if (entidade == null || entidade.getDescricao() == null || entidade.getDescricao().trim().equals("")) {
 			throw new ServiceEdgleChurrascariaException("A descrição da observação é necessário");
 		}
-		if (entidade.getDescricao().length() <= 3) {
-			throw new ServiceEdgleChurrascariaException("A descrição da observação esta pequena");
-		}
+//		if (entidade.getDescricao().length() <= 3) {
+//			throw new ServiceEdgleChurrascariaException("A descrição da observação esta pequena");
+//		}
 		List<ObservacaoPadrao> list = getAll();
 		for (ObservacaoPadrao observacaoPadrao : list) {
 			if (observacaoPadrao.getDescricao().toLowerCase().equals(entidade.getDescricao().toLowerCase()))

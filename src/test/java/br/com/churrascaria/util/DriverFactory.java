@@ -22,7 +22,7 @@ public class DriverFactory {
 			
 			case OPERANIKSON: {
 				System.setProperty("webdriver.opera.driver",
-						PATH + "operadriver-2.45.exe");
+						PATH + "operadriver.exe");
 						OperaOptions operaOptions = new OperaOptions();
 						operaOptions.setBinary(new File("C:\\Users\\nikson\\AppData\\Local\\Programs\\Opera GX\\73.0.3856.396\\opera.exe"));
 						return new OperaDriver(operaOptions);

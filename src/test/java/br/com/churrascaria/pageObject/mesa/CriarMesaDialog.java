@@ -1,9 +1,11 @@
-package br.com.churrascaria.pageObject;
+package br.com.churrascaria.pageObject.mesa;
 
 import static com.codeborne.selenide.Selenide.$;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import br.com.churrascaria.pageObject.AbstractPage;
 
 
 public class CriarMesaDialog extends AbstractPage {

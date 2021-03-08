@@ -18,7 +18,11 @@ import org.openqa.selenium.WebDriver;
 
 import com.codeborne.selenide.WebDriverRunner;
 
-import br.com.churrascaria.pageObject.MesaPage;
+import br.com.churrascaria.pageObject.cliente.ClientePage;
+import br.com.churrascaria.pageObject.entregador.EntregadorPage;
+import br.com.churrascaria.pageObject.funcionario.FuncionarioPage;
+import br.com.churrascaria.pageObject.mesa.MesaPage;
+import br.com.churrascaria.pageObject.observacaoPadrao.ObservacaoPadraoPage;
 import br.com.churrascaria.util.DriverFactory;
 import br.com.churrascaria.util.DriverType;
 
@@ -56,6 +60,14 @@ public abstract class AbstractTest {
 	};
 
 	protected MesaPage mesasPage;
+	
+	protected ObservacaoPadraoPage observacaoPadraoPage;
+	
+	protected EntregadorPage entregadoresPage;
+	
+	protected FuncionarioPage funcionarioPage;
+	
+	protected ClientePage clientePage;
 
 	protected static DateFormat DATE_FORMAT;
 
@@ -65,13 +77,17 @@ public abstract class AbstractTest {
 	@Before
 	public void setUp() throws Exception {
 		mesasPage = new MesaPage(driver);
+		observacaoPadraoPage = new ObservacaoPadraoPage(driver);
+		entregadoresPage = new EntregadorPage(driver);
+		funcionarioPage = new FuncionarioPage(driver);
+		clientePage = new ClientePage(driver);
 	}
 
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-		driver = new DriverFactory().getDriver(DriverType.OPERAYAGGO);
+		driver = new DriverFactory().getDriver(DriverType.OPERANIKSON);
 
 		driver.manage().window().maximize();
 		// XXX: Inicialização do WebDriver a ser utilizado pelo Selenide

@@ -37,9 +37,6 @@ public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
 		try {
 			filter.validate();
 			List<Entregador> list = entregadorDAO.findBy(filter);
-//			if (list.size() == 0) {
-//				throw new ServiceEdgleChurrascariaException("Não foi possível encontrar nenhum funcionário com esse nome.");
-//			}
 			return list;
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
@@ -59,10 +56,14 @@ public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
 		if (entidade == null || entidade.getTelefone() == null || entidade.getTelefone().trim().equals("")) {
 			throw new ServiceEdgleChurrascariaException("O telefone do entregador é necessário");
 		}
+		List<Entregador> list = getAll();
+		for (Entregador entregador : list) {
+            if(entregador.getTelefone().equals(entidade.getTelefone()))
+                throw new ServiceEdgleChurrascariaException("O telefone do entregador não pode ser repetido");
+        }
 	}
 	
 	public void validarTaxa(TaxaEntrega entidade) throws ServiceEdgleChurrascariaException {
-		// valor e distanciaMaxima
 		if (entidade == null || entidade.getValor() == null) {
 			throw new ServiceEdgleChurrascariaException("O valor da taxa de entrega é necessária");
 		}

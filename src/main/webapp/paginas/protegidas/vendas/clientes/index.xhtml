@@ -10,6 +10,57 @@
 	<ui:define name="title">
 		Clientes
 	</ui:define>
+	<ui:define name="content">
+		<h:form id="formFilter">
+			<div class="ui-g ui-md-12 ui-g-nopad">
+				<div class="ui-g-5 ">
+					<p:outputLabel value="Nome: " for="itNomeFilter" />
+					<p:inputText id="itNomeFilter"
+						value="#{manageCliente.clienteFilter.nome}" label="Nome"
+						style="width: 16rem; " />
+					<p:outputLabel value="	" />
+					<p:commandButton id="btnFiltrarBotao" value="Buscar"
+						action="#{manageCliente.filtrar()}" update="@form" />
+				</div>
+				<div class="ui-g-7 " style="text-align: right">
+					<p:commandButton value="Novo Cliente"
+						action="cliente_edit.xhtml?faces-redirect=true" id="idNovoCliente" />
+				</div>
+			</div>
+			
+			<div class="ui-g-4 "></div>
+			
+			<div class="ui-g-4 " style="text-align: left;">
+				<p:dataTable var="cliente" value="#{manageCliente.clientes}">
+					<p:column headerText="Nome" style="text-align: left;"
+						responsivePriority="3">
+						<p:outputLabel value="#{cliente.nome}"></p:outputLabel>
+					</p:column>
+					<p:column headerText="Telefone" style="text-align: left;"
+						responsivePriority="3">
+						<p:outputLabel value="#{cliente.telefone}"></p:outputLabel>
+					</p:column>
+					<p:column headerText="Opções" style="text-align: left;width: 25%;"
+						responsivePriority="1">
+						<p:link outcome="cliente_edit.xhtml">
+							<f:param name="cliente" value="#{cliente.id}" />
+							<i class="fa fa-pencil"
+								style="color: black; font-size: 1.187rem;" id="idEditarCliente" />
+						</p:link>
+						<p:outputLabel value="     " />
+						<p:commandLink action="#{manageCliente.delete(cliente)}">
+							<i class="fa fa-trash" style="color: black; font-size: 1.187rem;" id="deleteCliente" />
+
+							<p:confirm header="
+							Confirmação!"
+								message="Você quer excluir '#{cliente.nome} '?"
+								icon="fa fa-exclamation-triangle" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
 
 </ui:composition>
 

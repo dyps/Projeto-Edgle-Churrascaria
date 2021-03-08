@@ -35,7 +35,7 @@
 					<br />
 					<p:commandLink type="submit" title="Icon Only"
 						action="entregador_edit.xhtml?faces-redirect=true">
-						<i class="pi pi-plus" style="color: black;" />
+						<i class="pi pi-plus" style="color: black;" id="idNovoEntregador" />
 					</p:commandLink>
 				</p:panel>
 				<p:panel rendered="#{!entregador.primeiro}"
@@ -64,7 +64,7 @@
 						<p:panelGrid style="place-content: flex-end;">
 							<p:button
 								style="background-color: #660000; border: 1px solid #000000;"
-								outcome="entregador_edit.xhtml" value="Editar">
+								outcome="entregador_edit.xhtml" value="Editar" id="idEditarEntregador">
 								<f:param name="entregador" value="#{entregador.id}" />
 							</p:button>
 							<p:commandButton value="Excluir" id="deleteFunc"

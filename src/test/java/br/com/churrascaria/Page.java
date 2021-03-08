@@ -15,6 +15,9 @@ import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import br.com.churrascaria.util.DriverFactory;
+import br.com.churrascaria.util.DriverType;
+
 public class Page {
 private WebDriver driver;
 	
@@ -34,12 +37,12 @@ private WebDriver driver;
 //				"lib\\chromedriver_win32--74.exe");
 //		driver = new ChromeDriver();
 
-		System.setProperty("webdriver.opera.driver",
-		"lib\\operadriver.exe");
-		OperaOptions operaOptions = new OperaOptions();
-		operaOptions.setBinary(new File("C:\\Users\\yaggo\\AppData\\Local\\Programs\\Opera GX\\73.0.3856.396\\opera.exe"));
+//		System.setProperty("webdriver.opera.driver",
+//		"lib\\operadriver.exe");
+//		OperaOptions operaOptions = new OperaOptions();
+//		operaOptions.setBinary(new File("C:\\Users\\yaggo\\AppData\\Local\\Programs\\Opera GX\\73.0.3856.396\\opera.exe"));
 //		WebDriverManager.operadriver().setup();
-		driver = new OperaDriver(operaOptions);
+		driver = new DriverFactory().getDriver(DriverType.OPERANIKSON);
 		
 		baseUrl = "http://www.google.com.br/";
 	}

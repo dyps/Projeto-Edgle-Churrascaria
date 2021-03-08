@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/templates/Template_Master.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="cliente" value="#{clienteEdit.cliente}" />
+			<f:viewAction action="#{clienteEdit.init()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="title">
+		Criar/Editar Cliente
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h:form id="formEdit">
+
+			<p:panelGrid columns="1" styleClass="panelGridCenter">
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Id: #{clienteEdit.cliente.id}"
+						rendered="#{clienteEdit.edicaoDeCliente}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome" value="#{clienteEdit.cliente.nome}"
+						label="Nome" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+					<p:outputLabel for="telefone" value="Telefone:" />
+					<p:inputText id="telefone" value="#{clienteEdit.cliente.telefone}"
+						label="Telefone" />
+				</h:panelGrid>
+
+				<div class="ui-g ui-md-12 ui-g-nopad">
+					<div class="ui-g-10 "></div>
+					<div class="ui-g-2 ">
+						<p:commandButton value="Novo Endereço"
+							oncomplete="PF('novoEndereco').show();" id="novoEndereco" />
+					</div>
+				</div>
+
+				<div class="ui-g-4 " style="text-align: left;">
+					<p:dataTable var="endereco" id="endereco"
+						value="#{clienteEdit.cliente.enderecos}">
+						<p:column headerText="Nome" style="text-align: left;"
+							responsivePriority="3">
+							<p:outputLabel value="#{endereco.nome}"></p:outputLabel>
+						</p:column>
+						<p:column headerText="Logradouro" style="text-align: left;"
+							responsivePriority="3">
+							<p:outputLabel value="#{endereco.logradouro}"></p:outputLabel>
+						</p:column>
+						<p:column headerText="Número" style="text-align: left;"
+							responsivePriority="3">
+							<p:outputLabel value="#{endereco.numero}"></p:outputLabel>
+						</p:column>
+						<p:column headerText="Complemento" style="text-align: left;"
+							responsivePriority="3">
+							<p:outputLabel value="#{endereco.complemento}"></p:outputLabel>
+						</p:column>
+						<p:column headerText="Opções" style="text-align: left;width: 25%;"
+							responsivePriority="1">
+							<p:commandLink action="#{clienteEdit.deleteEndereco(endereco)}"
+								update="@form" id="idDeleteEndereco">
+								<i class="fa fa-trash"
+									style="color: black; font-size: 1.187rem;" />
+
+								<p:confirm header="
+							Confirmação!"
+									message="Você realmente deseja apagar o endereço?"
+									icon="fa fa-exclamation-triangle" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</div>
+
+				<p:panelGrid columns="2">
+					<p:button id="botaoCancelar" outcome="index.xhtml" value="Cancelar" />
+					<p:commandButton id="botaoSubmeterr"
+						action="#{clienteEdit.saveCliente()}" update="@form"
+						value="Salvar" />
+				</p:panelGrid>
+			</p:panelGrid>
+
+			<p:dialog modal="true" widgetVar="novoEndereco" resizable="false"
+				id="idNovoEndereco" global="true" showEffect="fade"
+				hideEffect="fade" header="Novo Endereço">
+				<p:panelGrid columns="2" styleClass="ui-noborder">
+					<p:outputLabel value="Nome: " for="idNome" />
+					<p:inputText id="idNome" value="#{clienteEdit.endereco.nome}" />
+					<p:outputLabel value="Logradouro: " for="idLogradouro" />
+					<p:inputText id="idLogradouro"
+						value="#{clienteEdit.endereco.logradouro}" />
+					<p:outputLabel value="Número: " for="idNumero" />
+					<p:inputText id="idNumero" value="#{clienteEdit.endereco.numero}" />
+					<p:outputLabel value="Complemento: " for="idComplemento" />
+					<p:inputText id="idComplemento"
+						value="#{clienteEdit.endereco.complemento}" />
+				</p:panelGrid>
+				<br />
+				<p:commandButton id="botaoSubmeter" style="width: 100%;"
+					action="#{clienteEdit.saveEndereco()}" update="@form"
+					value="Salvar" />
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+
+</html>

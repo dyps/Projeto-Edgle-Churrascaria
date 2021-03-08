@@ -38,7 +38,7 @@
 					<br />
 					<p:commandLink type="submit" title="Icon Only"
 						action="funcionario_edit.xhtml?faces-redirect=true">
-						<i class="pi pi-plus" style="color: black;" />
+						<i class="pi pi-plus" style="color: black;" id="idNovoFuncionario" />
 					</p:commandLink>
 				</p:panel>
 				<p:panel rendered="#{!funcionario.primeiro}"
@@ -96,7 +96,7 @@
 						<p:panelGrid style="place-content: flex-end;">
 							<p:button
 								style="background-color: #660000; border: 1px solid #000000;"
-								outcome="funcionario_edit.xhtml" value="Editar">
+								outcome="funcionario_edit.xhtml" value="Editar" id="idEditarFuncionario">
 								<f:param name="funcionario" value="#{funcionario.id}" />
 							</p:button>
 							<p:commandButton
@@ -104,7 +104,7 @@
 								value="Excluir" id="deleteFunc"
 								action="#{manageFuncionario.delete(funcionario)}">
 								<p:confirm header="Confirmação!"
-									message="Você quer excliuir '#{funcionario.nome} '?"
+									message="Você quer excluir '#{funcionario.nome} '?"
 									icon="fa fa-remove" />
 							</p:commandButton>
 						</p:panelGrid>

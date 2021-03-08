@@ -34,8 +34,7 @@ public class EntregadorDAOImplementacao extends InDatabaseDAO implements Entrega
 			en.persist(entregador);
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			throw new PersistenciaEdgleChurrascariaException(
-					"Ocorreu algum erro ao tentar salvar o entregador.", pe);
+			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar salvar o entregador.", pe);
 		}
 	}
 
@@ -64,14 +63,14 @@ public class EntregadorDAOImplementacao extends InDatabaseDAO implements Entrega
 		Predicate[] predicate = getPredicateFilter(criteriaBuilder, root, filter);
 		criteriaQuery.select(root);
 		criteriaQuery.where(predicate);
-		//criteriaQuery.orderBy(criteriaBuilder.desc(root.get("nome")));
+		// criteriaQuery.orderBy(criteriaBuilder.desc(root.get("nome")));
 
 		TypedQuery<Entregador> typedQuery = em.createQuery(criteriaQuery);
 
 		List<Entregador> resultado = typedQuery.getResultList();
 		return resultado;
 	}
-	
+
 	private Predicate[] getPredicateFilter(CriteriaBuilder criteriaBuilder, Root<Entregador> root,
 			EntregadorFilter filter) {
 		List<Predicate> predicate = new ArrayList<Predicate>();
@@ -98,8 +97,8 @@ public class EntregadorDAOImplementacao extends InDatabaseDAO implements Entrega
 			resultado = em.merge(entregador);
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			throw new PersistenciaEdgleChurrascariaException(
-					"Ocorreu algum erro ao tentar atualizar o entregador.", pe);
+			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar atualizar o entregador.",
+					pe);
 		}
 		return resultado;
 	}
@@ -112,8 +111,7 @@ public class EntregadorDAOImplementacao extends InDatabaseDAO implements Entrega
 			em.remove(obj);
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			throw new PersistenciaEdgleChurrascariaException(
-					"Ocorreu algum erro ao tentar remover o entregador.", pe);
+			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover o entregador.", pe);
 		}
 	}
 

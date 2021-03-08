@@ -1,4 +1,4 @@
-package br.com.churrascaria.pageObject;
+package br.com.churrascaria.pageObject.mesa;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -11,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+
+import br.com.churrascaria.pageObject.AbstractPage;
 
 public class MesaPage extends AbstractPage {
 
@@ -28,6 +30,16 @@ public class MesaPage extends AbstractPage {
 	public CriarMesaDialog nova() {
 		$(By.xpath("//*[@id='idNovaMesa']")).click();
 		return new CriarMesaDialog(driver);
+	}
+	
+	public ExcluirMesaDialog apagar() {
+		$(By.xpath("//*[@id='formFilter:dataTableMesas:1:deleteMesa']")).click();
+		return new ExcluirMesaDialog(driver);
+	}
+	
+	public void buscar(String numero) {
+		setInputText("formFilter:itNumeroFilter", numero);
+		$(By.xpath("//*[@id='formFilter:btnFiltrarBotao']")).click();
 	}
 
 	public List<Integer> mesasCadastradas() {
