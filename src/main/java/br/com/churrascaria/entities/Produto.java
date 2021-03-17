@@ -10,12 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-
-import org.primefaces.model.file.UploadedFile;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -29,8 +26,8 @@ public abstract class Produto {
 	@Column(nullable = false, unique = true)
 	private String nome;
 
-	@Lob
-	private UploadedFile imagem;
+//	@Lob
+//	private UploadedFile imagem;
 	
 
 	private boolean habilitado = true;
@@ -38,6 +35,17 @@ public abstract class Produto {
 	@ManyToOne
 	private CategoriaProduto categoriaProduto;
 
+	
+	@ManyToMany
+	@JoinTable(name = "tb_observacaopadrao_do_produto" )
+	private List<ObservacaoPadrao> observacoesPadrao;
+	
+	
+	public boolean isDeletavel() {
+		// aki deve ser implementada a regra para saver se o produto ja foi vendido alguma vez
+		return true;
+
+	}
 	public CategoriaProduto getCategoriaProduto() {
 		return categoriaProduto;
 	}
@@ -45,10 +53,6 @@ public abstract class Produto {
 	public void setCategoriaProduto(CategoriaProduto categoriaProduto) {
 		this.categoriaProduto = categoriaProduto;
 	}
-
-	@ManyToMany
-	@JoinTable(name = "tb_observacaopadrao_do_produto")
-	private List<ObservacaoPadrao> observacoesPadrao;
 
 	public List<ObservacaoPadrao> getObservacoesPadrao() {
 		return observacoesPadrao;
@@ -59,13 +63,13 @@ public abstract class Produto {
 	}
 
 
-	public UploadedFile getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(UploadedFile imagem) {
-		this.imagem = imagem;
-	}
+//	public UploadedFile getImagem() {
+//		return imagem;
+//	}
+//
+//	public void setImagem(UploadedFile imagem) {
+//		this.imagem = imagem;
+//	}
 
 	public boolean isHabilitado() {
 		return habilitado;

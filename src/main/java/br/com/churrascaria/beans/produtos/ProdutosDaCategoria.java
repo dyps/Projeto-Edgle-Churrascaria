@@ -2,7 +2,6 @@ package br.com.churrascaria.beans.produtos;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -10,11 +9,13 @@ import javax.inject.Named;
 import br.com.churrascaria.beans.AbstractBean;
 import br.com.churrascaria.beans.EnderecoPaginas;
 import br.com.churrascaria.entities.CategoriaProduto;
+import br.com.churrascaria.entities.Produto;
 import br.com.churrascaria.entities.ProdutoPadrao;
 import br.com.churrascaria.entities.ProdutoPersonalizado;
 import br.com.churrascaria.filter.ProdutoFilter;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.CategoriaProdutoServiceImplementacao;
+import br.com.churrascaria.services.implementacao.ProdutoServiceImplementacao;
 
 @ViewScoped
 @Named
@@ -39,13 +40,13 @@ public class ProdutosDaCategoria extends AbstractBean {
 
 	@Inject
 	private CategoriaProdutoServiceImplementacao categoriaProdutoService;
+	@Inject
+	private ProdutoServiceImplementacao produtoServiceImplementacao;
 
-//	@PostConstruct
 	public String init() {
 		produtoFilter = new ProdutoFilter();
 		try {
 			if (categoriaProduto == null) {
-				System.out.println("aqi");
 				return EnderecoPaginas.PAGINA_PRINCIPAL_CATEGORIAPRODUTO;
 			} else {
 				categoriaProduto = categoriaProdutoService.getByID(categoriaProduto.getId());
@@ -69,6 +70,16 @@ public class ProdutosDaCategoria extends AbstractBean {
 		}
 		return null;
 
+	}
+	public String delete(Produto produto){
+		try {
+			produtoServiceImplementacao.delete(produto);
+			reportarMensagemDeSucesso("Produto '" + produto.getNome() + "' excluído");
+		} catch (ServiceEdgleChurrascariaException e) {
+			reportarMensagemDeErro(e.getMessage());
+			return null;
+		}
+		return EnderecoPaginas.PAGINA_PRINCIPAL_CATEGORIAPRODUTO;
 	}
 
 	public CategoriaProduto getCategoriaProduto() {

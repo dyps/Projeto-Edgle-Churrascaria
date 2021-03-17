@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "TB_ProdutoPersonalizado", catalog = "public")
 public class ProdutoPersonalizado extends Produto {
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoPersonalizado")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoPersonalizado" , fetch = FetchType.EAGER)
 	private List<ItemDeConfiguracao> itensDeConfiguracao;
 
 	public List<ItemDeConfiguracao> getItensDeConfiguracao() {

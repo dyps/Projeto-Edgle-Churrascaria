@@ -35,7 +35,7 @@ public class TransacionalInterceptor implements Serializable{
 			
 			resultado = ctx.proceed();
 		} catch (Exception pe) {
-			pe.printStackTrace();
+//			pe.printStackTrace();
 			if (trx.isActive() && criador) {
 				// Rollback if any error happens before reaching commit
 				trx.rollback();

@@ -8,9 +8,11 @@
 
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam name="categoria" value="#{produtoEdit.categoriaProduto}" />
-			<f:viewParam name="id" value="#{produtoEdit.produto}" />
-			<f:viewAction action="#{produtoEdit.init()}" />
+			<f:viewParam name="categoria"
+				value="#{produtoPersonalizadoEdit.categoriaProduto}" />
+			<f:viewParam name="produto"
+				value="#{produtoPersonalizadoEdit.produto}" />
+			<f:viewAction action="#{produtoPersonalizadoEdit.init()}" />
 		</f:metadata>
 	</ui:define>
 	<ui:define name="title">
@@ -21,22 +23,188 @@
 
 
 		<h:form id="formEdit">
+			<div class="ui-g-12 " style="text-align: right;">
+				<p:button id="botaoCancelar" outcome="index.xhtml" value="Cancelar" />
+				<p:commandButton id="botaoSubmeter"
+					action="#{produtoPersonalizadoEdit.saveProduto()}" update="@form"
+					value="Salvar" />
+			</div>
 			<div class="ui-g-4 "></div>
-			<div class="ui-g-4 " style="text-align: left;">
+			<div class="ui-g-3 " style="text-align: left;">
 				<h:panelGrid columns="1">
-					<p:outputLabel value="Id: #{produtoEdit.produto.id}"
-						rendered="#{produtoEdit.edicaoDeProduto}" />
+					<p:outputLabel value="Id: #{produtoPersonalizadoEdit.produto.id}"
+						rendered="#{produtoPersonalizadoEdit.edicaoDeProduto}" />
 
 					<p:outputLabel for="nome" value="Nome do produto: " />
-					<p:inputText id="nome" value="#{produtoEdit.produto.nome}"
-						label="Nome" />
+					<p:inputText id="nome"
+						value="#{produtoPersonalizadoEdit.produto.nome}"
+						style="width: 100%;" label="Nome" />
 
-					<p:selectBooleanCheckbox value="#{produtoEdit.produto.habilitado}"
+					<p:selectBooleanCheckbox
+						value="#{produtoPersonalizadoEdit.produto.habilitado}"
 						itemLabel="Habilitado" />
 
+					<p:outputLabel value="Categoria: " />
+					<p:selectOneListbox id="idListCategorias"
+						value="#{produtoPersonalizadoEdit.categoriaProdutoCriado}"
+						converter="#{CategoriaProdutoConverter}" var="c" filter="true"
+						filterMatchMode="contains" scrollHeight="100">
+						<f:selectItems
+							value="#{produtoPersonalizadoEdit.categoriasProduto}" var="cat"
+							itemLabel="#{cat}" itemValue="#{cat}" />
+
+						<p:column>
+							<h:outputText value="#{c}" />
+						</p:column>
+					</p:selectOneListbox>
+					<p:selectCheckboxMenu
+						value="#{produtoPersonalizadoEdit.listaObservacoesProduto}"
+						label="Observações possíveis" style="width: 100%" multiple="true"
+						filter="true" filterMatchMode="startsWith"
+						panelStyle="width: 19.6385%;" scrollHeight="250">
+						<p:ajax event="itemUnselect"
+							listener="#{produtoPersonalizadoEdit.onItemUnselect}" />
+						<f:selectItems
+							value="#{produtoPersonalizadoEdit.observacoesPadrao}" var="obs"
+							itemLabel="#{obs.descricao}" itemValue="#{obs}" />
+					</p:selectCheckboxMenu>
 				</h:panelGrid>
 			</div>
 
+
+
+
+
+
+
+			<div class="ui-g-4 ui-md-12">
+				<div class="ui-g-4 " />
+				<div class="ui-g-3 ">
+					<p:dataTable style="width: 100%;" var="item"
+						value="#{produtoPersonalizadoEdit.listaDeItemDeConfiguracao}">
+						<p:column style="width:2rem" width="5%">
+							<p:rowToggler />
+						</p:column>
+						<p:column headerText="Nome" width="20%">
+							<p:outputLabel value="#{item.nome}" />
+						</p:column>
+						<p:column headerText="Qtd max escolhas" width="15%">
+							<p:outputLabel value="#{item.quantidadeMaxEscolhas}" />
+						</p:column>
+						<p:column headerText="Ativo" width="10%">
+							<p:outputLabel rendered="#{item.ativo}" value="Sim" />
+							<p:outputLabel rendered="#{!item.ativo}" value="Não" />
+						</p:column>
+						<p:column headerText="Ações" width="10%">
+							<p:commandLink
+								action="#{produtoPersonalizadoEdit.editarItem(item)}"
+								oncomplete=" PF('novoItem').show();" type="submit"
+								update="formItem:idNovoItem">
+								<i class="pi pi-pencil"
+									style="color: black; font-size: 1.01rem;" />
+							</p:commandLink>
+							<p:commandLink
+								action="#{produtoPersonalizadoEdit.deleteItem(item)}"
+								rendered="#{item.isDeletavel()}" type="submit" update="@form">
+								<i class="pi pi-trash" style="color: black; font-size: 1.01rem;" />
+								<p:confirm header="Confirmação!"
+									message="Você quer excliuir '#{item.nome} '?"
+									icon="fa fa-remove" />
+							</p:commandLink>
+						</p:column>
+						<p:rowExpansion>
+							<div style="text-align: right;">
+								<p:commandLink type="submit" title="Icon Only"
+									action="#{produtoPersonalizadoEdit.editarItem(item)}"
+									oncomplete=" PF('novaOpcao').show();"
+									update="formOpc:idNovaOpcao">
+									<i class="pi pi-plus" style="color: black; font-size: 1.1rem;" />
+								</p:commandLink>
+							</div>
+							<p:dataTable style="width: 100%;" var="opcao"
+								value="#{item.opcoes}" emptyMessage="Sem opções">
+								<p:column headerText="Nome" width="10%">
+									<p:outputLabel value="#{opcao.nome}" />
+								</p:column>
+								<p:column headerText="Valor de venda" width="10%">
+									<p:outputLabel value="#{opcao.valorDeVenda}" />
+								</p:column>
+								<p:column headerText="Acões" width="4.5%">
+									<p:commandLink actionListener="#{produtoPersonalizadoEdit.editarItem(item)}"
+										action="#{produtoPersonalizadoEdit.deleteOpcao(opcao)}"
+										rendered="#{opcao.isDeletavel()}" type="submit" update="@form">
+										<i class="pi pi-trash"
+											style="color: black; font-size: 1.01rem;" />
+										<p:confirm header="Confirmação!"
+											message="Você quer excliuir '#{opcao.nome} '?"
+											icon="fa fa-remove" />
+									</p:commandLink>
+								</p:column>
+							</p:dataTable>
+						</p:rowExpansion>
+
+					</p:dataTable>
+				</div>
+				<div class="ui-g-1 ">
+					<br />
+					<p:commandLink action="#{produtoPersonalizadoEdit.novoItem()}"
+						type="submit" title="Icon Only" update="formItem:idNovoItem"
+						oncomplete="PF('novoItem').show();">
+						<i class="pi pi-plus"
+							style="color: black; border-radius: 50%; height: 3rem; width: 3rem; border: solid; font-size: 2.7rem;"
+							id="idNovoIte" />
+					</p:commandLink>
+				</div>
+			</div>
+
+
+		</h:form>
+		<h:form id="formItem">
+			<p:dialog modal="true" widgetVar="novoItem" resizable="false"
+				id="idNovoItem" global="true" showEffect="fade" hideEffect="fade"
+				header="Novo item de configuração">
+				<h:panelGrid columns="1">
+					<p:outputLabel
+						value="Id: #{produtoPersonalizadoEdit.itemDeConfiguracao.id}"
+						rendered="#{produtoPersonalizadoEdit.itemDeConfiguracao.id!=null}" />
+					<p:outputLabel value="Nome: " for="idNome" />
+					<p:inputText id="idNome"
+						value="#{produtoPersonalizadoEdit.itemDeConfiguracao.nome}"
+						label="Nome:" />
+					<p:outputLabel value="Quantidade máxima de escolhas: "
+						for="idQtdEsc" />
+					<p:inputNumber id="idQtdEsc"
+						value="#{produtoPersonalizadoEdit.itemDeConfiguracao.quantidadeMaxEscolhas}"
+						label="Quantidade máxima de escolhas: " />
+					<p:outputLabel for="ativo" value="Ativo:" />
+					<p:toggleSwitch id="ativo"
+						value="#{produtoPersonalizadoEdit.itemDeConfiguracao.ativo}"
+						label="Ativo" />
+				</h:panelGrid>
+				<br />
+				<p:commandButton id="botaoSubmetera" style="width: 100%;"
+					action="#{produtoPersonalizadoEdit.saveItem()}"
+					update="formEdit,@form" value="Salvar" />
+			</p:dialog>
+		</h:form>
+		<h:form id="formOpc">
+			<p:dialog modal="true" widgetVar="novaOpcao" resizable="false"
+				id="idNovaOpcao" global="true" showEffect="fade" hideEffect="fade"
+				header="Nova opção para: #{produtoPersonalizadoEdit.itemDeConfiguracao.nome}">
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Nome: " for="idNomeOp" />
+					<p:inputText id="idNomeOp"
+						value="#{produtoPersonalizadoEdit.novaOpcao.nome}" label="Nome:" />
+					<p:outputLabel value="Valor de venda: " for="idValorVenda" />
+					<p:inputNumber id="idValorVenda"
+						value="#{produtoPersonalizadoEdit.novaOpcao.valorDeVenda}"
+						label="Valor de Venda: " />
+				</h:panelGrid>
+				<br />
+				<p:commandButton id="botaoSubmeteraOpc" style="width: 100%;"
+					action="#{produtoPersonalizadoEdit.saveOpcao()}"
+					update="formEdit,@form" value="Salvar" />
+			</p:dialog>
 		</h:form>
 
 	</ui:define>

@@ -59,41 +59,74 @@
 			<div class="ui-g-12">
 				<p:tabView>
 					<p:tab title="Produtos Padrão">
-						<p:dataGrid columns="4" id="dataTableEntregadores" border="1"
-							style="width : 100%" var="produto"
+						<p:dataGrid columns="4" id="dataTablePPad" border="1"
+							style="width : 100%" var="produto" emptyMessage="Sem produtos padrão cadastrados"
 							value="#{produtosDaCategoria.produtosPadrao}">
-							<!-- 							<p:dataGrid columns="4" id="dataTableCategoriaProdutos" -->
-							<!-- 								border="1" style="width : 100%" var="categoriaProduto" -->
-							<!-- 								value="#{manageCategoriaProduto.categoriaProdutos}"> -->
 							<p:panel header="#{produto.nome}" styleClass="cards">
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<div class="ui-g ">
-										<p:panelGrid style="place-content: flex-end;">
-											<p:button
-												style="background-color: #660000; border: 1px solid #000000;"
-												outcome="produto_padrao_edit.xhtml" value="Abrir">
-												<f:param name="id" value="#{produto.id}" />
-											</p:button>
-											<!-- 							<p:commandButton value="Excluir" rendered="#{categoriaProduto.isDeletavel()}" id="deleteCategoriaProduto" -->
-											<!-- 								action="#{manageCategoriaProduto.delete(categoriaProduto)}"> -->
-											<!-- 								<p:confirm header="Confirmação!" -->
-											<!-- 									message="Você quer excliuir '#{categoriaProduto.nome} '?" -->
-											<!-- 									icon="fa fa-remove" /> -->
-											<!-- 							</p:commandButton> -->
-										</p:panelGrid>
-									</div>
-								</p:panel>
-							</p:dataGrid>
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<div class="ui-g ">
+									<p:panelGrid style="place-content: flex-end;">
+										<p:button
+											style="background-color: #660000; border: 1px solid #000000;"
+											outcome="produto_padrao_edit.xhtml" value="Abrir">
+											<f:param name="produto" value="#{produto.id}" />
+											<f:param name="categoria"
+												value="#{produto.categoriaProduto.id}" />
+										</p:button>
+										<p:commandButton value="Excluir"
+											rendered="#{produto.isDeletavel()}"
+											id="deleteProduto"
+											action="#{produtosDaCategoria.delete(produto)}">
+											<p:confirm header="Confirmação!"
+												message="Você quer excliuir '#{produto.nome} '?"
+												icon="fa fa-remove" />
+										</p:commandButton>
+									</p:panelGrid>
+								</div>
+							</p:panel>
+						</p:dataGrid>
 
 
 					</p:tab>
 					<p:tab title="Produtos Personalizados">
+					<p:dataGrid columns="4" id="dataTablePPreso" border="1"
+							style="width : 100%" var="produto"
+							value="#{produtosDaCategoria.produtosPersonalizado}" emptyMessage="Sem produtos personalozados cadastrados">
+							<p:panel header="#{produto.nome}" styleClass="cards">
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<div class="ui-g ">
+									<p:panelGrid style="place-content: flex-end;">
+										<p:button
+											style="background-color: #660000; border: 1px solid #000000;"
+											outcome="produto_personalizado_edit.xhtml" value="Abrir">
+											<f:param name="produto" value="#{produto.id}" />
+											<f:param name="categoria"
+												value="#{produto.categoriaProduto.id}" />
+										</p:button>
+										<p:commandButton value="Excluir"
+											rendered="#{produto.isDeletavel()}"
+											id="deleteProduto"
+											action="#{produtosDaCategoria.delete(produto)}">
+											<p:confirm header="Confirmação!"
+												message="Você quer excliuir '#{produto.nome} '?"
+												icon="fa fa-remove" />
+										</p:commandButton>
+									</p:panelGrid>
+								</div>
+							</p:panel>
+						</p:dataGrid>
 					</p:tab>
 				</p:tabView>
 			</div>

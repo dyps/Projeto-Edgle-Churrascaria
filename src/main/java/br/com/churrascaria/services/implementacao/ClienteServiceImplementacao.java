@@ -32,10 +32,15 @@ public class ClienteServiceImplementacao extends CRUDService<Cliente> {
 		if (entidade == null || entidade.getNome() == null || entidade.getNome().trim().equals("")) {
 			throw new ServiceEdgleChurrascariaException("O nome do cliente é necessário");
 		}
+
 		List<Cliente> list = getAll();
 		for (Cliente cliente : list) {
-			if (cliente.getTelefone().equals(entidade.getTelefone()))
-				throw new ServiceEdgleChurrascariaException("O telefone do cliente não pode ser repetido");
+			if (cliente.getTelefone().equals(entidade.getTelefone())) {
+				if (cliente.getId().equals(entidade.getId()))
+					return;
+				else
+					throw new ServiceEdgleChurrascariaException("O telefone do cliente não pode ser repetido");
+			}
 		}
 	}
 

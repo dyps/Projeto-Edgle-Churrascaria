@@ -1,6 +1,7 @@
 package br.com.churrascaria.entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,7 +34,7 @@ public class CategoriaProduto implements Serializable{
 	@Column(nullable = false, unique = true)
 	private String nome;
 
-	@OneToMany(mappedBy = "categoriaProduto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "categoriaProduto", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Produto> produtos;
 
 	public List<Produto> getProdutos() {
@@ -45,7 +46,9 @@ public class CategoriaProduto implements Serializable{
 	}
 
 	public boolean isDeletavel() {
-		if (produtos != null && produtos.isEmpty() && produtos.size() > 0) {
+		System.out.println("akiiii");
+		System.out.println(Arrays.toString(produtos.toArray()));
+		if (produtos == null  || produtos.size() > 0) {
 			return false;
 		}
 		return true;

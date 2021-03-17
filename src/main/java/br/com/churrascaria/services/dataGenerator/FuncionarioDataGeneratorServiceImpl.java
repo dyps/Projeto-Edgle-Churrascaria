@@ -2,12 +2,8 @@ package br.com.churrascaria.services.dataGenerator;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
-
-import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
 
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.entities.TipoDeFuncionario;
@@ -47,32 +43,32 @@ public class FuncionarioDataGeneratorServiceImpl implements Serializable, Funcio
 			// TODO: handle exception
 		}
 //		int repetidos = 0;
-		for (int i = 0; i < (int)(Math.random()*5)+5; i++) {
-			try {
-				Funcionario funcionario = novoFunc();
-				funcionarioService.save(funcionario);
-			} catch (ServiceEdgleChurrascariaException e) {
-//				repetidos++;
-			}
-
-		}
+//		for (int i = 0; i < (int)(Math.random()*5)+5; i++) {
+//			try {
+//				Funcionario funcionario = novoFunc();
+//				funcionarioService.save(funcionario);
+//			} catch (ServiceEdgleChurrascariaException e) {
+////				repetidos++;
+//			}
+//
+//		}
 //		System.out.println(repetidos);
 	}
 
-	private static Funcionario novoFunc() {
-
-		Name nome = Faker.instance().name();
-		String senha = Faker.instance().number().digits(10);
-		Funcionario funcionario = new Funcionario();
-		String nomefunc = nome.firstName();
-		funcionario.setNome(nomefunc);
-		funcionario.setLogin(nomefunc);
-		funcionario.setSenha(senha);
-		funcionario.setAtivo(Faker.instance().bool().bool());
-		int tipoInt = new Random().nextInt(TipoDeFuncionario.values().length);
-		funcionario.setTipoDeFuncionario(TipoDeFuncionario.values()[tipoInt]);
-		return funcionario;
-
-	}
+//	private static Funcionario novoFunc() {
+//
+//		Name nome = Faker.instance().name();
+//		String senha = Faker.instance().number().digits(10);
+//		Funcionario funcionario = new Funcionario();
+//		String nomefunc = nome.firstName();
+//		funcionario.setNome(nomefunc);
+//		funcionario.setLogin(nomefunc);
+//		funcionario.setSenha(senha);
+//		funcionario.setAtivo(Faker.instance().bool().bool());
+//		int tipoInt = new Random().nextInt(TipoDeFuncionario.values().length);
+//		funcionario.setTipoDeFuncionario(TipoDeFuncionario.values()[tipoInt]);
+//		return funcionario;
+//
+//	}
 
 }

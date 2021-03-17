@@ -10,7 +10,7 @@
 		<f:metadata>
 			<f:viewParam name="categoria"
 				value="#{produtoPadraoEdit.categoriaProduto}" />
-			<f:viewParam name="id" value="#{produtoPadraoEdit.produto}" />
+			<f:viewParam name="produto" value="#{produtoPadraoEdit.produto}" />
 			<f:viewAction action="#{produtoPadraoEdit.init()}" />
 		</f:metadata>
 	</ui:define>
@@ -55,7 +55,7 @@
 						</p:column>
 					</p:selectOneListbox>
 					<p:selectCheckboxMenu
-						value="#{produtoPadraoEdit.produto.observacoesPadrao}"
+						value="#{produtoPersonalizadoEdit.listaObservacoesProduto}"
 						label="Observações possíveis" style="width: 100%" multiple="true"
 						filter="true" filterMatchMode="startsWith"
 						panelStyle="width: 19.6385%;" scrollHeight="250">
@@ -78,12 +78,6 @@
 					</p:selectOneRadio>
 
 				</h:panelGrid>
-			</div>
-			<div class="ui-g-1 "/>
-			<div class="ui-g-4 " style="text-align: left;">
-				<p:outputLabel value="Imagem do produto:"/>
-				<p:fileUpload value="#{produtoPadraoEdit.produto.imagem}" mode="simple" skinSimple="true"/>
-			
 			</div>
 			
 		</h:form>

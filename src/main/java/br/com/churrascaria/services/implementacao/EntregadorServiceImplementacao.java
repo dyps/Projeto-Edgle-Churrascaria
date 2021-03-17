@@ -49,19 +49,23 @@ public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
 	}
 
 	@Override
-	protected void validar(Entregador entidade) throws ServiceEdgleChurrascariaException {
-		if (entidade == null || entidade.getNome() == null || entidade.getNome().trim().equals("")) {
-			throw new ServiceEdgleChurrascariaException("O nome do entregador é necessário");
-		}
-		if (entidade == null || entidade.getTelefone() == null || entidade.getTelefone().trim().equals("")) {
-			throw new ServiceEdgleChurrascariaException("O telefone do entregador é necessário");
-		}
-		List<Entregador> list = getAll();
-		for (Entregador entregador : list) {
-            if(entregador.getTelefone().equals(entidade.getTelefone()))
-                throw new ServiceEdgleChurrascariaException("O telefone do entregador não pode ser repetido");
+    protected void validar(Entregador entidade) throws ServiceEdgleChurrascariaException {
+        if (entidade == null || entidade.getNome() == null || entidade.getNome().trim().equals("")) {
+            throw new ServiceEdgleChurrascariaException("O nome do entregador é necessário");
         }
-	}
+        if (entidade == null || entidade.getTelefone() == null || entidade.getTelefone().trim().equals("")) {
+            throw new ServiceEdgleChurrascariaException("O telefone do entregador é necessário");
+        }
+        List<Entregador> list = getAll();
+        for (Entregador entregador : list) {
+            if(entregador.getTelefone().equals(entidade.getTelefone())) {
+                if (entregador.getId().equals(entidade.getId()))
+                    return;
+                else
+                    throw new ServiceEdgleChurrascariaException("O telefone do entregador não pode ser repetido");
+            }
+        }
+    }
 	
 	public void validarTaxa(TaxaEntrega entidade) throws ServiceEdgleChurrascariaException {
 		if (entidade == null || entidade.getValor() == null) {
