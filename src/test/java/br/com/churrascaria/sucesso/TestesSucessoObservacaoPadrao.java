@@ -2,14 +2,17 @@ package br.com.churrascaria.sucesso;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import br.com.churrascaria.AbstractTest;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestesSucessoObservacaoPadrao extends AbstractTest {
 	
 	@Test
-	public void adicionarObservacaoPadrao() {
+	public void test1AdicionarObservacaoPadrao() {
 		observacaoPadraoPage.visita();
 		observacaoPadraoPage.verificaERealizarLogin();
 		String novaDescricao = "Sem gelo";
@@ -18,7 +21,7 @@ public class TestesSucessoObservacaoPadrao extends AbstractTest {
 	}
 	
 	@Test
-	public void excluirObservacaoPadrao() {
+	public void test2ExcluirObservacaoPadrao() {
 		observacaoPadraoPage.visita();
 		observacaoPadraoPage.verificaERealizarLogin();
 		observacaoPadraoPage.apagar().confirmar();

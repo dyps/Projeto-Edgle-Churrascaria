@@ -2,14 +2,17 @@ package br.com.churrascaria.falha;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import br.com.churrascaria.AbstractTest;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestesFalhaCliente extends AbstractTest {
 
 	@Test
-	public void adicionarClienteSemValores() {
+	public void test1AdicionarClienteSemValores() {
 		clientePage.visita();
 		clientePage.verificaERealizarLogin();
 		clientePage.nova().confirmar();
@@ -17,7 +20,7 @@ public class TestesFalhaCliente extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarClienteSemNome() {
+	public void test2AdicionarClienteSemNome() {
 		clientePage.visita();
 		clientePage.verificaERealizarLogin();
 		clientePage.nova().setNome("").confirmar();
@@ -25,7 +28,11 @@ public class TestesFalhaCliente extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarClienteComTelefoneRepetido() {
+	public void test3AdicionarClienteComTelefoneRepetido() {
+		clientePage.visita();
+		clientePage.verificaERealizarLogin();
+		clientePage.nova().setNome("Nikson").setTelefone("123").confirmar();
+
 		clientePage.visita();
 		clientePage.verificaERealizarLogin();
 		clientePage.nova().setNome("Yaggo").setTelefone("123").confirmar();
@@ -33,7 +40,7 @@ public class TestesFalhaCliente extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarEnderecoSemNomeNoCliente() {
+	public void test4AdicionarEnderecoSemNomeNoCliente() {
 		clientePage.visita();
 		clientePage.verificaERealizarLogin();
 		clientePage.editar().novoEndereco().setLogradouro("Rua a").setNumero("0").setComplemento("esquina").confirmar()
@@ -42,7 +49,7 @@ public class TestesFalhaCliente extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarEnderecoSemLogradouroNoCliente() {
+	public void test5AdicionarEnderecoSemLogradouroNoCliente() {
 		clientePage.visita();
 		clientePage.verificaERealizarLogin();
 		clientePage.editar().novoEndereco().setNome("Casa").setNumero("0").setComplemento("esquina").confirmar()
@@ -51,7 +58,7 @@ public class TestesFalhaCliente extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarEnderecoSemNumeroNoCliente() {
+	public void test6AdicionarEnderecoSemNumeroNoCliente() {
 		clientePage.visita();
 		clientePage.verificaERealizarLogin();
 		clientePage.editar().novoEndereco().setNome("Casa").setLogradouro("Rua a").setComplemento("esquina").confirmar()

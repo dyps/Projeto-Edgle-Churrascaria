@@ -2,14 +2,17 @@ package br.com.churrascaria.sucesso;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import br.com.churrascaria.AbstractTest;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestesSucessoEntregador extends AbstractTest {
 	
 	@Test
-	public void adicionarEntregador() {
+	public void test1AdicionarEntregador() {
 		entregadoresPage.visita();
 		entregadoresPage.verificaERealizarLogin();
 		String nome = "Nikson";
@@ -18,7 +21,7 @@ public class TestesSucessoEntregador extends AbstractTest {
 	}
 	
 	@Test
-	public void adicionarTaxaNoEntregador() {
+	public void test2AdicionarTaxaNoEntregador() {
 		entregadoresPage.visita();
 		entregadoresPage.verificaERealizarLogin();
 		entregadoresPage.editar().novaTaxa().setValor("2.00").setDistancia("15.5").confirmar().confirmar();
@@ -26,7 +29,7 @@ public class TestesSucessoEntregador extends AbstractTest {
 	}
 	
 	@Test
-	public void editarEntregador() {
+	public void test3EditarEntregador() {
 		entregadoresPage.visita();
 		entregadoresPage.verificaERealizarLogin();
 		entregadoresPage.editar().setNome("Niks").confirmar();
@@ -34,27 +37,27 @@ public class TestesSucessoEntregador extends AbstractTest {
 	}
 	
 	@Test
-	public void excluirEntregador() {
+	public void test4BuscarEntregador() {
+		entregadoresPage.visita();
+		entregadoresPage.verificaERealizarLogin();
+		String nome = "Yaggo";
+		entregadoresPage.buscar(nome);
+	}
+	
+	@Test
+	public void test5ExcluirTaxaNoEntregador() {
+		entregadoresPage.visita();
+		entregadoresPage.verificaERealizarLogin();
+		entregadoresPage.editar().apagarTaxa().confirmar().confirmar();
+		assertTrue(entregadoresPage.foiExibidaMensagemDeSucesso("Sucesso: Entregador 'Niks' salvo"));
+	}
+	
+	@Test
+	public void test6ExcluirEntregador() {
 		entregadoresPage.visita();
 		entregadoresPage.verificaERealizarLogin();
 		entregadoresPage.apagar().confirmar();
 		assertTrue(entregadoresPage.foiExibidaMensagemDeSucesso("Sucesso: Entregador 'Niks' excluído"));
 	}
 	
-	@Test
-	public void excluirTaxaNoEntregador() {
-		entregadoresPage.visita();
-		entregadoresPage.verificaERealizarLogin();
-		entregadoresPage.editar().apagarTaxa().confirmar().confirmar();
-		assertTrue(entregadoresPage.foiExibidaMensagemDeSucesso("Sucesso: Entregador 'Nikson' salvo"));
-	}
-	
-	@Test
-	public void buscarEntregador() {
-		entregadoresPage.visita();
-		entregadoresPage.verificaERealizarLogin();
-		String nome = "Yaggo";
-		entregadoresPage.buscar(nome);
-	}
-
 }

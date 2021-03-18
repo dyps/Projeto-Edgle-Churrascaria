@@ -2,14 +2,17 @@ package br.com.churrascaria.falha;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import br.com.churrascaria.AbstractTest;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestesFalhaFuncionario extends AbstractTest {
 
 	@Test
-	public void adicionarFuncionarioSemValores() {
+	public void test1AdicionarFuncionarioSemValores() {
 		funcionarioPage.visita();
 		funcionarioPage.verificaERealizarLogin();
 		funcionarioPage.nova().confirmar();
@@ -17,7 +20,7 @@ public class TestesFalhaFuncionario extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarFuncionarioSemNome() {
+	public void test2AdicionarFuncionarioSemNome() {
 		funcionarioPage.visita();
 		funcionarioPage.verificaERealizarLogin();
 		funcionarioPage.nova().setLogin("nik").setSenha("123").setConfirmarSenha("123").setTipoFuncionario()
@@ -26,7 +29,7 @@ public class TestesFalhaFuncionario extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarFuncionarioSemLogin() {
+	public void test3AdicionarFuncionarioSemLogin() {
 		funcionarioPage.visita();
 		funcionarioPage.verificaERealizarLogin();
 		funcionarioPage.nova().setNome("Nikson").setSenha("123").setConfirmarSenha("123").setTipoFuncionario()
@@ -35,7 +38,7 @@ public class TestesFalhaFuncionario extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarFuncionarioSemSenha() {
+	public void test4AdicionarFuncionarioSemSenha() {
 		funcionarioPage.visita();
 		funcionarioPage.verificaERealizarLogin();
 		funcionarioPage.nova().setNome("Nikson").setLogin("nik").setConfirmarSenha("123").setTipoFuncionario()
@@ -44,7 +47,7 @@ public class TestesFalhaFuncionario extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarFuncionarioSemConfirmarSenha() {
+	public void test5AdicionarFuncionarioSemConfirmarSenha() {
 		funcionarioPage.visita();
 		funcionarioPage.verificaERealizarLogin();
 		funcionarioPage.nova().setNome("Nikson").setLogin("nik").setSenha("123").setTipoFuncionario().confirmar();
@@ -53,7 +56,7 @@ public class TestesFalhaFuncionario extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarFuncionarioSemTipo() {
+	public void test6AdicionarFuncionarioSemTipo() {
 		funcionarioPage.visita();
 		funcionarioPage.verificaERealizarLogin();
 		funcionarioPage.nova().setNome("Nikson").setLogin("nik").setSenha("123").setConfirmarSenha("123").confirmar();
@@ -62,7 +65,7 @@ public class TestesFalhaFuncionario extends AbstractTest {
 	}
 
 	@Test
-	public void adicionarFuncionarioComLoginRepetido() {
+	public void test7AdicionarFuncionarioComLoginRepetido() {
 		funcionarioPage.visita();
 		funcionarioPage.verificaERealizarLogin();
 		funcionarioPage.nova().setNome("Hello World").setLogin("yaggo").setSenha("123").setConfirmarSenha("123")
