@@ -61,7 +61,6 @@ public class CategoriaProdutoServiceImplementacao extends CRUDService<CategoriaP
 
 	public List<ProdutoPadrao> getByIDProdutosPadrao(ProdutoFilter produtoFilter)
 			throws ServiceEdgleChurrascariaException {
-		System.out.println(produtoFilter.getIdCategoria()+"\n\n\n\n\n\n\n\n\n");
 		List<Produto> list = buscarFiltrar(produtoFilter);
 		List<ProdutoPadrao> retorno = new ArrayList<>();
 		for (Produto produto : list)

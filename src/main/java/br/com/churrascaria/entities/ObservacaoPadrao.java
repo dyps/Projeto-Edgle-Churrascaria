@@ -1,10 +1,13 @@
 package br.com.churrascaria.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -17,6 +20,9 @@ public class ObservacaoPadrao implements Identificavel {
 	private Long id;
 	@Column(nullable = false, unique = true)
 	private String descricao;
+	
+	@ManyToMany
+	private List<Item> listItens;
 
 	public Long getId() {
 		return id;

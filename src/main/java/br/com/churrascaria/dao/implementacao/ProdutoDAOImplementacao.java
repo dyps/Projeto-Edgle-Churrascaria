@@ -13,6 +13,8 @@ import javax.persistence.criteria.Root;
 
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
 import br.com.churrascaria.dao.ProdutoDAO;
+import br.com.churrascaria.entities.ItemDeConfiguracao;
+import br.com.churrascaria.entities.Opcao;
 import br.com.churrascaria.entities.Produto;
 
 @Named
@@ -84,6 +86,31 @@ public class ProdutoDAOImplementacao extends InDatabaseDAO implements ProdutoDAO
 			if (observacoesPadrao.getId().equals(id))
 				return observacoesPadrao;
 		return null;
+	}
+
+	@Override
+	public void delete(Opcao obj) throws PersistenciaEdgleChurrascariaException {
+		EntityManager em = getEntityManager();
+		try {
+			obj = em.find(Opcao.class, obj.getId());
+			em.remove(obj);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover a Opcao.", pe);
+		}
+		
+	}
+
+	@Override
+	public void delete(ItemDeConfiguracao obj) throws PersistenciaEdgleChurrascariaException {
+		EntityManager em = getEntityManager();
+		try {
+			obj = em.find(ItemDeConfiguracao.class, obj.getId());
+			em.remove(obj);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover o Item De Configuracao.", pe);
+		}
 	}
 
 }

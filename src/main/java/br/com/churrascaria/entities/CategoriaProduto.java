@@ -46,8 +46,6 @@ public class CategoriaProduto implements Serializable{
 	}
 
 	public boolean isDeletavel() {
-		System.out.println("akiiii");
-		System.out.println(Arrays.toString(produtos.toArray()));
 		if (produtos == null  || produtos.size() > 0) {
 			return false;
 		}

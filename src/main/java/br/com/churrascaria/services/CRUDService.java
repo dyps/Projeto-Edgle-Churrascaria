@@ -7,6 +7,8 @@ import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
 import br.com.churrascaria.util.TransacionalCdi;
 
 public abstract class CRUDService<Entidade> {
+	
+	protected abstract void validar(Entidade entidade) throws ServiceEdgleChurrascariaException;
 
 	@TransacionalCdi
 	public void save(Entidade entidade) throws ServiceEdgleChurrascariaException {
@@ -17,7 +19,6 @@ public abstract class CRUDService<Entidade> {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
 	}
-	protected abstract void validar(Entidade entidade) throws ServiceEdgleChurrascariaException;
 	@TransacionalCdi
 	public Entidade update(Entidade entidade) throws ServiceEdgleChurrascariaException {
 		try {

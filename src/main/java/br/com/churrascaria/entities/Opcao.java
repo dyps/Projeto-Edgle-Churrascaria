@@ -1,10 +1,14 @@
 package br.com.churrascaria.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -25,6 +29,9 @@ public class Opcao {
 	private String nome;
 	@Column(nullable = false)
 	private Float valorDeVenda;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	private List<Item> listVezesSelecionada;
 	
 	
 	

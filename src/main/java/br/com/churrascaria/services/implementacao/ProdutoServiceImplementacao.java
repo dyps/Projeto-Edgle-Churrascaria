@@ -14,6 +14,7 @@ import br.com.churrascaria.entities.ProdutoPadrao;
 import br.com.churrascaria.entities.ProdutoPersonalizado;
 import br.com.churrascaria.services.CRUDService;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
+import br.com.churrascaria.util.TransacionalCdi;
 
 @Named
 @RequestScoped
@@ -39,7 +40,7 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 			}
 		}
 		//validacao ProdPerso
-		if (produto.getClass()== ProdutoPadrao.class) {
+		if (produto.getClass()== ProdutoPersonalizado.class) {
 			ProdutoPersonalizado produtoPerso = (ProdutoPersonalizado) produto;
 			
 			if (produtoPerso.getItensDeConfiguracao()==null ||produtoPerso.getItensDeConfiguracao().size()==0) {
@@ -90,6 +91,56 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 			throw new ServiceEdgleChurrascariaException("Valor invalido");
 		}
 		
+	}
+	
+	
+	
+	@Override
+	@TransacionalCdi
+	public Produto update(Produto novoProduto) throws ServiceEdgleChurrascariaException {
+		try {
+			validar(novoProduto);
+			if (novoProduto.getClass()== ProdutoPersonalizado.class) {
+				
+				ProdutoPersonalizado novoProdutoPersonalizado = (ProdutoPersonalizado) novoProduto;
+				ProdutoPersonalizado produto = (ProdutoPersonalizado) getByID(novoProduto.getId());
+				
+				for (int i = 0; i < produto.getItensDeConfiguracao().size(); i++) {
+					ItemDeConfiguracao itemDeConfiguracao = produto.getItensDeConfiguracao().get(i);
+					
+					if (novoProdutoPersonalizado.getItensDeConfiguracao().contains(itemDeConfiguracao)) {
+						
+						for (int j = 0; j < itemDeConfiguracao.getOpcoes().size(); j++) {
+							Opcao opcao = itemDeConfiguracao.getOpcoes().get(j);
+							if(!novoProdutoPersonalizado.getItensDeConfiguracao().get(i).getOpcoes().contains(opcao)) {
+								delete(opcao);
+							}
+						}
+					}else {
+						delete(itemDeConfiguracao);
+					}
+				}
+			}
+			return getEntidadeDAO().update(novoProduto);
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
+	}
+
+
+	public void delete(Opcao entidade) throws ServiceEdgleChurrascariaException {
+		try {
+			entidadeDAO.delete(entidade);
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
+	}
+	public void delete(ItemDeConfiguracao entidade) throws ServiceEdgleChurrascariaException {
+		try {
+			entidadeDAO.delete(entidade);
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
 	}
 
 }

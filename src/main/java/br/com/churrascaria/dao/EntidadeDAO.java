@@ -2,6 +2,7 @@ package br.com.churrascaria.dao;
 
 import java.util.List;
 
+
 public interface EntidadeDAO<Entidade> {
 	public void save(Entidade entidade) throws PersistenciaEdgleChurrascariaException;
 
@@ -10,5 +11,6 @@ public interface EntidadeDAO<Entidade> {
 	public Entidade update(Entidade entidade) throws PersistenciaEdgleChurrascariaException;
 
 	public void delete(Entidade entidade) throws PersistenciaEdgleChurrascariaException;
+
 
 }
