@@ -18,6 +18,8 @@ public class ObservacaoPadrao implements Identificavel {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ObservacaoPadraoSeq")
 	@SequenceGenerator(name = "ObservacaoPadraoSeq", sequenceName = "OBSERVACAOPADRAO_SEQ", allocationSize = 1)
 	private Long id;
+	
+	
 	@Column(nullable = false, unique = true)
 	private String descricao;
 	
@@ -50,8 +52,9 @@ public class ObservacaoPadrao implements Identificavel {
 
 	@Override
 	public String toString() {
-		return "ObservacaoPadrao [descricao=" + descricao + "]";
+		return "ObservacaoPadrao [id=" + id + ", descricao=" + descricao + "]";
 	}
+
 
 	
 }

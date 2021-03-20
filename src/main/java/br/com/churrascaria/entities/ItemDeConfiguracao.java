@@ -25,7 +25,7 @@ public class ItemDeConfiguracao {
 	@ManyToOne
 	private ProdutoPersonalizado produtoPersonalizado;
 
-	@OneToMany(mappedBy = "itemDeConfiguracao" ,cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "itemDeConfiguracao" ,cascade = {CascadeType.REMOVE, CascadeType.PERSIST} , fetch = FetchType.EAGER)
 	private List<Opcao> opcoes;
 
 	private String nome;

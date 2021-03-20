@@ -72,6 +72,13 @@ public class ProdutoPadraoEdit extends AbstractBean {
 
 	private List<CategoriaProduto> categoriaProdutosAuxiliar;
 
+	public String getLocalCategoriaProduto() {
+		String localCategoriaProduto ;
+		localCategoriaProduto = "produtos_da_categoria.xhtml?faces-redirect=true&amp;categoria="
+				+ categoriaProduto.getId();
+		return localCategoriaProduto;
+	}
+
 	public String init() {
 		try {
 			if (categoriaProduto != null)
@@ -91,6 +98,7 @@ public class ProdutoPadraoEdit extends AbstractBean {
 				Produto p = produtoServiceImplementacao.getByID(produto.getId());
 				if (p.getClass() == ProdutoPadrao.class) {
 					produto = (ProdutoPadrao) p;
+					listaObservacoesProduto.addAll(produto.getObservacoesPadrao());
 				} else {
 					produto = new ProdutoPadrao();
 					reportarMensagemDeErro("Não foi possivel recuperar o produto");
@@ -102,8 +110,19 @@ public class ProdutoPadraoEdit extends AbstractBean {
 		return null;
 	}
 
+	private List<ObservacaoPadrao> listaObservacoesProduto = new ArrayList<>();
+
+	public List<ObservacaoPadrao> getListaObservacoesProduto() {
+		return listaObservacoesProduto;
+	}
+
+	public void setListaObservacoesProduto(List<ObservacaoPadrao> listaObservacoesProduto) {
+		this.listaObservacoesProduto = listaObservacoesProduto;
+	}
+
 	public String saveProduto() {
 		try {
+			produto.setObservacoesPadrao(listaObservacoesProduto);
 			if (isEdicaoDeFuncionario()) {
 				produtoServiceImplementacao.update(produto);
 			} else {

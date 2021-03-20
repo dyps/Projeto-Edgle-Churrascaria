@@ -19,6 +19,7 @@ import org.primefaces.event.UnselectEvent;
 import br.com.churrascaria.entities.Funcionario;
 import br.com.churrascaria.entities.TipoDeFuncionario;
 import br.com.churrascaria.entities.TipoDeMedida;
+import br.com.churrascaria.entities.converters.ObservacoesPadraoConverter;
 import br.com.churrascaria.filter.FuncionarioFilter;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.FuncionarioServiceImplementacao;
@@ -34,6 +35,14 @@ public abstract class AbstractBean implements Serializable {
 	 */
 	@Inject
 	private FuncionarioServiceImplementacao funcionarioService;
+	
+	@Inject
+	private ObservacoesPadraoConverter observacoesPadraoConverte;
+	
+
+	public ObservacoesPadraoConverter getObservacoesPadraoConverte() {
+		return observacoesPadraoConverte;
+	}
 
 	public Funcionario getFuncionarioLogado() throws IOException {
 		FuncionarioFilter filter = new FuncionarioFilter();

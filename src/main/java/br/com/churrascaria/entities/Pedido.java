@@ -44,6 +44,72 @@ public class Pedido  {
 	
 	@OneToOne
 	private Entrega entrega;
+
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public TipoDePedido getTipoDePedido() {
+		return tipoDePedido;
+	}
+
+	public void setTipoDePedido(TipoDePedido tipoDePedido) {
+		this.tipoDePedido = tipoDePedido;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Mesa getMesa() {
+		return mesa;
+	}
+
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public List<Item> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
+	}
+
+	public Entrega getEntrega() {
+		return entrega;
+	}
+
+	public void setEntrega(Entrega entrega) {
+		this.entrega = entrega;
+	}
+	
+	
 	
 	
 	

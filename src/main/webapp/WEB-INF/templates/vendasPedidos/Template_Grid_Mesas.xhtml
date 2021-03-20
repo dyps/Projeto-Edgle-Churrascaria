@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+		<h:form>
+			<p:dataGrid columns="4" id="dataTableMesas" border="1"
+				style="width : 100%" var="mesa"
+				emptyMessage="Sem mesas cadastradas &#128532;"
+				value="#{vendasMesa.mesas}">
+				<p:panel header="Mesa #{mesa.numero}" styleClass="cards">
+					<p:panelGrid columns="1" border="0" style="padding: 0.42em;border: 0px solid #c8c8c800;">
+						<br />
+						<p:commandLink type="submit" title="Icon Only"
+							action="funcionario_edit.xhtml?faces-redirect=true">
+							<i class="pi pi-plus" style="color: black;"  id="IdMesa#{mesa.numero}"/>
+						</p:commandLink>
+					</p:panelGrid>
+					<!-- 					<p:commandLink type="submit" title="Icon Only" -->
+					<!-- 						oncomplete="PF('novaCategoriaProduto').show();"> -->
+					<!-- 						<i class="pi pi-plus" style="color: black;" /> -->
+					<!-- 					</p:commandLink> -->
+				</p:panel>
+			</p:dataGrid>
+		</h:form>
+
+	</ui:composition>
+</body>
+</html>

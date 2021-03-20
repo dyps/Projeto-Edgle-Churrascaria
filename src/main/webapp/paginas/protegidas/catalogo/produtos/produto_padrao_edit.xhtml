@@ -20,16 +20,35 @@
 
 	<ui:define name="content">
 
-
+		<h:form>
+			<div class="ui-g-6 ">
+				<p:commandLink type="submit"
+					action="index.xhtml?faces-redirect=true;">
+					<i class="pi pi-home" style="color: black; font-size: 2.5rem;" />
+				</p:commandLink>
+				<p:commandLink
+					action="#{produtoPadraoEdit.getLocalCategoriaProduto()}"
+					rendered="#{produtoPadraoEdit.categoriaProduto != null}">
+					<p:outputLabel
+						style="vertical-align: 50%;cursor: inherit;color: black;font-size: 1rem;font-weight: bolder;align-self: center;"
+						value=" > #{produtoPadraoEdit.categoriaProduto.nome}" />
+				</p:commandLink>
+				<p:outputLabel
+					style="vertical-align: 50%; black;font-size: 1rem;font-weight: bolder;align-self: center;"
+					value=" > #{produtoPadraoEdit.produto.nome}" />
+			</div>
+		</h:form>
 		<h:form id="formEdit">
-			<div class="ui-g-12 " style="text-align: right;">
+			<div class="ui-g-6 " style="text-align: right;">
+
 				<p:button id="botaoCancelar" outcome="index.xhtml" value="Cancelar" />
 				<p:commandButton id="botaoSubmeter"
 					action="#{produtoPadraoEdit.saveProduto()}" update="@form"
 					value="Salvar" />
 			</div>
-			<div class="ui-g-4 "></div>
-			<div class="ui-g-3 " style="text-align: left;">
+			<div class="ui-g-6 "></div>
+			<div class="ui-g-3 "></div>
+			<div class="ui-g-4 " style="text-align: left;">
 				<h:panelGrid columns="1">
 					<p:outputLabel value="Id: #{produtoPadraoEdit.produto.id}"
 						rendered="#{produtoPadraoEdit.edicaoDeProduto}" />
@@ -51,11 +70,11 @@
 							var="cat" itemLabel="#{cat}" itemValue="#{cat}" />
 
 						<p:column>
-							<h:outputText value="#{c}"  />
+							<h:outputText value="#{c}" />
 						</p:column>
 					</p:selectOneListbox>
 					<p:selectCheckboxMenu
-						value="#{produtoPersonalizadoEdit.listaObservacoesProduto}"
+						value="#{produtoPadraoEdit.listaObservacoesProduto}"
 						label="Observações possíveis" style="width: 100%" multiple="true"
 						filter="true" filterMatchMode="startsWith"
 						panelStyle="width: 19.6385%;" scrollHeight="250">
@@ -79,7 +98,7 @@
 
 				</h:panelGrid>
 			</div>
-			
+
 		</h:form>
 
 	</ui:define>

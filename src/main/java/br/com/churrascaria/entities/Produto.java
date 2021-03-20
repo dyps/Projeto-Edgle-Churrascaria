@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -28,24 +29,24 @@ public abstract class Produto {
 
 //	@Lob
 //	private UploadedFile imagem;
-	
 
 	private boolean habilitado = true;
 
 	@ManyToOne
 	private CategoriaProduto categoriaProduto;
 
-	
 	@ManyToMany
-	@JoinTable(name = "tb_observacaopadrao_do_produto" )
+	@JoinTable(name = "tb_observacaopadrao_do_produto", joinColumns = {
+			@JoinColumn(name = "produto_id") }, inverseJoinColumns = { @JoinColumn(name = "observacoesPadrao_id") })
 	private List<ObservacaoPadrao> observacoesPadrao;
-	
-	
+
 	public boolean isDeletavel() {
-		// aki deve ser implementada a regra para saver se o produto ja foi vendido alguma vez
+		// aki deve ser implementada a regra para saver se o produto ja foi vendido
+		// alguma vez
 		return true;
 
 	}
+
 	public CategoriaProduto getCategoriaProduto() {
 		return categoriaProduto;
 	}
@@ -61,7 +62,6 @@ public abstract class Produto {
 	public void setObservacoesPadrao(List<ObservacaoPadrao> observacoesPadrao) {
 		this.observacoesPadrao = observacoesPadrao;
 	}
-
 
 //	public UploadedFile getImagem() {
 //		return imagem;

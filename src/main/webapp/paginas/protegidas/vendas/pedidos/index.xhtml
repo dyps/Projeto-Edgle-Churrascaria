@@ -11,6 +11,25 @@
 		Pedidos
 	</ui:define>
 
+	<ui:define name="content">
+		<div class="ui-g-12">
+			<p:tabView>
+				<p:tab title="Mesas">
+					<ui:include src="/WEB-INF/templates/vendasPedidos/Template_Grid_Mesas.xhtml"/>
+				</p:tab>
+				<p:tab title="Balcão">
+					<ui:include src="/WEB-INF/templates/vendasPedidos/Template_Grid_Balcao.xhtml"/>
+				</p:tab>
+				<p:tab title="Entrega">
+					<ui:include src="/WEB-INF/templates/vendasPedidos/Template_Grid_Entrega.xhtml"/>
+				</p:tab>
+				<p:tab title="Já encerrados">
+					<ui:include src="/WEB-INF/templates/vendasPedidos/Template_Grid_Encerrados.xhtml"/>
+				</p:tab>
+			</p:tabView>
+		</div>
+	</ui:define>
+
 </ui:composition>
 
 </html>

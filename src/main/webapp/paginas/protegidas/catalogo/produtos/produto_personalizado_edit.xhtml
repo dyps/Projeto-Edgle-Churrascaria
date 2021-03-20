@@ -21,14 +21,32 @@
 
 	<ui:define name="content">
 
-
+		<h:form>
+			<div class="ui-g-6 ">
+				<p:commandLink type="submit"
+					action="index.xhtml?faces-redirect=true;">
+					<i class="pi pi-home" style="color: black; font-size: 2.5rem;" />
+				</p:commandLink>
+				<p:commandLink
+					action="#{produtoPersonalizadoEdit.getLocalCategoriaProduto()}"
+					rendered="#{produtoPersonalizadoEdit.categoriaProduto != null}">
+					<p:outputLabel
+						style="vertical-align: 50%;cursor: inherit;color: black;font-size: 1rem;font-weight: bolder;align-self: center;"
+						value=" > #{produtoPersonalizadoEdit.categoriaProduto.nome}" />
+				</p:commandLink>
+				<p:outputLabel
+					style="vertical-align: 50%; black;font-size: 1rem;font-weight: bolder;align-self: center;"
+					value=" > #{produtoPersonalizadoEdit.produto.nome}" />
+			</div>
+		</h:form>
 		<h:form id="formEdit">
-			<div class="ui-g-12 " style="text-align: right;">
+			<div class="ui-g-6 " style="text-align: right;">
 				<p:button id="botaoCancelar" outcome="index.xhtml" value="Cancelar" />
 				<p:commandButton id="botaoSubmeter"
 					action="#{produtoPersonalizadoEdit.saveProduto()}" update="@form"
 					value="Salvar" />
 			</div>
+			<div class="ui-g-6 "></div>
 			<div class="ui-g-3 "></div>
 			<div class="ui-g-4 " style="text-align: left;">
 				<h:panelGrid columns="1">
@@ -130,7 +148,8 @@
 									<p:outputLabel value="#{opcao.valorDeVenda}" />
 								</p:column>
 								<p:column headerText="Acões" width="4.5%">
-									<p:commandLink actionListener="#{produtoPersonalizadoEdit.editarItem(item)}"
+									<p:commandLink
+										actionListener="#{produtoPersonalizadoEdit.editarItem(item)}"
 										action="#{produtoPersonalizadoEdit.deleteOpcao(opcao)}"
 										rendered="#{opcao.isDeletavel()}" type="submit" update="@form">
 										<i class="pi pi-trash"

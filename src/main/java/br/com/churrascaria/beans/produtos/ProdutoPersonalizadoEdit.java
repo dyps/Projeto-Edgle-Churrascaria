@@ -56,6 +56,12 @@ public class ProdutoPersonalizadoEdit extends AbstractBean {
 	public void setObservacoesPadrao(List<ObservacaoPadrao> observacoesPadrao) {
 		this.observacoesPadrao = observacoesPadrao;
 	}
+	public String getLocalCategoriaProduto() {
+		String localCategoriaProduto ;
+		localCategoriaProduto = "produtos_da_categoria.xhtml?faces-redirect=true&amp;categoria="
+				+ categoriaProduto.getId();
+		return localCategoriaProduto;
+	}
 
 	private String categoriaProdutoCriado;
 
@@ -192,9 +198,9 @@ public class ProdutoPersonalizadoEdit extends AbstractBean {
 	private List<ObservacaoPadrao> listaObservacoesProduto = new ArrayList<>();
 
 	public String saveProduto() {
-		produto.setObservacoesPadrao(listaObservacoesProduto);
-		produto.setItensDeConfiguracao(listaDeItemDeConfiguracao);
 		try {
+			produto.setObservacoesPadrao(listaObservacoesProduto);
+			produto.setItensDeConfiguracao(listaDeItemDeConfiguracao);
 			if (isEdicaoDeFuncionario()) {
 				produtoServiceImplementacao.update(produto);
 			} else {

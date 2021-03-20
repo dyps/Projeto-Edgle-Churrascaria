@@ -11,30 +11,31 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import br.com.churrascaria.entities.ObservacaoPadrao;
+import br.com.churrascaria.entities.ItemDeConfiguracao;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
-import br.com.churrascaria.services.implementacao.ObservacoesPadraoServiceImplementacao;
+import br.com.churrascaria.services.implementacao.ProdutoServiceImplementacao;
 
 @Default
-@FacesConverter(forClass = ObservacaoPadrao.class)
-public class ObservacoesPadraoConverter implements Serializable, Converter<ObservacaoPadrao> {
+@FacesConverter(forClass = ItemDeConfiguracao.class)
+public class ItemDeConfiguracaoConverter implements Serializable, Converter<ItemDeConfiguracao> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private ObservacoesPadraoServiceImplementacao observacoesPadraoService;
+	private ProdutoServiceImplementacao produtoServiceImplementacao;
 
 	@Override
-	public ObservacaoPadrao getAsObject(FacesContext context, UIComponent component, String value) {
+	public ItemDeConfiguracao getAsObject(FacesContext context, UIComponent component, String value) {
+		System.out.println(value +" ");
 		if (value == null || value.trim().isEmpty()) {
 			return null;
 		}
 
 		try {
 			long id = Long.parseLong(value);
-			return observacoesPadraoService.getByID(id);
+			return produtoServiceImplementacao.getItemByID(id);
 		} catch (ServiceEdgleChurrascariaException | NumberFormatException e) {
 			String msgErroStr = String.format(
 					"Erro de conversão! Não foi possível realizar a conversão da string '%s' para o tipo esperado.",
@@ -44,10 +45,11 @@ public class ObservacoesPadraoConverter implements Serializable, Converter<Obser
 		}
 	}
 
-	public String getAsString(FacesContext context, UIComponent component, ObservacaoPadrao value) {
-		if (value instanceof ObservacaoPadrao && value != null) {
-			ObservacaoPadrao observacaoPadrao = (ObservacaoPadrao) value;
-			return observacaoPadrao.toString();//adaptacao para nao da erro em alguns componentes jsf
+	public String getAsString(FacesContext context, UIComponent component, ItemDeConfiguracao value) {
+		System.out.println(value +" "+ (value instanceof ItemDeConfiguracao));
+		if (value instanceof ItemDeConfiguracao && value != null) {
+			ItemDeConfiguracao itemDeConfiguracao = (ItemDeConfiguracao) value;
+			return itemDeConfiguracao.toString();//adaptacao para nao da erro em alguns componentes jsf
 		}
 		return null;
 	}

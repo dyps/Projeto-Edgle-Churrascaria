@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "TB_ProdutoPersonalizado", catalog = "public")
 public class ProdutoPersonalizado extends Produto {
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoPersonalizado" )
+	@OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, mappedBy = "produtoPersonalizado" )
 	private List<ItemDeConfiguracao> itensDeConfiguracao;
 
 	public List<ItemDeConfiguracao> getItensDeConfiguracao() {

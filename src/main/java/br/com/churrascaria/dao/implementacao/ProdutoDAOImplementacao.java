@@ -1,5 +1,6 @@
 package br.com.churrascaria.dao.implementacao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
@@ -19,7 +21,7 @@ import br.com.churrascaria.entities.Produto;
 
 @Named
 @RequestScoped
-public class ProdutoDAOImplementacao extends InDatabaseDAO implements ProdutoDAO{
+public class ProdutoDAOImplementacao extends InDatabaseDAO implements ProdutoDAO {
 
 	/**
 	 * 
@@ -61,8 +63,7 @@ public class ProdutoDAOImplementacao extends InDatabaseDAO implements ProdutoDAO
 			resultado = em.merge(produto);
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar atualizar o produto.",
-					pe);
+			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar atualizar o produto.", pe);
 		}
 		return resultado;
 	}
@@ -98,7 +99,7 @@ public class ProdutoDAOImplementacao extends InDatabaseDAO implements ProdutoDAO
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover a Opcao.", pe);
 		}
-		
+
 	}
 
 	@Override
@@ -109,8 +110,29 @@ public class ProdutoDAOImplementacao extends InDatabaseDAO implements ProdutoDAO
 			em.remove(obj);
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar remover o Item De Configuracao.", pe);
+			throw new PersistenciaEdgleChurrascariaException(
+					"Ocorreu algum erro ao tentar remover o Item De Configuracao.", pe);
 		}
+	}
+
+	@Override
+	public ItemDeConfiguracao getItemByID(Long id) throws PersistenciaEdgleChurrascariaException {
+
+		EntityManager em = getEntityManager();
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<ItemDeConfiguracao> criteriaQuery = criteriaBuilder.createQuery(ItemDeConfiguracao.class);
+		Root<ItemDeConfiguracao> root = criteriaQuery.from(ItemDeConfiguracao.class);
+
+		ArrayList<Predicate> criaPpredicate = new ArrayList<Predicate>();
+		criaPpredicate.add(criteriaBuilder.equal(root.get("Id"), id));
+		Predicate[] p = criaPpredicate.toArray(new Predicate[0]);
+		criteriaQuery.select(root);
+		criteriaQuery.where(p);
+
+		TypedQuery<ItemDeConfiguracao> typedQuery = em.createQuery(criteriaQuery);
+
+		ItemDeConfiguracao resultado = typedQuery.getSingleResult();
+		return resultado;
 	}
 
 }
