@@ -46,21 +46,23 @@
 			</div>
 			<div class="ui-g-7" style="text-align: right;">
 				<p:button value="Novo produto padrão"
-					outcome="produto_padrao_edit.xhtml">
+					outcome="produto_padrao_edit.xhtml" id="idNovoProdutoPadrao">
 					<f:param name="categoria"
 						value="#{produtosDaCategoria.categoriaProduto.id}" />
 				</p:button>
 				<p:button value="Novo produto personalizado"
-					outcome="produto_personalizado_edit.xhtml">
+					outcome="produto_personalizado_edit.xhtml"
+					id="idNovoProdutoPersonalizado">
 					<f:param name="categoria"
 						value="#{produtosDaCategoria.categoriaProduto.id}" />
 				</p:button>
 			</div>
 			<div class="ui-g-12">
-				<p:tabView>
-					<p:tab title="Produtos Padrão">
+				<p:tabView id="tabView">
+					<p:tab title="Produtos Padrão" id="abaProdutoPadrao">
 						<p:dataGrid columns="4" id="dataTablePPad" border="1"
-							style="width : 100%" var="produto" emptyMessage="Sem produtos padrão cadastrados"
+							style="width : 100%" var="produto"
+							emptyMessage="Sem produtos padrão cadastrados"
 							value="#{produtosDaCategoria.produtosPadrao}">
 							<p:panel header="#{produto.nome}" styleClass="cards">
 								<br />
@@ -74,14 +76,14 @@
 									<p:panelGrid style="place-content: flex-end;">
 										<p:button
 											style="background-color: #660000; border: 1px solid #000000;"
-											outcome="produto_padrao_edit.xhtml" value="Abrir">
+											outcome="produto_padrao_edit.xhtml" value="Abrir"
+											id="idAbrirProdutoPadrao">
 											<f:param name="produto" value="#{produto.id}" />
 											<f:param name="categoria"
 												value="#{produto.categoriaProduto.id}" />
 										</p:button>
 										<p:commandButton value="Excluir"
-											rendered="#{produto.isDeletavel()}"
-											id="deleteProduto"
+											rendered="#{produto.isDeletavel()}" id="deleteProdutoPadrao"
 											action="#{produtosDaCategoria.delete(produto)}">
 											<p:confirm header="Confirmação!"
 												message="Você quer excliuir '#{produto.nome} '?"
@@ -94,10 +96,11 @@
 
 
 					</p:tab>
-					<p:tab title="Produtos Personalizados">
-					<p:dataGrid columns="4" id="dataTablePPreso" border="1"
+					<p:tab title="Produtos Personalizados" id="abaProdutoPersonalizado">
+						<p:dataGrid columns="4" id="dataTablePPreso" border="1"
 							style="width : 100%" var="produto"
-							value="#{produtosDaCategoria.produtosPersonalizado}" emptyMessage="Sem produtos personalizados cadastrados">
+							value="#{produtosDaCategoria.produtosPersonalizado}"
+							emptyMessage="Sem produtos personalozados cadastrados">
 							<p:panel header="#{produto.nome}" styleClass="cards">
 								<br />
 								<br />
@@ -110,14 +113,14 @@
 									<p:panelGrid style="place-content: flex-end;">
 										<p:button
 											style="background-color: #660000; border: 1px solid #000000;"
-											outcome="produto_personalizado_edit.xhtml" value="Abrir">
+											outcome="produto_personalizado_edit.xhtml" value="Abrir"
+											id="idAbrirProdutoPersonalizado">
 											<f:param name="produto" value="#{produto.id}" />
 											<f:param name="categoria"
 												value="#{produto.categoriaProduto.id}" />
 										</p:button>
 										<p:commandButton value="Excluir"
-											rendered="#{produto.isDeletavel()}"
-											id="deleteProduto"
+											rendered="#{produto.isDeletavel()}" id="deleteProdutoPersonalizado"
 											action="#{produtosDaCategoria.delete(produto)}">
 											<p:confirm header="Confirmação!"
 												message="Você quer excliuir '#{produto.nome} '?"

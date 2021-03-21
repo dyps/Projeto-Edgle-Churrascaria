@@ -35,7 +35,7 @@
 					<br />
 					<p:commandLink type="submit" title="Icon Only"
 						oncomplete="PF('novaCategoriaProduto').show();">
-						<i class="pi pi-plus" style="color: black;" />
+						<i class="pi pi-plus" style="color: black;" id="idNovaCategoriaProduto" />
 					</p:commandLink>
 				</p:panel>
 				<p:panel rendered="#{!categoriaProduto.primeiro}"
@@ -51,7 +51,7 @@
 						<p:panelGrid style="place-content: flex-end;">
 							<p:button
 								style="background-color: #660000; border: 1px solid #000000;"
-								outcome="produtos_da_categoria.xhtml" value="Abrir">
+								outcome="produtos_da_categoria.xhtml" value="Abrir" id="idAbrirCategoria">
 								<f:param name="categoria" value="#{categoriaProduto.id}" />
 							</p:button>
 							<p:commandButton value="Excluir" rendered="#{categoriaProduto.isDeletavel()}" id="deleteCategoriaProduto"

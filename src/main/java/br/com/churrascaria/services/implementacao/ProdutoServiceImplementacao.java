@@ -1,7 +1,6 @@
 package br.com.churrascaria.services.implementacao;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -27,33 +26,30 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 
 	@Override
 	protected void validar(Produto produto) throws ServiceEdgleChurrascariaException {
-
-		// puxando as obs do banco
-		ArrayList<ObservacaoPadrao> obsEscolhidas = new ArrayList<ObservacaoPadrao>();
-		for (ObservacaoPadrao observacaoPadrao : produto.getObservacoesPadrao()) {
-			try {
-				obsEscolhidas.add(getObservacaoById(observacaoPadrao.getId()));
-			} catch (PersistenciaEdgleChurrascariaException e) {
-				throw new ServiceEdgleChurrascariaException(e.getMessage());
+		if (produto.getNome() == null || produto.getNome().trim().isEmpty()) {
+			throw new ServiceEdgleChurrascariaException("O nome do produto é necessário");
+		}
+		List<Produto> list = getAll();
+		for (Produto produtos : list) {
+			if (produtos.getNome().equals(produto.getNome())) {
+				if (produtos.getId().equals(produto.getId()))
+					return;
+				else
+					throw new ServiceEdgleChurrascariaException("O nome do produto não pode ser repetido");
 			}
 		}
-		produto.setObservacoesPadrao(obsEscolhidas);
-
-		if (produto.getNome() == null || produto.getNome().trim().isEmpty()) {
-			throw new ServiceEdgleChurrascariaException("Nome invalido");
-		}
 		if (produto.getCategoriaProduto() == null) {
-			throw new ServiceEdgleChurrascariaException("Informe uma categoria");
+			throw new ServiceEdgleChurrascariaException("É necessário informar uma categoria para o produto");
 		}
 
 		// validacao ProdPadrao
 		if (produto.getClass() == ProdutoPadrao.class) {
 			ProdutoPadrao produtoPd = (ProdutoPadrao) produto;
 			if (produtoPd.getValorDeVenda() == null || produtoPd.getValorDeVenda() < 0) {
-				throw new ServiceEdgleChurrascariaException("Valor invalido");
+				throw new ServiceEdgleChurrascariaException("O preço de venda é necessário");
 			}
 			if (produtoPd.getMedida() == null) {
-				throw new ServiceEdgleChurrascariaException("Medida invalida");
+				throw new ServiceEdgleChurrascariaException("Uma medida é necessária");
 			}
 		}
 		// validacao ProdPerso
@@ -61,12 +57,12 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 			ProdutoPersonalizado produtoPerso = (ProdutoPersonalizado) produto;
 
 			if (produtoPerso.getItensDeConfiguracao() == null || produtoPerso.getItensDeConfiguracao().size() == 0) {
-				throw new ServiceEdgleChurrascariaException("Produto deve ter um item de configuração");
+				throw new ServiceEdgleChurrascariaException("Produto personalizado deve possuir um item de configuração");
 			}
 			for (ItemDeConfiguracao itemDeConfiguracao : produtoPerso.getItensDeConfiguracao()) {
 				if (itemDeConfiguracao.getOpcoes() == null || itemDeConfiguracao.getOpcoes().size() == 0) {
 					throw new ServiceEdgleChurrascariaException(
-							"Item " + itemDeConfiguracao.getNome() + " deve ter uma opção");
+							"Item " + itemDeConfiguracao.getNome() + " deve possuir uma opção");
 				}
 			}
 		}
@@ -92,22 +88,21 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 
 	public void validar(ItemDeConfiguracao itemDeConfiguracao) throws ServiceEdgleChurrascariaException {
 		if (itemDeConfiguracao.getNome() == null || itemDeConfiguracao.getNome().trim().isEmpty()) {
-			throw new ServiceEdgleChurrascariaException("Nome invalido");
+			throw new ServiceEdgleChurrascariaException("Um nome para o item de configuração é necessário");
 		}
 		if (itemDeConfiguracao.getQuantidadeMaxEscolhas() == null
 				|| itemDeConfiguracao.getQuantidadeMaxEscolhas() <= 0) {
-			throw new ServiceEdgleChurrascariaException("Quantidade invalida");
-
+			throw new ServiceEdgleChurrascariaException("É necessário informar uma quantidade máxima de escolhas do item de configuração");
 		}
 
 	}
 
 	public void validar(Opcao opcao) throws ServiceEdgleChurrascariaException {
 		if (opcao.getNome() == null || opcao.getNome().trim().isEmpty()) {
-			throw new ServiceEdgleChurrascariaException("Nome invalido");
+			throw new ServiceEdgleChurrascariaException("Um nome para a opção é necessário");
 		}
 		if (opcao.getValorDeVenda() == null || opcao.getValorDeVenda() < 0) {
-			throw new ServiceEdgleChurrascariaException("Valor invalido");
+			throw new ServiceEdgleChurrascariaException("É necessário informar o valor de venda da opção");
 		}
 
 	}
