@@ -28,7 +28,6 @@ public class ItemDeConfiguracaoConverter implements Serializable, Converter<Item
 
 	@Override
 	public ItemDeConfiguracao getAsObject(FacesContext context, UIComponent component, String value) {
-		System.out.println(value +" ");
 		if (value == null || value.trim().isEmpty()) {
 			return null;
 		}
@@ -46,7 +45,6 @@ public class ItemDeConfiguracaoConverter implements Serializable, Converter<Item
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, ItemDeConfiguracao value) {
-		System.out.println(value +" "+ (value instanceof ItemDeConfiguracao));
 		if (value instanceof ItemDeConfiguracao && value != null) {
 			ItemDeConfiguracao itemDeConfiguracao = (ItemDeConfiguracao) value;
 			return itemDeConfiguracao.toString();//adaptacao para nao da erro em alguns componentes jsf

@@ -41,6 +41,8 @@ table {
 	width: 100%
 }
 
+
+
 .cards {
 	text-align: center;
 	max-width: 90%;
@@ -127,7 +129,6 @@ body .ui-tabs .ui-tabs-nav li.ui-tabs-header .ui-icon.ui-icon-close {
 	margin: 0;
 	float: none;
 	font-family: 'primeicons' !important;
-	speak: none;
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
@@ -368,7 +369,6 @@ body .ui-tabs .ui-tabs-navscroller .ui-tabs-navscroller-btn.ui-tabs-navscroller-
 	{
 	margin: 0;
 	font-family: 'primeicons' !important;
-	speak: none;
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
@@ -395,7 +395,6 @@ body .ui-tabs .ui-tabs-navscroller .ui-tabs-navscroller-btn.ui-tabs-navscroller-
 	{
 	margin: 0;
 	font-family: 'primeicons' !important;
-	speak: none;
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
@@ -416,4 +415,7 @@ body .ui-tabs .ui-tabs-navscroller .ui-tabs-navscroller-btn.ui-state-hover
 	{
 	background: #e9ecef;
 	color: #495057;
+}
+body .ui-panelgrid .ui-panelgrid-cell{
+	border: 0 none;
 }

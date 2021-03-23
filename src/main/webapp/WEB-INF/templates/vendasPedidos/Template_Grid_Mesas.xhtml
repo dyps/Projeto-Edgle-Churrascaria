@@ -14,11 +14,12 @@
 				emptyMessage="Sem mesas cadastradas &#128532;"
 				value="#{vendasMesa.mesas}">
 				<p:panel header="Mesa #{mesa.numero}" styleClass="cards">
-					<p:panelGrid columns="1" border="0" style="padding: 0.42em;border: 0px solid #c8c8c800;">
+					<p:panelGrid columns="1" >
 						<br />
 						<p:commandLink type="submit" title="Icon Only"
-							action="funcionario_edit.xhtml?faces-redirect=true">
+							action="#{pedidoEdit.receberPorMesa}">
 							<i class="pi pi-plus" style="color: black;"  id="IdMesa#{mesa.numero}"/>
+							<f:param id="id" value="#{mesa.id}" name="id"/>
 						</p:commandLink>
 					</p:panelGrid>
 					<!-- 					<p:commandLink type="submit" title="Icon Only" -->

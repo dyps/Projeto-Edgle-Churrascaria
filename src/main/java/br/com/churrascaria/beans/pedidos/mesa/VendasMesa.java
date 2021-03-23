@@ -41,4 +41,5 @@ public class VendasMesa extends AbstractBean {
 			reportarMensagemDeErro(e.getMessage());
 		}
 	}
+
 }

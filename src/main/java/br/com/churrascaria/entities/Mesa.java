@@ -49,4 +49,10 @@ public class Mesa {
 		return primeiro;
 	}
 
+	@Override
+	public String toString() {
+		return "Mesa [Id=" + Id + ", numero=" + numero + "]";
+	}
+	
+
 }

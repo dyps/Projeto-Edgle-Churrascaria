@@ -80,8 +80,9 @@ public class CategoriaProduto implements Serializable{
 
 	@Override
 	public String toString() {
-		return nome;
+		return "CategoriaProduto [Id=" + Id + ", nome=" + nome + "]";
 	}
+
 
 
 }

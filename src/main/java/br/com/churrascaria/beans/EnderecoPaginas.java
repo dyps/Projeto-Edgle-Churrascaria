@@ -24,5 +24,8 @@ public final class EnderecoPaginas {
 	
 	public static final String PAGINA_PRINCIPAL_CLIENTE = "/paginas/protegidas/vendas/clientes/index.xhtml"
 			+ REDIRECT_TRUE;
+	
+	public static final String PAGINA_NOVO_PEDIDO = "/paginas/protegidas/vendas/pedidos/pedido_edit.xhtml"
+			+ REDIRECT_TRUE;
 
 }

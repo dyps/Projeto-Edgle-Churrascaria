@@ -1,7 +1,6 @@
 package br.com.churrascaria.services.implementacao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -118,7 +117,6 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 		try {
 			validar(novoProduto);
 
-			System.out.println(Arrays.toString(novoProduto.getObservacoesPadrao().toArray()));
 			if (novoProduto.getClass() == ProdutoPersonalizado.class) {
 
 				ProdutoPersonalizado novoProdutoPersonalizado = (ProdutoPersonalizado) novoProduto;

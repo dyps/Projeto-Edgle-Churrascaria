@@ -25,8 +25,7 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 		try {
 			return observacoesPadraoDAO.getAll();
 		} catch (PersistenciaEdgleChurrascariaException e) {
-			e.printStackTrace();
-			return null;
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
 	}
 
@@ -34,15 +33,16 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 		try {
 			return observacoesPadraoDAO.getByID(Id);
 		} catch (PersistenciaEdgleChurrascariaException e) {
-			e.printStackTrace();
-			return null;
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
 	}
 
-	public boolean aProdutosUsando(ObservacaoPadrao obs) {
-		// buscar se a observacao esta sendo usada por algum produto
-		// TODO Auto-generated method stub
-		return false;
+	public boolean aProdutosUsando(ObservacaoPadrao obs) throws ServiceEdgleChurrascariaException {
+		try {
+			return getByID(obs.getId()).getProdutos().size()>0;
+		} catch (ServiceEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
+		}
 	}
 
 	@Override

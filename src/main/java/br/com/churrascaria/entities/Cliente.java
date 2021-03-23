@@ -1,5 +1,6 @@
 package br.com.churrascaria.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,8 +15,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TB_Clientes")
-public class Cliente {
+public class Cliente implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ClientesSeq")
 	@SequenceGenerator(name = "ClientesSeq", sequenceName = "CLIENTE_SEQ", allocationSize = 1)
