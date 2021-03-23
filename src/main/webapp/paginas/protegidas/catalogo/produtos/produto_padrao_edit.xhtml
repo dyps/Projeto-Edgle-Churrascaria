@@ -74,7 +74,7 @@
 						</p:column>
 					</p:selectOneListbox>
 					<p:selectCheckboxMenu
-						value="#{produtoPadraoEdit.listaObservacoesProduto}"
+						id="ObservacoesPossiveis" value="#{produtoPersonalizadoEdit.listaObservacoesProduto}"
 						label="Observações possíveis" style="width: 100%" multiple="true"
 						filter="true" filterMatchMode="startsWith"
 						panelStyle="width: 19.6385%;" scrollHeight="250">
@@ -86,7 +86,7 @@
 
 
 					<p:outputLabel for="preco" value="Preço de venda: " />
-					<p:inputText id="preco"
+					<p:inputNumber id="preco"
 						value="#{produtoPadraoEdit.produto.valorDeVenda}"
 						style="width: 100%;" label="Nome" />
 

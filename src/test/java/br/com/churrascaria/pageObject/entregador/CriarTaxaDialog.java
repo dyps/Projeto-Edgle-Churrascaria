@@ -27,10 +27,5 @@ public class CriarTaxaDialog extends AbstractPage {
 		setInputText("formEdit:idDistanciaMaxima", distancia);
 		return this;
 	}
-	
-//	public CriarTaxaDialog setVigencia(Boolean vigente) {
-//		setInputText("formEdit:idValor", valor);
-//		return this;
-//	}
 
 }
