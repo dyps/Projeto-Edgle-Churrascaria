@@ -76,7 +76,7 @@ public class ObservacaoPadrao implements Identificavel {
 
 	@Override
 	public String toString() {
-		return "ObservacaoPadrao [id=" + id + ", descricao=" + descricao + "]";
+		return "Observação Padrao ["+ descricao +"]";
 	}
 
 
