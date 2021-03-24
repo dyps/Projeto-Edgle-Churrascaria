@@ -27,15 +27,24 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 
 	@Override
 	protected void validar(Produto produto) throws ServiceEdgleChurrascariaException {
+
+		// puxando as obs do banco
+		ArrayList<ObservacaoPadrao> obsEscolhidas = new ArrayList<ObservacaoPadrao>();
+		for (ObservacaoPadrao observacaoPadrao : produto.getObservacoesPadrao()) {
+			try {
+				obsEscolhidas.add(getObservacaoById(observacaoPadrao.getId()));
+			} catch (PersistenciaEdgleChurrascariaException e) {
+				throw new ServiceEdgleChurrascariaException(e.getMessage());
+			}
+		}
+		produto.setObservacoesPadrao(obsEscolhidas);
 		if (produto.getNome() == null || produto.getNome().trim().isEmpty()) {
 			throw new ServiceEdgleChurrascariaException("O nome do produto é necessário");
 		}
 		List<Produto> list = getAll();
 		for (Produto produtos : list) {
 			if (produtos.getNome().equals(produto.getNome())) {
-				if (produtos.getId().equals(produto.getId()))
-					return;
-				else
+				if (!produtos.getId().equals(produto.getId()))
 					throw new ServiceEdgleChurrascariaException("O nome do produto não pode ser repetido");
 			}
 		}
@@ -58,7 +67,8 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 			ProdutoPersonalizado produtoPerso = (ProdutoPersonalizado) produto;
 
 			if (produtoPerso.getItensDeConfiguracao() == null || produtoPerso.getItensDeConfiguracao().size() == 0) {
-				throw new ServiceEdgleChurrascariaException("Produto personalizado deve possuir um item de configuração");
+				throw new ServiceEdgleChurrascariaException(
+						"Produto personalizado deve possuir um item de configuração");
 			}
 			for (ItemDeConfiguracao itemDeConfiguracao : produtoPerso.getItensDeConfiguracao()) {
 				if (itemDeConfiguracao.getOpcoes() == null || itemDeConfiguracao.getOpcoes().size() == 0) {
@@ -93,7 +103,8 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 		}
 		if (itemDeConfiguracao.getQuantidadeMaxEscolhas() == null
 				|| itemDeConfiguracao.getQuantidadeMaxEscolhas() <= 0) {
-			throw new ServiceEdgleChurrascariaException("É necessário informar uma quantidade máxima de escolhas do item de configuração");
+			throw new ServiceEdgleChurrascariaException(
+					"É necessário informar uma quantidade máxima de escolhas do item de configuração");
 		}
 
 	}
@@ -113,12 +124,11 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 	public Produto update(Produto novoProduto) throws ServiceEdgleChurrascariaException {
 		try {
 			validar(novoProduto);
-
 			if (novoProduto.getClass() == ProdutoPersonalizado.class) {
 
 				ProdutoPersonalizado novoProdutoPersonalizado = (ProdutoPersonalizado) novoProduto;
 				ProdutoPersonalizado produto = (ProdutoPersonalizado) getByID(novoProduto.getId());
-
+				
 				for (int i = 0; i < produto.getItensDeConfiguracao().size(); i++) {
 					ItemDeConfiguracao itemDeConfiguracao = produto.getItensDeConfiguracao().get(i);
 

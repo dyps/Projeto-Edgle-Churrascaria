@@ -26,9 +26,9 @@ public class CategoriaProdutoServiceImplementacao extends CRUDService<CategoriaP
 	@Inject
 	private CategoriaProdutoDAO categoriaProdutoDAO;
 
-	public CategoriaProduto getByID(Long userId) throws ServiceEdgleChurrascariaException {
+	public CategoriaProduto getByID(Long Id) throws ServiceEdgleChurrascariaException {
 		CategoriaProdutoFilter filter = new CategoriaProdutoFilter();
-		filter.setId(userId);
+		filter.setId(Id);
 		return findBy(filter).get(0);
 	}
 

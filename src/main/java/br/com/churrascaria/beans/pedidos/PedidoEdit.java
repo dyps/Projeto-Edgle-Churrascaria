@@ -1,7 +1,6 @@
 package br.com.churrascaria.beans.pedidos;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -17,8 +16,6 @@ import br.com.churrascaria.entities.Item;
 import br.com.churrascaria.entities.Mesa;
 import br.com.churrascaria.entities.Pedido;
 import br.com.churrascaria.entities.Produto;
-import br.com.churrascaria.entities.ProdutoPadrao;
-import br.com.churrascaria.entities.ProdutoPersonalizado;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.CategoriaProdutoServiceImplementacao;
 import br.com.churrascaria.services.implementacao.PedidoServiceImplementacao;
@@ -40,11 +37,16 @@ public class PedidoEdit extends AbstractBean {
 
 	private Pedido pedido;
 
+	private CategoriaProduto categoriaSelecionada = new CategoriaProduto();
+
+	private List<? extends Produto> listProdutos;
+
 	@Inject
 	PedidoServiceImplementacao pedidoServiceImplementacao;
 
 	@Inject
 	private CategoriaProdutoServiceImplementacao categoriaProdutoServiceImplementacao;
+
 	private List<CategoriaProduto> categoriasDeProdutos;
 
 	public Mesa getMesa() {
@@ -97,38 +99,39 @@ public class PedidoEdit extends AbstractBean {
 		}
 	}
 
-	public String tipoProduto(String p) {
-		if (p.equals(ProdutoPadrao.class.getSimpleName())) {
-			return "produto padrão";
-		}
-		if (p.equals(ProdutoPersonalizado.class.getSimpleName())) {
-			return "produto padrão";
-		}
-		return "";
+	public List<CategoriaProduto> getCategoriasDeProdutos() {
+		return categoriasDeProdutos;
 	}
 
-	public List<? extends Produto> produtosPorCat(CategoriaProduto categoriaProduto) {
-		if (!(categoriaProduto instanceof CategoriaProduto)) {
-			return null;
-		}
+	public CategoriaProduto getCategoriaSelecionada() {
+		return categoriaSelecionada;
+	}
+
+	public void setCategoriaSelecionada(CategoriaProduto categoriaSelecionada) {
+		atualizarProdutos();
+		this.categoriaSelecionada = categoriaSelecionada;
+	}
+
+	private void atualizarProdutos() {
 		try {
-			List<? extends Produto> retornoDoBanco = categoriaProdutoServiceImplementacao.getByID(categoriaProduto.getId())
-					.getProdutos();
-			System.out.println(Arrays.toString(retornoDoBanco.toArray()));
-			List<Produto> retorno = new ArrayList<Produto>();
+			List<? extends Produto> retornoDoBanco = categoriaProdutoServiceImplementacao
+					.getByID(categoriaSelecionada.getId()).getProdutos();
+			List<Produto> listHabilitados = new ArrayList<Produto>();
 			for (Produto produto : retornoDoBanco)
 				if (produto.isHabilitado())
-					retorno.add(produto);
-
-			return retorno;
+					listHabilitados.add(produto);
+			listProdutos = listHabilitados;
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 		}
-		return null;
 	}
 
-	public List<CategoriaProduto> getCategoriasDeProdutos() {
-		return categoriasDeProdutos;
+	public List<? extends Produto> getListProdutos() {
+		return listProdutos;
+	}
+
+	public void setListProdutos(List<? extends Produto> listProdutos) {
+		this.listProdutos = listProdutos;
 	}
 
 }
