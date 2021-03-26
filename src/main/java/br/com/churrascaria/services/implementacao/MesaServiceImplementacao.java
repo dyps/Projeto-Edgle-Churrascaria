@@ -55,5 +55,10 @@ public class MesaServiceImplementacao extends CRUDService<Mesa> {
         }
 	}
 
+	public void setMesaDAO(MesaDAO mesaDAO) {
+		this.mesaDAO = mesaDAO;
+	}
+	
+
 
 }
