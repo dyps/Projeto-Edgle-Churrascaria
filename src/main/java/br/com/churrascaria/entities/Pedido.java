@@ -44,6 +44,9 @@ public class Pedido  {
 	
 	@OneToOne
 	private Entrega entrega;
+	
+	@OneToMany(mappedBy = "pedido")
+	private List<Pagamento> pagamentos;
 
 	public Long getId() {
 		return Id;

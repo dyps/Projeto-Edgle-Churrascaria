@@ -21,7 +21,7 @@
 	<ui:define name="content">
 		<div class="ui-g-12 " style="padding: .0em;">
 			<h:form>
-				<p:commandLink type="submit" title="Icon Only"
+				<p:commandLink type="submit" title="Home"
 					action="index.xhtml?faces-redirect=true">
 					<i class="pi pi-home" style="color: black; font-size: 2.5rem;" />
 				</p:commandLink>
@@ -50,54 +50,128 @@
 						</p:selectOneListbox>
 					</h:form>
 				</div>
+
 				<div class="ui-g-6 " style="padding: 1em;">endereco para
 					entrega</div>
-				<div class="ui-g-12 " style="padding: .0em;">itens do pedido</div>
+
+				<div class="ui-g-12 " style="padding: 1em;">
+					<h:form id="formListItens">
+						<p:dataScroller id="IdPainelItenss"
+							value="#{pedidoEdit.listItems}" var="item" mode="inline"
+							scrollHeight="500">
+
+							<p:panel styleClass="painelSemBordaSemFundo "
+								header=" #{item.produto.nome}">
+								<div class="ui-g-9 " style="padding: 0em;">
+									<p:outputLabel value=" x #{item.quantidade} =" />
+									<p:outputLabel value=" #{item.valor}" />
+									<p:outputLabel rendered="#{item.listObservacoes.size()>0}">
+										<i class="pi pi-exclamation-circle" title="#{pedidoEdit.listaObservacoes(item)}"
+											style="color: black; font-size: 1.12rem;" />
+									</p:outputLabel>
+
+								</div>
+								<div class="ui-g-3 " style="padding: 0em;">botoes</div>
+							</p:panel>
+							<br />
+						</p:dataScroller>
+					</h:form>
+				</div>
 			</div>
+
+
+
 			<div class="ui-g-6" style="padding: .0em;">
-				<h:form id="idformescolhacat">
-					<div class="ui-g-6 " style="padding: 1em;"> 
-						<p:outputLabel value="Selecione a categoria: " />
-						<p:selectOneListbox id="idListCat"
-							value="#{pedidoEdit.categoriaSelecionada}" var="c" filter="true"
-							filterMatchMode="contains" scrollHeight="100">
-							<f:selectItems value="#{pedidoEdit.categoriasDeProdutos}"
-								var="cat" itemLabel="#{cat.nome}" itemValue="#{cat}" />
-							<p:ajax  update="IdPainelProdutos" />
-							<p:column>
-								<h:outputText value="#{c.nome}" />
-							</p:column>
-						</p:selectOneListbox>
-					</div>
+				<p:panel rendered="#{pedidoEdit.editavel}"
+					styleClass="painelSemBordaSemFundo">
 
+					<h:form id="idformescolhacat">
+						<div class="ui-g-6 " style="padding: 1em;">
+							<p:outputLabel value="Selecione a categoria: " />
+							<p:selectOneListbox id="idListCat"
+								value="#{pedidoEdit.categoriaSelecionada}" var="c" filter="true"
+								filterMatchMode="contains" scrollHeight="100">
+								<f:selectItems value="#{pedidoEdit.categoriasDeProdutos}"
+									var="cat" itemLabel="#{cat.nome}" itemValue="#{cat}" />
+								<p:ajax update="@form" />
+								<p:column>
+									<h:outputText value="#{c.nome}" />
+								</p:column>
+							</p:selectOneListbox>
+						</div>
 
+						<div class="ui-g-12 " style="padding: 1em;">
 
-					<!-- 				<div> -->
-					<!-- 					<p:commandLink type="submit" -->
-					<!-- 						oncomplete=" PF('novoProduto').show();" -->
-					<!-- 						update="formProd:idNovoProduto"> -->
-					<!-- 						<i class="pi pi-plus" style="color: black;" /> -->
-					<!-- 					</p:commandLink> -->
-					<!-- 				</div> -->
+							<p:outputLabel id="IdLabelPainelProdutos"
+								value="Selecione uma categoria"
+								rendered="#{pedidoEdit.listProdutos==null}" />
 
-					<div class="ui-g-12 " style="padding: 1em;">
-						<p:dataScroller id="IdPainelProdutos"
-							value="#{pedidoEdit.listProdutos}" var="product" chunkSize="10"
-							mode="inline" scrollHeight="500">
-                        #{product}
-					</p:dataScroller>
+							<p:dataScroller id="IdPainelProdutos"
+								rendered="#{pedidoEdit.listProdutos!=null}"
+								value="#{pedidoEdit.listProdutos}" var="product" mode="inline"
+								scrollHeight="500">
 
-					</div>
-				</h:form>
+								<p:panel header="#{product.nome} " styleClass="painelMenor"
+									style="padding: 0em;"
+									rendered="#{product.getClass().getSimpleName().equals('ProdutoPadrao')}">
+									<div class="ui-g-8 " style="padding: 0em;">
+										<p:outputLabel
+											value="#{pedidoEdit.toProdutoPadrao(product).medida.nome}: " />
+										<p:outputLabel
+											value="#{pedidoEdit.toProdutoPadrao(product).valorDeVenda}" />
+									</div>
+									<div class="ui-g-4 " style="padding: 0em;">
+										<p:commandLink type="submit"
+											action="#{pedidoEdit.setProdutoSelecionado(product)}"
+											oncomplete=" PF('novoProduto').show();"
+											update="formProd:idNovoProduto">
+											<i class="pi pi-plus" style="color: black; font-size: 2rem;" />
+										</p:commandLink>
+									</div>
+								</p:panel>
+							</p:dataScroller>
+						</div>
+					</h:form>
+				</p:panel>
 			</div>
 		</div>
 
-		<div class="ui-g-12" style="padding: .0em;">botao finalizar etc</div>
+		<div class="ui-g-12" style="padding: .0em; text-align: center;">
+			<div class="ui-g-2">
+				<p:button value="Enviar para a cozinha" />
+			</div>
+			<div class="ui-g-2">
+				<p:button value="Pagamento" />
+			</div>
+			<div class="ui-g-2">
+				<p:button value="Finalizar" />
+			</div>
+		</div>
 
 		<h:form id="formProd">
 			<p:dialog modal="true" id="idNovoProduto" widgetVar="novoProduto"
-				width="40%" resizable="false" global="true" showEffect="fade"
-				hideEffect="fade" header="Selecione o Produto" responsive="true">
+				resizable="false" global="true" showEffect="fade" hideEffect="fade"
+				header="#{pedidoEdit.produtoSelecionado.nome}" responsive="true">
+				<p:outputLabel value="Observações:" />
+				<p:selectManyMenu id="idListObs" showCheckbox="true"
+					value="#{pedidoEdit.itemNovo.listObservacoes}" var="c"
+					filter="true" filterMatchMode="contains" scrollHeight="100">
+					<f:selectItems
+						value="#{pedidoEdit.produtoSelecionado.observacoesPadrao}"
+						var="cat" itemLabel="#{cat.descricao}" itemValue="#{cat}" />
+					<p:column>
+						<h:outputText value="#{c.descricao}" />
+					</p:column>
+				</p:selectManyMenu>
+				<br />
+				<div class="p-field p-col-12 p-md-4">
+					<p:spinner id="step" value="#{pedidoEdit.itemNovo.quantidade}"
+						decimalPlaces="3" decimalSeparator="," stepFactor="1" />
+				</div>
+				<br />
+				<p:commandButton id="botaoadditem" style="width: 100%;"
+					action="#{pedidoEdit.addItem()}" update="formListItens,@form"
+					value="Adicionar" />
 
 			</p:dialog>
 		</h:form>

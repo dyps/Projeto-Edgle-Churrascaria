@@ -32,10 +32,17 @@ public abstract class CRUDService<Entidade> {
 	@TransacionalCdi
 	public void delete(Entidade entidade) throws ServiceEdgleChurrascariaException {
 		try {
+			if (!podeSerApagada(entidade)) {
+				throw new ServiceEdgleChurrascariaException("Não pode ser apagado");
+			}
 			getEntidadeDAO().delete(entidade);
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
+	}
+
+	public boolean podeSerApagada(Entidade entidade) {
+		return true;
 	}
 
 	public List<Entidade> getAll() throws ServiceEdgleChurrascariaException {

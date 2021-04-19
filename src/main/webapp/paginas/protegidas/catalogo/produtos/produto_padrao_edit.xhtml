@@ -36,6 +36,9 @@
 				<p:outputLabel
 					style="vertical-align: 50%; black;font-size: 1rem;font-weight: bolder;align-self: center;"
 					value=" > #{produtoPadraoEdit.produto.nome}" />
+				<p:outputLabel
+					style="vertical-align: 50%; black;font-size: 1rem;font-weight: bolder;align-self: center;"
+					value="Novo produto" rendered="#{produtoPadraoEdit.produto.id == null}"/>
 			</div>
 		</h:form>
 		<h:form id="formEdit">
@@ -73,8 +76,8 @@
 							<h:outputText value="#{c}" />
 						</p:column>
 					</p:selectOneListbox>
-					<p:selectCheckboxMenu
-						id="ObservacoesPossiveis" value="#{produtoPersonalizadoEdit.listaObservacoesProduto}"
+					<p:selectCheckboxMenu id="ObservacoesPossiveis"
+						value="#{produtoPadraoEdit.listaObservacoesProduto}"
 						label="Observações possíveis" style="width: 100%" multiple="true"
 						filter="true" filterMatchMode="startsWith"
 						panelStyle="width: 19.6385%;" scrollHeight="250">
@@ -88,7 +91,7 @@
 					<p:outputLabel for="preco" value="Preço de venda: " />
 					<p:inputNumber id="preco"
 						value="#{produtoPadraoEdit.produto.valorDeVenda}"
-						style="width: 100%;" label="Nome" />
+						inputStyle=" width: 100%;" label="preco" />
 
 					<p:selectOneRadio value="#{produtoPadraoEdit.produto.medida}"
 						layout="grid" columns="2" styleClass="grid-radio">

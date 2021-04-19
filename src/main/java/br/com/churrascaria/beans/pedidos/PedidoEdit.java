@@ -1,6 +1,7 @@
 package br.com.churrascaria.beans.pedidos;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -12,13 +13,20 @@ import br.com.churrascaria.beans.AbstractBean;
 import br.com.churrascaria.beans.EnderecoPaginas;
 import br.com.churrascaria.entities.CategoriaProduto;
 import br.com.churrascaria.entities.Cliente;
+import br.com.churrascaria.entities.Entrega;
 import br.com.churrascaria.entities.Item;
 import br.com.churrascaria.entities.Mesa;
+import br.com.churrascaria.entities.ObservacaoPadrao;
+import br.com.churrascaria.entities.Pagamento;
 import br.com.churrascaria.entities.Pedido;
 import br.com.churrascaria.entities.Produto;
+import br.com.churrascaria.entities.ProdutoPadrao;
+import br.com.churrascaria.entities.ProdutoPersonalizado;
+import br.com.churrascaria.entities.TipoDePedido;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.CategoriaProdutoServiceImplementacao;
 import br.com.churrascaria.services.implementacao.PedidoServiceImplementacao;
+import br.com.churrascaria.services.implementacao.ProdutoServiceImplementacao;
 
 @Named
 @ViewScoped
@@ -28,12 +36,21 @@ public class PedidoEdit extends AbstractBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private ProdutoServiceImplementacao produtoServiceImplementacao;
+
+	@Inject
+	private PedidoServiceImplementacao pedidoServiceImplementacao;
+
+	@Inject
+	private CategoriaProdutoServiceImplementacao categoriaProdutoServiceImplementacao;
+
+	private List<CategoriaProduto> categoriasDeProdutos;
 
 	private Cliente cliente;
 
 	private Mesa mesa;
-
-	private List<Item> listItem;
 
 	private Pedido pedido;
 
@@ -41,13 +58,52 @@ public class PedidoEdit extends AbstractBean {
 
 	private List<? extends Produto> listProdutos;
 
-	@Inject
-	PedidoServiceImplementacao pedidoServiceImplementacao;
+	private Produto produtoSelecionado;
 
-	@Inject
-	private CategoriaProdutoServiceImplementacao categoriaProdutoServiceImplementacao;
+	private Item itemNovo;
 
-	private List<CategoriaProduto> categoriasDeProdutos;
+	private List<Item> listItems;
+	
+	private List<Item> listaItemsSelecionados;
+	
+	private Pagamento pagamento;
+	
+	private Entrega entrega;
+	
+	private boolean editavel = true;
+	
+	public List<Item> getListaItemsSelecionados() {
+		return listaItemsSelecionados;
+	}
+
+	public void setListaItemsSelecionados(List<Item> listaItemsSelecionados) {
+		this.listaItemsSelecionados = listaItemsSelecionados;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+
+	public Entrega getEntrega() {
+		return entrega;
+	}
+
+	public void setEntrega(Entrega entrega) {
+		this.entrega = entrega;
+	}
+
+	public boolean isEditavel() {
+		return editavel;
+	}
+
+	public void setEditavel(boolean editavel) {
+		this.editavel = editavel;
+	}
+
 
 	public Mesa getMesa() {
 		return mesa;
@@ -55,14 +111,6 @@ public class PedidoEdit extends AbstractBean {
 
 	public void setMesa(Mesa mesa) {
 		this.mesa = mesa;
-	}
-
-	public List<Item> getListItem() {
-		return listItem;
-	}
-
-	public void setListItem(List<Item> listItem) {
-		this.listItem = listItem;
 	}
 
 	public Pedido getPedido() {
@@ -91,8 +139,37 @@ public class PedidoEdit extends AbstractBean {
 
 	}
 
-	public void init() {
+	public void addItem() {
 		try {
+			itemNovo.setProduto(produtoSelecionado);
+			itemNovo.setValor(pedidoServiceImplementacao.getValorItem(itemNovo));
+			pedidoServiceImplementacao.validar(itemNovo);
+			listItems.add(itemNovo);
+			itemNovo = new Item();
+		} catch (ServiceEdgleChurrascariaException e) {
+			reportarMensagemDeErro(e.getMessage());
+		}
+	}
+
+	public boolean isEdicaoDePedido() {
+		return pedido != null && pedido.getId() != null;
+	}
+
+	public void init() {
+		listItems = new ArrayList<Item>();
+		itemNovo = new Item();
+		try {
+			if (isEdicaoDePedido()) {
+				pedido = pedidoServiceImplementacao.getByID(pedido.getId());
+				listItems = pedido.getItens();
+				cliente = pedido.getCliente();
+
+			} else {
+				pedido = new Pedido();
+				if (mesa!=null) {
+					pedido.setTipoDePedido(TipoDePedido.MESA);
+				}
+			}
 			categoriasDeProdutos = categoriaProdutoServiceImplementacao.getAll();
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
@@ -108,8 +185,8 @@ public class PedidoEdit extends AbstractBean {
 	}
 
 	public void setCategoriaSelecionada(CategoriaProduto categoriaSelecionada) {
-		atualizarProdutos();
 		this.categoriaSelecionada = categoriaSelecionada;
+		atualizarProdutos();
 	}
 
 	private void atualizarProdutos() {
@@ -133,5 +210,60 @@ public class PedidoEdit extends AbstractBean {
 	public void setListProdutos(List<? extends Produto> listProdutos) {
 		this.listProdutos = listProdutos;
 	}
+
+	public ProdutoPadrao toProdutoPadrao(Produto produto) {
+		return (ProdutoPadrao) produto;
+
+	}
+
+	public ProdutoPersonalizado toProdutoPersonalizado(Produto produto) {
+		return (ProdutoPersonalizado) produto;
+
+	}
+
+	public Produto getProdutoSelecionado() {
+		return produtoSelecionado;
+	}
+
+
+	public void setProdutoSelecionado(Produto produtoSelecionado) {
+		try {
+			this.produtoSelecionado = produtoServiceImplementacao.getByID(produtoSelecionado.getId());
+		} catch (ServiceEdgleChurrascariaException e) {
+			reportarMensagemDeErro(e.getMessage());
+		}
+	}
+
+	public Item getItemNovo() {
+		return itemNovo;
+	}
+
+	public void setItemNovo(Item itemNovo) {
+		this.itemNovo = itemNovo;
+	}
+
+	public List<Item> getListItems() {
+		return listItems;
+	}
+
+	public void setListItems(List<Item> listItems) {
+		this.listItems = listItems;
+	}
+	public String listaObservacoes(Item item) {
+		String retorno = "";
+		List<ObservacaoPadrao> listaobs = item.getListObservacoes();
+		boolean primeiro = true;
+		for (Iterator<ObservacaoPadrao> iterator = listaobs.iterator(); iterator.hasNext();) {
+			ObservacaoPadrao observacaoPadrao = (ObservacaoPadrao) iterator.next();
+			if (!primeiro) {
+				retorno+=", ";
+			}
+			primeiro= false;
+			retorno+=observacaoPadrao.getDescricao();
+				
+		}
+		return retorno;
+	}
+
 
 }

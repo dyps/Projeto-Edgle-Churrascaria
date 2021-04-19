@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.churrascaria.dao.EntidadeDAO;
-import br.com.churrascaria.dao.ObservacoesPadraoDAO;
+import br.com.churrascaria.dao.ObservacaoPadraoDAO;
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
 import br.com.churrascaria.entities.ObservacaoPadrao;
 import br.com.churrascaria.services.CRUDService;
@@ -18,7 +18,7 @@ import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 public class ObservacoesPadraoServiceImplementacao extends CRUDService<ObservacaoPadrao> {
 
 	@Inject
-	private ObservacoesPadraoDAO observacoesPadraoDAO;
+	private ObservacaoPadraoDAO observacoesPadraoDAO;
 
 	@Override
 	public List<ObservacaoPadrao> getAll() throws ServiceEdgleChurrascariaException {

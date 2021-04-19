@@ -37,6 +37,9 @@
 				<p:outputLabel
 					style="vertical-align: 50%; black;font-size: 1rem;font-weight: bolder;align-self: center;"
 					value=" > #{produtoPersonalizadoEdit.produto.nome}" />
+				<p:outputLabel
+					style="vertical-align: 50%; black;font-size: 1rem;font-weight: bolder;align-self: center;"
+					value="Novo produto" rendered="#{produtoPersonalizadoEdit.produto.id == null}"/>
 			</div>
 		</h:form>
 		<h:form id="formEdit">

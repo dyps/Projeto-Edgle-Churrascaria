@@ -28,4 +28,7 @@ public final class EnderecoPaginas {
 	public static final String PAGINA_NOVO_PEDIDO = "/paginas/protegidas/vendas/pedidos/pedido_edit.xhtml"
 			+ REDIRECT_TRUE;
 
+	public static final String PAGINA_PRINCIPAL_FORMAS_DE_PAGAMENTO  = "/paginas/protegidas/gestao/formasdepagamento/index.xhtml"
+			+ REDIRECT_TRUE;
+
 }

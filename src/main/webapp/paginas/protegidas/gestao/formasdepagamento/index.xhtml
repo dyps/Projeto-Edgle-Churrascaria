@@ -10,6 +10,141 @@
 	<ui:define name="title">
 		Formas de pagamento
 	</ui:define>
+	<ui:define name="content">
+		<div class="ui-g-12" style="padding: .0em;">
+			<p:tabView id="tabView">
+				<p:tab title="Tipos de pagamentos" id="abaTipo">
+					<h:form id="idFormListTipos">
+						<p:dataGrid columns="4" id="dataTableTipos" border="1"
+							style="width : 100%" var="tipo"
+							value="#{manageFormasDePagamento.tiposDePagamentos}">
+							<p:panel rendered="#{tipo.primeiro}"
+								header="Novo tipo de pagamento" styleClass="cards">
+								<br />
+								<p:commandLink type="submit" title="Icon Only"
+									oncomplete="PF('novoTipo').show();">
+									<i class="pi pi-plus" style="color: black;" id="idNovoTipo" />
+								</p:commandLink>
+							</p:panel>
+							<p:panel rendered="#{!tipo.primeiro}" header="#{tipo.nome}"
+								styleClass="cards">
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<div class="ui-g ">
+									<p:panelGrid style="place-content: flex-end;">
+										<p:commandButton value="Excluir" id="deleteMesa"
+											action="#{manageFormasDePagamento.excluir(tipo)}">
+											<p:confirm header="Confirmação!"
+												message="Você quer excliuir '#{tipo.nome} '?"
+												icon="fa fa-remove" />
+										</p:commandButton>
+									</p:panelGrid>
+								</div>
+							</p:panel>
+						</p:dataGrid>
+					</h:form>
+				</p:tab>
+				<p:tab title="Bandeiras" id="abaBandeira">
+					<h:form id="idFormListBand">
+						<p:dataGrid columns="4" id="dataTableBandeiras" border="1"
+							style="width : 100%" var="band"
+							value="#{manageFormasDePagamento.bandeirasDeCartao}">
+							<p:panel rendered="#{band.primeiro}"
+								header="Nova bandeira de cartão" styleClass="cards">
+								<br />
+								<p:commandLink type="submit" title="Icon Only"
+									oncomplete="PF('novaBandeira').show();">
+									<i class="pi pi-plus" style="color: black;" id="idNovaBand" />
+								</p:commandLink>
+							</p:panel>
+							<p:panel rendered="#{!band.primeiro}" header="#{band.nome}"
+								styleClass="cards">
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<div class="ui-g ">
+									<p:panelGrid style="place-content: flex-end;">
+										<p:commandButton value="Excluir" id="deleteMesa"
+											action="#{manageFormasDePagamento.excluir(band)}">
+											<p:confirm header="Confirmação!"
+												message="Você quer excliuir '#{band.nome} '?"
+												icon="fa fa-remove" />
+										</p:commandButton>
+									</p:panelGrid>
+								</div>
+							</p:panel>
+						</p:dataGrid>
+					</h:form>
+				</p:tab>
+			</p:tabView>
+		</div>
+		<h:form>
+			<p:dialog modal="true" widgetVar="novaBandeira" resizable="false"
+				id="idNovaBand" global="true" showEffect="fade" hideEffect="fade"
+				header="Nova Bandeira">
+				<p:panelGrid columns="1" styleClass="ui-noborder">
+					<p:outputLabel value="Nome: " for="idNome" />
+					<p:inputText id="idNome"
+						value="#{manageFormasDePagamento.novaBandeira.nome}" label="Nome:" />
+				</p:panelGrid>
+				<br />
+				<p:commandButton id="botaoSubmeterNovaB" style="width: 100%;"
+					action="#{manageFormasDePagamento.salvarNovaBandeira()}"
+					update="tabView:idFormListBand,@form,FormAddTipo:idListbandeirasDeCartao" value="Salvar" />
+			</p:dialog>
+		</h:form>
+		<h:form id="FormAddTipo">
+			<p:dialog modal="true" widgetVar="novoTipo" resizable="false"
+				id="idNovoTipo" global="true" showEffect="fade" hideEffect="fade"
+				header="Novo Tipo de pagamento">
+				<div class="ui-g-6" style="padding: 0em;">
+
+					<p:panelGrid columns="1" styleClass="ui-noborder">
+						<p:outputLabel value="Nome: " for="idNome" />
+						<p:inputText id="idNome"
+							value="#{manageFormasDePagamento.novoTipo.nome}" label="Nome:" />
+
+					</p:panelGrid>
+					<br />
+					<p:selectBooleanCheckbox
+						value="#{manageFormasDePagamento.novoTipo.valorDeAberturaDefaultZero}" />
+					<p:outputLabel
+						value=" Sempre na abertura do caixa iniciara com zero?" />
+				</div>
+				<div class="ui-g-6" style="padding: 0em;">
+					<p:panelGrid columns="1" styleClass="ui-noborder">
+						<p:outputLabel value="Bandeiras:" for="idListbandeirasDeCartao" />
+						<p:selectManyMenu id="idListbandeirasDeCartao" showCheckbox="true"
+							value="#{manageFormasDePagamento.novoTipo.bandeirasDeCartao}"
+							var="c" filter="true" filterMatchMode="contains"
+							scrollHeight="100">
+							<f:selectItems
+								value="#{manageFormasDePagamento.bandeirasDeCartaoSemPrimeiro}"
+								var="cat" itemLabel="#{cat.nome}" itemValue="#{cat}" />
+							<p:column>
+								<h:outputText value="#{c.nome}" />
+							</p:column>
+						</p:selectManyMenu>
+					</p:panelGrid>
+				</div>
+				<div class="ui-g-12" style="padding: 0em; text-align: right;">
+					<br />
+					<p:commandButton id="botaoSubmeterNovoT" style="width: 50%;"
+						action="#{manageFormasDePagamento.salvarNovoTipo()}"
+						update="tabView:idFormListTipos,@form" value="Salvar" />
+				</div>
+			</p:dialog>
+		</h:form>
+	</ui:define>
 
 </ui:composition>
 

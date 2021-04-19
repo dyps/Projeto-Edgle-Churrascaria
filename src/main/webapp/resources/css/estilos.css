@@ -17,6 +17,10 @@ body .pi {
 	font-size: 7.2rem;
 }
 
+body .ui-datascroller .ui-datascroller-content {
+	padding: 0em;
+}
+
 body .ui-panel .ui-panel-content {
 	border: 1px solid #c8c8c8;
 	background-color: #fff;
@@ -25,6 +29,14 @@ body .ui-panel .ui-panel-content {
 	border-top: 0 none;
 	line-height: 1.5;
 	height: 14.4em;
+}
+
+.scrollerItens>.ui-datascroller>.ui-datascroller-item {
+	height: 4rem;
+}
+
+.painelMenor>.ui-panel-content {
+	height: 2.7rem !important;
 }
 
 body .ui-datagrid-column {
@@ -41,7 +53,19 @@ table {
 	width: 100%
 }
 
+body .ui-panelgrid .ui-panelgrid-cell {
+	border: 0 none;
+	padding: 0em;
+}
 
+.painelSemBordaSemFundo>div {
+	padding: 0em !important;
+	height: auto !important;
+}
+
+.painelSemBordaSemFundo {
+	background-color: #fff0f000 !important;
+}
 
 .cards {
 	text-align: center;
@@ -416,6 +440,7 @@ body .ui-tabs .ui-tabs-navscroller .ui-tabs-navscroller-btn.ui-state-hover
 	background: #e9ecef;
 	color: #495057;
 }
-body .ui-panelgrid .ui-panelgrid-cell{
+
+body .ui-panelgrid .ui-panelgrid-cell {
 	border: 0 none;
 }

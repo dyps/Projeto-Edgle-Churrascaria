@@ -11,13 +11,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import br.com.churrascaria.dao.ObservacoesPadraoDAO;
+import br.com.churrascaria.dao.ObservacaoPadraoDAO;
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
 import br.com.churrascaria.entities.ObservacaoPadrao;
 
 @Named
 @RequestScoped
-public class ObservacoesPadraoDAOImplementacao extends InDatabaseDAO implements ObservacoesPadraoDAO {
+public class ObservacoesPadraoDAOImplementacao extends InDatabaseDAO implements ObservacaoPadraoDAO {
 
 	/**
 	 * 

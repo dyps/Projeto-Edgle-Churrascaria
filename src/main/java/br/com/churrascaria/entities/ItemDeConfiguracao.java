@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -23,6 +24,7 @@ public class ItemDeConfiguracao {
 	private Long id;
 
 	@ManyToOne
+	@JoinColumn(name="produtoPersonalizado")
 	private ProdutoPersonalizado produtoPersonalizado;
 
 	@OneToMany(mappedBy = "itemDeConfiguracao" ,cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE} , fetch = FetchType.EAGER)

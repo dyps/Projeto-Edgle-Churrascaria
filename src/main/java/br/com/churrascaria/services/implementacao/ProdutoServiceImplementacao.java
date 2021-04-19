@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.churrascaria.dao.EntidadeDAO;
-import br.com.churrascaria.dao.ObservacoesPadraoDAO;
+import br.com.churrascaria.dao.ObservacaoPadraoDAO;
 import br.com.churrascaria.dao.PersistenciaEdgleChurrascariaException;
 import br.com.churrascaria.dao.ProdutoDAO;
 import br.com.churrascaria.entities.ItemDeConfiguracao;
@@ -20,6 +20,7 @@ import br.com.churrascaria.entities.ProdutoPersonalizado;
 import br.com.churrascaria.services.CRUDService;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.util.TransacionalCdi;
+
 
 @Named
 @RequestScoped
@@ -33,7 +34,7 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 		for (ObservacaoPadrao observacaoPadrao : produto.getObservacoesPadrao()) {
 			try {
 				obsEscolhidas.add(getObservacaoById(observacaoPadrao.getId()));
-			} catch (PersistenciaEdgleChurrascariaException e) {
+			} catch (PersistenciaEdgleChurrascariaException  e) {
 				throw new ServiceEdgleChurrascariaException(e.getMessage());
 			}
 		}
@@ -122,8 +123,8 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 	@Override
 	@TransacionalCdi
 	public Produto update(Produto novoProduto) throws ServiceEdgleChurrascariaException {
+		validar(novoProduto);
 		try {
-			validar(novoProduto);
 			if (novoProduto.getClass() == ProdutoPersonalizado.class) {
 
 				ProdutoPersonalizado novoProdutoPersonalizado = (ProdutoPersonalizado) novoProduto;
@@ -152,7 +153,7 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 	}
 
 	@Inject
-	private ObservacoesPadraoDAO observacaoPadraoDao;
+	private ObservacaoPadraoDAO observacaoPadraoDao;
 
 	private ObservacaoPadrao getObservacaoById(Long id) throws PersistenciaEdgleChurrascariaException {
 		return observacaoPadraoDao.getByID(id);
