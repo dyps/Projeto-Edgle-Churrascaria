@@ -93,4 +93,8 @@ public class CategoriaProdutoServiceImplementacao extends CRUDService<CategoriaP
 		return retorno;
 	}
 
+	public void setCategoriaProdutoDAO(CategoriaProdutoDAO categoriaProdutoDAO) {
+		this.categoriaProdutoDAO = categoriaProdutoDAO;
+	}
+
 }

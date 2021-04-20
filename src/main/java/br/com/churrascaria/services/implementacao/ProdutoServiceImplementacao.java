@@ -183,4 +183,8 @@ public class ProdutoServiceImplementacao extends CRUDService<Produto> {
 		}
 	}
 
+	public void setProdutoDAO(ProdutoDAO produtoDAO) {
+		this.entidadeDAO = produtoDAO;
+	}
+
 }

@@ -16,14 +16,14 @@ import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 @Named
 @RequestScoped
 public class PedidoServiceImplementacao extends CRUDService<Pedido> {
-	
+
 	@Inject
 	private PedidoDAO entidadeDAO;
 
 	@Override
 	protected void validar(Pedido entidade) throws ServiceEdgleChurrascariaException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -41,19 +41,20 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 	}
 
 	public void validar(Item item) throws ServiceEdgleChurrascariaException {
-		if (item.getQuantidade()<=0) {
+		if (item.getQuantidade() <= 0) {
 			throw new ServiceEdgleChurrascariaException("Item deve ter quantidade maior que 0.");
 		}
-		
+
 	}
 
 	public float getValorItem(Item itemNovo) {
 		if (itemNovo.getProduto() instanceof ProdutoPadrao) {
 			ProdutoPadrao produto = (ProdutoPadrao) itemNovo.getProduto();
-			return itemNovo.getQuantidade()*produto.getValorDeVenda();
+			return itemNovo.getQuantidade() * produto.getValorDeVenda();
 		} else {
 
 		}
 		return 1;
 	}
+
 }

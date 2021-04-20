@@ -36,7 +36,7 @@ public class PedidoEdit extends AbstractBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private ProdutoServiceImplementacao produtoServiceImplementacao;
 
@@ -63,15 +63,15 @@ public class PedidoEdit extends AbstractBean {
 	private Item itemNovo;
 
 	private List<Item> listItems;
-	
+
 	private List<Item> listaItemsSelecionados;
-	
+
 	private Pagamento pagamento;
-	
+
 	private Entrega entrega;
-	
+
 	private boolean editavel = true;
-	
+
 	public List<Item> getListaItemsSelecionados() {
 		return listaItemsSelecionados;
 	}
@@ -103,7 +103,6 @@ public class PedidoEdit extends AbstractBean {
 	public void setEditavel(boolean editavel) {
 		this.editavel = editavel;
 	}
-
 
 	public Mesa getMesa() {
 		return mesa;
@@ -166,7 +165,7 @@ public class PedidoEdit extends AbstractBean {
 
 			} else {
 				pedido = new Pedido();
-				if (mesa!=null) {
+				if (mesa != null) {
 					pedido.setTipoDePedido(TipoDePedido.MESA);
 				}
 			}
@@ -225,7 +224,6 @@ public class PedidoEdit extends AbstractBean {
 		return produtoSelecionado;
 	}
 
-
 	public void setProdutoSelecionado(Produto produtoSelecionado) {
 		try {
 			this.produtoSelecionado = produtoServiceImplementacao.getByID(produtoSelecionado.getId());
@@ -249,6 +247,7 @@ public class PedidoEdit extends AbstractBean {
 	public void setListItems(List<Item> listItems) {
 		this.listItems = listItems;
 	}
+
 	public String listaObservacoes(Item item) {
 		String retorno = "";
 		List<ObservacaoPadrao> listaobs = item.getListObservacoes();
@@ -256,14 +255,13 @@ public class PedidoEdit extends AbstractBean {
 		for (Iterator<ObservacaoPadrao> iterator = listaobs.iterator(); iterator.hasNext();) {
 			ObservacaoPadrao observacaoPadrao = (ObservacaoPadrao) iterator.next();
 			if (!primeiro) {
-				retorno+=", ";
+				retorno += ", ";
 			}
-			primeiro= false;
-			retorno+=observacaoPadrao.getDescricao();
-				
+			primeiro = false;
+			retorno += observacaoPadrao.getDescricao();
+
 		}
 		return retorno;
 	}
-
 
 }

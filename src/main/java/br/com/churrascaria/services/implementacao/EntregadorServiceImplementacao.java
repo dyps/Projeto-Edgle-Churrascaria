@@ -95,4 +95,12 @@ public class EntregadorServiceImplementacao extends CRUDService<Entregador> {
 		}
 	}
 
+	public void setEntregadorDAO(EntregadorDAO entregadorDAO) {
+		this.entregadorDAO = entregadorDAO;
+	}
+	
+	public void setTaxaEntregaDAO(TaxaEntregaDAO taxaEntregaDAO) {
+		this.taxaEntregaDAO = taxaEntregaDAO;
+	}
+
 }
