@@ -39,7 +39,7 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 
 	public boolean aProdutosUsando(ObservacaoPadrao obs) throws ServiceEdgleChurrascariaException {
 		try {
-			return getByID(obs.getId()).getProdutos().size()>0;
+			return getByID(obs.getId()).getProdutos().size() > 0;
 		} catch (ServiceEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage(), e);
 		}
@@ -65,6 +65,10 @@ public class ObservacoesPadraoServiceImplementacao extends CRUDService<Observaca
 				throw new ServiceEdgleChurrascariaException("A descrição da observação não pode ser repetida");
 		}
 
+	}
+
+	public void setObservacoesPadraoDAO(ObservacaoPadraoDAO observacoesPadraoDAO) {
+		this.observacoesPadraoDAO = observacoesPadraoDAO;
 	}
 
 }

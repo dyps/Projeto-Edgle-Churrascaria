@@ -21,9 +21,6 @@ public class MesaServiceImplementacao extends CRUDService<Mesa> {
 	@Inject
 	private MesaDAO mesaDAO;
 
-
-
-
 	public Mesa getByID(Long userId) throws ServiceEdgleChurrascariaException {
 		MesaFilter filter = new MesaFilter();
 		filter.setId(userId);
@@ -58,7 +55,5 @@ public class MesaServiceImplementacao extends CRUDService<Mesa> {
 	public void setMesaDAO(MesaDAO mesaDAO) {
 		this.mesaDAO = mesaDAO;
 	}
-	
-
 
 }

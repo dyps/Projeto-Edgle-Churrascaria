@@ -98,4 +98,12 @@ public class ClienteServiceImplementacao extends CRUDService<Cliente> {
 		}
 	}
 
+	public void setClienteDAO(ClienteDAO clienteDAO) {
+		this.clienteDAO = clienteDAO;
+	}
+	
+	public void setEnderecoDAO(EnderecoDAO enderecoDAO) {
+		this.enderecoDAO = enderecoDAO;
+	}
+
 }

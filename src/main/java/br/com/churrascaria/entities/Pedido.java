@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
+
 @Entity
 @Table(name = "TB_Pedido")
 public class Pedido {
@@ -111,6 +113,34 @@ public class Pedido {
 
 	public void setEntrega(Entrega entrega) {
 		this.entrega = entrega;
+	}
+	
+	public int itensDoPedidosRealizados() throws ServiceEdgleChurrascariaException {
+		int quantidade = 0;
+		for (Item item : this.getItens()) {
+			if (item.getListAcaoRealizada().contains(TipoAcaoItemPedido.REALIZOUPEDIDO))
+				quantidade = quantidade + 1;
+			if (item.getListAcaoRealizada().contains(TipoAcaoItemPedido.ENTREGOU))
+				quantidade = quantidade - 1;
+		}
+		return quantidade;
+	}
+
+	public int itensDoPedidoEntregues() throws ServiceEdgleChurrascariaException {
+		int quantidade = 0;
+		for (Item item : this.getItens()) {
+			if (item.getListAcaoRealizada().contains(TipoAcaoItemPedido.ENTREGOU))
+				quantidade = quantidade + 1;
+		}
+		return quantidade;
+	}
+	
+	public float valorTotal() {
+		float valorTotal = 0;
+		for (Item item : this.getItens()) {
+			valorTotal = valorTotal + (item.getValor()*item.getQuantidade());
+		}
+		return valorTotal;
 	}
 
 	@Override

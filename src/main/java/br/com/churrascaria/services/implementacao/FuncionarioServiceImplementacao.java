@@ -27,6 +27,7 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 		try {
 			// Verificar se login j� existe
 			validarLogin(funcionario);
+			validar(funcionario);
 //			calcularHashDaSenha(funcionario);
 			funcionarioDAO.save(funcionario);
 		} catch (PersistenciaEdgleChurrascariaException e) {
@@ -40,6 +41,7 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 		try {
 			// Verificar se login já existe
 			validarLogin(funcionario);
+			validar(funcionario);
 //			if (passwordChanged) {
 //				calcularHashDaSenha(funcionario);
 //			}
@@ -123,8 +125,31 @@ public class FuncionarioServiceImplementacao extends CRUDService<Funcionario> {
 
 	@Override
 	protected void validar(Funcionario entidade) throws ServiceEdgleChurrascariaException {
-		// TODO Auto-generated method stub
-		
+		if (entidade == null || entidade.getNome() == null || entidade.getNome().trim().equals("")) {
+			throw new ServiceEdgleChurrascariaException("O nome do funcionario é necessário");
+		}
+		if (entidade == null || entidade.getLogin() == null || entidade.getLogin().trim().equals("")) {
+			throw new ServiceEdgleChurrascariaException("O login do funcionario é necessário");
+		}
+		if (entidade == null || entidade.getSenha() == null || entidade.getSenha().trim().equals("")) {
+			throw new ServiceEdgleChurrascariaException("A senha do funcionario é necessário");
+		}
+		if (entidade == null || entidade.getTipoDeFuncionario() == null) {
+			throw new ServiceEdgleChurrascariaException("O tipo do funcionario é necessário");
+		}
+		List<Funcionario> list = getAll();
+		for (Funcionario funcionario : list) {
+			if (funcionario.getLogin().equals(entidade.getLogin())) {
+				if (funcionario.getId().equals(entidade.getId()))
+					return;
+				else
+					throw new ServiceEdgleChurrascariaException("O login do funcionario não pode ser repetido");
+			}
+		}
+	}
+
+	public void setFuncionarioDAO(FuncionarioDAO funcionarioDAO) {
+		this.funcionarioDAO = funcionarioDAO;
 	}
 
 }
