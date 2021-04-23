@@ -134,11 +134,11 @@ public class Pedido {
 		}
 		return quantidade;
 	}
-	
+
 	public float valorTotal() {
 		float valorTotal = 0;
 		for (Item item : this.getItens()) {
-			valorTotal = valorTotal + (item.getValor()*item.getQuantidade());
+			valorTotal = valorTotal + (item.getValor() * item.getQuantidade());
 		}
 		return valorTotal;
 	}

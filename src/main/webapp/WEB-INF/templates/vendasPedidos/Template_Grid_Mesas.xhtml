@@ -12,20 +12,67 @@
 			<p:dataGrid columns="4" id="dataTableMesas" border="1"
 				style="width : 100%" var="mesa"
 				emptyMessage="Sem mesas cadastradas &#128532;"
-				value="#{vendasMesa.mesas}">
+				value="#{managePedido.mesas}">
 				<p:panel header="Mesa #{mesa.numero}" styleClass="cards">
-					<p:panelGrid columns="1" >
-						<br />
-						<p:commandLink type="submit" title="Icon Only"
-							action="#{pedidoEdit.receberPorMesa}">
-							<i class="pi pi-plus" style="color: black;"  id="IdMesa#{mesa.numero}"/>
-							<f:param id="id" value="#{mesa.id}" name="id"/>
-						</p:commandLink>
-					</p:panelGrid>
+					<br />
+					<p:commandLink type="submit" title="Icon Only"
+						action="#{pedidoEdit.receberPorMesa}">
+						<i class="pi pi-plus" style="color: black;"
+							id="IdMesa#{mesa.numero}" />
+						<f:param id="id" value="#{mesa.id}" name="id" />
+					</p:commandLink>
 					<!-- 					<p:commandLink type="submit" title="Icon Only" -->
 					<!-- 						oncomplete="PF('novaCategoriaProduto').show();"> -->
 					<!-- 						<i class="pi pi-plus" style="color: black;" /> -->
 					<!-- 					</p:commandLink> -->
+				</p:panel>
+				<p:panel header="Mesa #{mesa.numero}" styleClass="cards">
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-12 ">
+							<h:outputText style="font-weight:bold" value="Status:" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-4 ">
+							<h:outputText style="font-weight:bold"
+								value="Pedidos realizados: " />
+						</div>
+						<div class="ui-g-8 ">
+							<h:outputText value="#{pedido.itensDoPedidosRealizados}" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-4 ">
+							<h:outputText style="font-weight:bold"
+								value="Pedidos entregues: " />
+						</div>
+						<div class="ui-g-8 ">
+							<h:outputText value="#{pedido.itensDoPedidoEntregues}" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-4 ">
+							<h:outputText style="font-weight:bold" value="Cliente: " />
+						</div>
+						<div class="ui-g-8 ">
+							<h:outputText value="#{pedido.cliente}" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-4 ">
+							<h:outputText style="font-weight:bold" value="Total: " />
+						</div>
+						<div class="ui-g-8 ">
+							<h:outputText value="#{pedido.valorTotal}" />
+						</div>
+					</div>
+					<div class="ui-g ">
+						<p:button
+							style="background-color: #660000; border: 1px solid #000000;"
+							outcome="pedido_edit.xhtml" value="Ver" id="idVerPedido">
+							<f:param name="mesa" value="#{pedido.mesa}" />
+						</p:button>
+					</div>
 				</p:panel>
 			</p:dataGrid>
 		</h:form>
