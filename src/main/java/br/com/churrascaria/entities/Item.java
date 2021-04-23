@@ -1,7 +1,9 @@
 package br.com.churrascaria.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,31 +18,36 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TB_Item")
-public class Item {
-	
+public class Item implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ItemSeq")
 	@SequenceGenerator(name = "ItemSeq", sequenceName = "ITEM_SEQ", allocationSize = 1)
 	private Long Id;
-	
+
 	@Column(nullable = false)
 	private float quantidade = 1;
-	
+
 	@Column(nullable = false)
 	private float valor;
-	
-	@OneToMany(mappedBy = "item")
+
+	@OneToMany(mappedBy = "item", cascade = CascadeType.PERSIST)
 	private List<AcaoRealizada> listAcaoRealizada;
-	
-	@ManyToOne
+
+	@ManyToOne(optional = false)
 	private Pedido pedido;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Produto produto;
-	
-	@ManyToMany(mappedBy = "listVezesSelecionada" )
+
+	@ManyToMany(mappedBy = "listVezesSelecionada")
 	private List<Opcao> listOpcoes;
-	
+
 	@ManyToMany(mappedBy = "listItens", fetch = FetchType.EAGER)
 	private List<ObservacaoPadrao> listObservacoes;
 
@@ -111,11 +118,8 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [Id=" + Id + ", quantidade=" + quantidade + ", valor=" + valor + ", listAcaoRealizada="
-				+ listAcaoRealizada + ", pedido=" + pedido + ", produto=" + produto + ", listOpcoes=" + listOpcoes
-				+ ", listObservacoes=" + listObservacoes + "]";
+				+ listAcaoRealizada + ", produto=" + produto + ", listOpcoes=" + listOpcoes + ", listObservacoes="
+				+ listObservacoes + "]";
 	}
-	
-	
-	
-	
+
 }

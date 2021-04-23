@@ -95,4 +95,12 @@ public abstract class Produto {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", habilitado=" + habilitado + ", observacoesPadrao="
+				+ observacoesPadrao + "]";
+	}
+	
+	
+
 }

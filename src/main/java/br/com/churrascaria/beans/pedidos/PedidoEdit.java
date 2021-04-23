@@ -1,5 +1,6 @@
 package br.com.churrascaria.beans.pedidos;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,8 +12,8 @@ import javax.inject.Named;
 
 import br.com.churrascaria.beans.AbstractBean;
 import br.com.churrascaria.beans.EnderecoPaginas;
+import br.com.churrascaria.entities.AcaoRealizada;
 import br.com.churrascaria.entities.CategoriaProduto;
-import br.com.churrascaria.entities.Cliente;
 import br.com.churrascaria.entities.Entrega;
 import br.com.churrascaria.entities.Item;
 import br.com.churrascaria.entities.Mesa;
@@ -22,6 +23,8 @@ import br.com.churrascaria.entities.Pedido;
 import br.com.churrascaria.entities.Produto;
 import br.com.churrascaria.entities.ProdutoPadrao;
 import br.com.churrascaria.entities.ProdutoPersonalizado;
+import br.com.churrascaria.entities.TipoAcaoItemPedido;
+import br.com.churrascaria.entities.TipoDeMedida;
 import br.com.churrascaria.entities.TipoDePedido;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.CategoriaProdutoServiceImplementacao;
@@ -36,7 +39,7 @@ public class PedidoEdit extends AbstractBean {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private ProdutoServiceImplementacao produtoServiceImplementacao;
 
@@ -48,9 +51,9 @@ public class PedidoEdit extends AbstractBean {
 
 	private List<CategoriaProduto> categoriasDeProdutos;
 
-	private Cliente cliente;
-
 	private Mesa mesa;
+
+	private Boolean delivery;
 
 	private Pedido pedido;
 
@@ -63,21 +66,120 @@ public class PedidoEdit extends AbstractBean {
 	private Item itemNovo;
 
 	private List<Item> listItems;
-	
+
 	private List<Item> listaItemsSelecionados;
-	
+
 	private Pagamento pagamento;
-	
+
 	private Entrega entrega;
-	
+
 	private boolean editavel = true;
-	
+
+	public boolean mostrarSearch(Item item) {
+		if (item.getListAcaoRealizada() == null)
+			return false;
+		else
+			return item.getListAcaoRealizada().size() > 0;
+	}
+
+	public boolean mostrarCheck(Item item) {
+		return pedidoServiceImplementacao.podeSerEntregue(item);
+	}
+
+	public boolean mostrarPencil(Item item) {
+		return false;
+//		return pedidoServiceImplementacao.podeSerEditado(item);
+	}
+
+	public boolean mostrarTrash(Item item) {
+		return pedidoServiceImplementacao.podeSerCancelado(item);
+	}
+
+	public void apertouSearch(Item item) {
+		reportarMensagemDeErro("Erro interno");
+	}
+
+	public String apertouCheck(Item item) {
+		try {
+			if (!isEdicaoDePedido()) {
+				System.out.println(pedido);
+				List<Item> list = new ArrayList<Item>();
+				list.add(item);
+				pedido.setItens(list);
+				pedido.setTipoDePedido(getTipoDePedido());
+				System.out.println(pedido);
+				pedidoServiceImplementacao.entregarItem(pedido, getFuncionarioLogado());
+			} else {
+				pedidoServiceImplementacao.entregarItem(pedido.getId(), item, getFuncionarioLogado());
+			}
+			reportarMensagemDeSucesso("Pronto! Enviado.");
+			return EnderecoPaginas.PAGINA_NOVO_PEDIDO + "&amp;pedido=" + pedido.getId();
+		} catch (ServiceEdgleChurrascariaException | IOException e) {
+			reportarMensagemDeErro(e.getMessage());
+		}
+		return null;
+	}
+
+	public void apertouPencil(Item item) {
+		reportarMensagemDeErro("Erro interno");
+	}
+
+	public void apertouTrash(Item item) {
+		if (item.getId() == null)
+			listItems.remove(item);
+		else
+			reportarMensagemDeErro("Erro interno");
+//			pedidoServiceImplementacao.cancelarItem(item);
+
+	}
+
+	public String corItem(Item item) {
+		if (Contem(item, TipoAcaoItemPedido.CANCELOU)) {
+			return "#00000080";
+		}
+		if (Contem(item, TipoAcaoItemPedido.ENTREGOU)) {
+			return "#4caf50bf";
+		}
+		if (Contem(item, TipoAcaoItemPedido.ALTEROU)) {
+			return "#00BCD4";
+		}
+		if (Contem(item, TipoAcaoItemPedido.REALIZOUPEDIDO)) {
+			return "#990000c2"; // #f91e4e
+		}
+		return "#ffffff";
+	}
+
+	private boolean Contem(Item item, TipoAcaoItemPedido acao) {
+		List<AcaoRealizada> list = item.getListAcaoRealizada();
+		if (list == null)
+			return false;
+		for (AcaoRealizada acaoRealizada : list) {
+			if (acaoRealizada.getTipoAcaoItemPedido().equals(acao)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public List<Item> getListaItemsSelecionados() {
 		return listaItemsSelecionados;
 	}
 
 	public void setListaItemsSelecionados(List<Item> listaItemsSelecionados) {
 		this.listaItemsSelecionados = listaItemsSelecionados;
+	}
+
+	public boolean isTipoEQuilograma() {
+		try {
+			ProdutoPadrao p = (ProdutoPadrao) produtoSelecionado;
+			if (p.getMedida() == TipoDeMedida.QUILOGRAMA) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public Pagamento getPagamento() {
@@ -104,7 +206,6 @@ public class PedidoEdit extends AbstractBean {
 		this.editavel = editavel;
 	}
 
-
 	public Mesa getMesa() {
 		return mesa;
 	}
@@ -121,14 +222,6 @@ public class PedidoEdit extends AbstractBean {
 		this.pedido = pedido;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
 	public String receberPorMesa() {
 
 		String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
@@ -136,10 +229,61 @@ public class PedidoEdit extends AbstractBean {
 			return null;
 		}
 		return EnderecoPaginas.PAGINA_NOVO_PEDIDO + "&amp;mesa=" + id;
+	}
+
+	public String receberPorDelivery() {
+		return EnderecoPaginas.PAGINA_NOVO_PEDIDO + "&amp;delivery=true";
+	}
+
+	public String receberPorBalcao() {
+		return EnderecoPaginas.PAGINA_NOVO_PEDIDO;
+
+	}
+
+	public String enviarParaACozinha() {
+		try {
+			if (listaItemsSelecionados == null || listaItemsSelecionados.size() == 0) {
+				reportarMensagemDeErro("Nenhum item selecionado");
+				return null;
+			}
+			if (!isEdicaoDePedido()) {
+				pedido.setItens(listaItemsSelecionados);
+				pedido.setTipoDePedido(getTipoDePedido());
+				pedidoServiceImplementacao.enviarParaCozinha(pedido, getFuncionarioLogado());
+			} else {
+				pedidoServiceImplementacao.enviarParaCozinha(pedido.getId(), listaItemsSelecionados,
+						getFuncionarioLogado());
+			}
+			reportarMensagemDeSucesso("Pronto! Enviado.");
+			return EnderecoPaginas.PAGINA_NOVO_PEDIDO + "&amp;pedido=" + pedido.getId();
+		} catch (ServiceEdgleChurrascariaException | IOException e) {
+			reportarMensagemDeErro(e.getMessage());
+		}
+		return null;
+	}
+
+	public TipoDePedido getTipoDePedido() {
+		if (mesa != null)
+			return TipoDePedido.MESA;
+		else if (entrega != null)
+			return TipoDePedido.DELIVERY;
+		else
+			return TipoDePedido.BALCAO;
+	}
+
+	public List<Item> getItensNaoEnviados() {
+		List<Item> retorno = new ArrayList<>();
+		for (Item item : listItems) {
+			if (item.getId() == null) {
+				retorno.add(item);
+			}
+		}
+		return retorno;
 
 	}
 
 	public void addItem() {
+		itemNovo.setPedido(pedido);
 		try {
 			itemNovo.setProduto(produtoSelecionado);
 			itemNovo.setValor(pedidoServiceImplementacao.getValorItem(itemNovo));
@@ -160,14 +304,20 @@ public class PedidoEdit extends AbstractBean {
 		itemNovo = new Item();
 		try {
 			if (isEdicaoDePedido()) {
+				System.out.println(pedido);
 				pedido = pedidoServiceImplementacao.getByID(pedido.getId());
 				listItems = pedido.getItens();
-				cliente = pedido.getCliente();
-
+				entrega = pedido.getEntrega();
+				mesa = pedido.getMesa();
 			} else {
 				pedido = new Pedido();
-				if (mesa!=null) {
+				if (mesa != null) {
+					pedido.setMesa(mesa);
 					pedido.setTipoDePedido(TipoDePedido.MESA);
+				} else if (delivery != null) {
+					entrega = new Entrega();
+					pedido.setEntrega(entrega);
+					pedido.setTipoDePedido(TipoDePedido.DELIVERY);
 				}
 			}
 			categoriasDeProdutos = categoriaProdutoServiceImplementacao.getAll();
@@ -225,7 +375,6 @@ public class PedidoEdit extends AbstractBean {
 		return produtoSelecionado;
 	}
 
-
 	public void setProdutoSelecionado(Produto produtoSelecionado) {
 		try {
 			this.produtoSelecionado = produtoServiceImplementacao.getByID(produtoSelecionado.getId());
@@ -249,6 +398,7 @@ public class PedidoEdit extends AbstractBean {
 	public void setListItems(List<Item> listItems) {
 		this.listItems = listItems;
 	}
+
 	public String listaObservacoes(Item item) {
 		String retorno = "";
 		List<ObservacaoPadrao> listaobs = item.getListObservacoes();
@@ -256,14 +406,21 @@ public class PedidoEdit extends AbstractBean {
 		for (Iterator<ObservacaoPadrao> iterator = listaobs.iterator(); iterator.hasNext();) {
 			ObservacaoPadrao observacaoPadrao = (ObservacaoPadrao) iterator.next();
 			if (!primeiro) {
-				retorno+=", ";
+				retorno += ", ";
 			}
-			primeiro= false;
-			retorno+=observacaoPadrao.getDescricao();
-				
+			primeiro = false;
+			retorno += observacaoPadrao.getDescricao();
+
 		}
 		return retorno;
 	}
 
+	public Boolean getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Boolean delivery) {
+		this.delivery = delivery;
+	}
 
 }
