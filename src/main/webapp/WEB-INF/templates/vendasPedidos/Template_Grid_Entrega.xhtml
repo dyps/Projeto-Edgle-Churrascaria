@@ -8,9 +8,85 @@
 	xmlns:p="http://primefaces.org/ui">
 <body>
 	<ui:composition>
-
-		<h1>Header Padrão</h1>
-
+		<h:form>
+			<p:dataGrid columns="4" id="dataTableEntrega" border="1"
+				style="width : 100%" var="pedido"
+				value="#{managePedido.pedidosEntrega}">
+				<p:panel header="Novo pedido" styleClass="cards" rendered="#{pedido.primeiro}">
+					<p:panelGrid columns="1">
+						<br />
+						<p:commandLink type="submit" title="Icon Only"
+							action="#{pedidoEdit.receberPorDelivery}">
+							<i class="pi pi-plus" style="color: black;" />
+						</p:commandLink>
+					</p:panelGrid>
+				</p:panel>
+				<p:panel header="Pedido #{pedido.numero}" styleClass="cards"
+					rendered="#{!pedido.primeiro}">
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-8 ">
+							<h:outputText style="font-weight:bold" value="Status" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-10 ">
+							<p:outputLabel style="font-weight:bold"
+								value="Pedidos realizados: " />
+						</div>
+						<div class="ui-g-2 ">
+							<p:outputLabel
+								value="#{managePedido.itensDoPedidosRealizados(pedido)}" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-10 ">
+							<p:outputLabel style="font-weight:bold"
+								value="Pedidos entregues: " />
+						</div>
+						<div class="ui-g-2 ">
+							<p:outputLabel
+								value="#{managePedido.itensDoPedidoEntregues(pedido)}" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-4 ">
+							<p:outputLabel style="font-weight:bold" value="Cliente: "
+								rendered="managePedido.clienteDoPedido(pedido)!=null" />
+						</div>
+						<div class="ui-g-8 ">
+							<p:outputLabel value="#{managePedido.clienteDoPedido(pedido)}"
+								rendered="managePedido.clienteDoPedido(pedido)!=null" />
+						</div>
+					</div>
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-4 ">
+							<p:outputLabel style="font-weight:bold" value="Endereço: "
+								rendered="managePedido.enderecoDoPedido(pedido)!=null" />
+						</div>
+						<div class="ui-g-8 ">
+							<p:outputLabel value="#{managePedido.enderecoDoPedido(pedido)}"
+								rendered="managePedido.enderecoDoPedido(pedido)!=null" />
+						</div>
+					</div>
+					<br />
+					<div class="ui-g ui-md-12 ui-g-nopad">
+						<div class="ui-g-3 ">
+							<p:outputLabel style="font-weight:bold" value="Total: " />
+						</div>
+						<div class="ui-g-5 ">
+							<p:outputLabel value="#{managePedido.valorTotal(pedido)}" />
+						</div>
+						<div class="ui-g-4 ">
+							<p:button
+								style="background-color: #660000; border: 1px solid #000000;"
+								outcome="pedido_edit.xhtml" value="Ver" id="idVerPedido">
+								<f:param name="pedido" value="#{pedido.id}" />
+							</p:button>
+						</div>
+					</div>
+				</p:panel>
+			</p:dataGrid>
+		</h:form>
 	</ui:composition>
 </body>
 </html>

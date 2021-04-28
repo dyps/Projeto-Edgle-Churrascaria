@@ -10,9 +10,11 @@ import javax.inject.Named;
 
 import br.com.churrascaria.beans.AbstractBean;
 import br.com.churrascaria.entities.Mesa;
+import br.com.churrascaria.entities.Pedido;
 import br.com.churrascaria.filter.MesaFilter;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.MesaServiceImplementacao;
+import br.com.churrascaria.services.implementacao.PedidoServiceImplementacao;
 
 @Named
 @ViewScoped
@@ -25,6 +27,9 @@ public class VendasMesa extends AbstractBean {
 
 	@Inject
 	private MesaServiceImplementacao mesaService;
+
+	@Inject
+	private PedidoServiceImplementacao pedidoService;
 
 	private List<Mesa> mesas;
 
@@ -40,6 +45,10 @@ public class VendasMesa extends AbstractBean {
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 		}
+	}
+
+	public Pedido getPedido(Mesa mesa) throws ServiceEdgleChurrascariaException {
+		return pedidoService.getPedidosDaMesa(mesa.getId());
 	}
 
 }

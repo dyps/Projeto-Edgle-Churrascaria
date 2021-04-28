@@ -35,7 +35,53 @@ public class Entrega  {
 	
 	@ManyToOne(optional = false)
 	private Endereco endereco;
-	
-	
+
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
+	}
+
+	public LocalDateTime getDataSaida() {
+		return dataSaida;
+	}
+
+	public void setDataSaida(LocalDateTime dataSaida) {
+		this.dataSaida = dataSaida;
+	}
+
+	public LocalDateTime getDataChegada() {
+		return dataChegada;
+	}
+
+	public void setDataChegada(LocalDateTime dataChegada) {
+		this.dataChegada = dataChegada;
+	}
+
+	public Entregador getEntregador() {
+		return entregador;
+	}
+
+	public void setEntregador(Entregador entregador) {
+		this.entregador = entregador;
+	}
+
+	public TaxaEntrega getTaxaEntrega() {
+		return taxaEntrega;
+	}
+
+	public void setTaxaEntrega(TaxaEntrega taxaEntrega) {
+		this.taxaEntrega = taxaEntrega;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 }

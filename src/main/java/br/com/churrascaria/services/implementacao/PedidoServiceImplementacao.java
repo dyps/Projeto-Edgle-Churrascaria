@@ -253,4 +253,46 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 		return pedido.getId() != null;
 	}
 
+	public Pedido getPedidosDaMesa(Long id) throws ServiceEdgleChurrascariaException {
+		try {
+			List<Pedido> pedidos = entidadeDAO.getAll();
+			for (Pedido pedido : pedidos) {
+				if (pedido.getMesa().getId() == id) {
+					return pedido;
+				}
+			}
+			return null;
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage());
+		}
+	}
+
+	public List<Pedido> getPedidosDoTipoBalcao() throws ServiceEdgleChurrascariaException {
+		try {
+			List<Pedido> pedidos = entidadeDAO.getAll();
+			List<Pedido> pedidosBalcao = new ArrayList<Pedido>();
+			for (Pedido pedido : pedidos) {
+				if (pedido.getTipoDePedido().getNome() == "Balcão")
+					pedidosBalcao.add(pedido);
+			}
+			return pedidosBalcao;
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage());
+		}
+	}
+
+	public List<Pedido> getPedidosDoTipoEntrega() throws ServiceEdgleChurrascariaException {
+		try {
+			List<Pedido> pedidos = entidadeDAO.getAll();
+			List<Pedido> pedidosEntrega = new ArrayList<Pedido>();
+			for (Pedido pedido : pedidos) {
+				if (pedido.getTipoDePedido().getNome() == "Delivery")
+					pedidosEntrega.add(pedido);
+			}
+			return pedidosEntrega;
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage());
+		}
+	}
+
 }
