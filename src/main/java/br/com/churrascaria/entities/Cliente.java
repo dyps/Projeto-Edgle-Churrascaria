@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "TB_Clientes")
 public class Cliente implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -26,15 +26,18 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ClientesSeq")
 	@SequenceGenerator(name = "ClientesSeq", sequenceName = "CLIENTE_SEQ", allocationSize = 1)
 	private Long Id;
-	
+
 	@Column(nullable = false)
 	private String nome;
-	
+
 	@Column(unique = true)
 	private String telefone;
-	
+
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Endereco> enderecos;
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos;
 
 	public Long getId() {
 		return Id;
@@ -67,5 +70,54 @@ public class Cliente implements Serializable {
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+
+	@Override
+	public String toString() {
+		return "Cliente [Id=" + Id + ", nome=" + nome + ", telefone=" + telefone + ", enderecos=" + enderecos + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((enderecos == null) ? 0 : enderecos.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (Id == null) {
+			if (other.Id != null)
+				return false;
+		} else if (!Id.equals(other.Id))
+			return false;
+		if (enderecos == null) {
+			if (other.enderecos != null)
+				return false;
+		} else if (!enderecos.equals(other.enderecos))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (telefone == null) {
+			if (other.telefone != null)
+				return false;
+		} else if (!telefone.equals(other.telefone))
+			return false;
+		return true;
+	}
+	
 
 }

@@ -12,8 +12,8 @@
 	</resource-ref>
 
 	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
+		<param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
+		<param-value>131072</param-value>
 	</context-param>
 	<error-page>
 		<error-code>500</error-code>
@@ -96,7 +96,8 @@
 		<display-name>Acesso permitido a todos usuários autenticados</display-name>
 		<web-resource-collection>
 			<web-resource-name>Área protegida que não exige autorização
-				específica</web-resource-name>
+				específica
+			</web-resource-name>
 			<description />
 			<url-pattern>/paginas/publicas/*</url-pattern>
 			<http-method>GET</http-method>

@@ -14,6 +14,7 @@ import br.com.churrascaria.beans.AbstractBean;
 import br.com.churrascaria.beans.EnderecoPaginas;
 import br.com.churrascaria.entities.AcaoRealizada;
 import br.com.churrascaria.entities.CategoriaProduto;
+import br.com.churrascaria.entities.Cliente;
 import br.com.churrascaria.entities.Entrega;
 import br.com.churrascaria.entities.Item;
 import br.com.churrascaria.entities.Mesa;
@@ -28,6 +29,7 @@ import br.com.churrascaria.entities.TipoDeMedida;
 import br.com.churrascaria.entities.TipoDePedido;
 import br.com.churrascaria.services.ServiceEdgleChurrascariaException;
 import br.com.churrascaria.services.implementacao.CategoriaProdutoServiceImplementacao;
+import br.com.churrascaria.services.implementacao.ClienteServiceImplementacao;
 import br.com.churrascaria.services.implementacao.PedidoServiceImplementacao;
 import br.com.churrascaria.services.implementacao.ProdutoServiceImplementacao;
 
@@ -48,6 +50,9 @@ public class PedidoEdit extends AbstractBean {
 
 	@Inject
 	private CategoriaProdutoServiceImplementacao categoriaProdutoServiceImplementacao;
+
+	@Inject
+	private ClienteServiceImplementacao clienteServiceImplementacao;
 
 	private List<CategoriaProduto> categoriasDeProdutos;
 
@@ -75,6 +80,10 @@ public class PedidoEdit extends AbstractBean {
 
 	private boolean editavel = true;
 
+	private Item itemLupa;
+
+	private List<Cliente> clientes;
+
 	public boolean mostrarSearch(Item item) {
 		if (item.getListAcaoRealizada() == null)
 			return false;
@@ -96,18 +105,19 @@ public class PedidoEdit extends AbstractBean {
 	}
 
 	public void apertouSearch(Item item) {
-		reportarMensagemDeErro("Erro interno");
+		itemLupa = item;
 	}
+	public void tes(Object a) {
+		System.out.println(a);
 
+	}
 	public String apertouCheck(Item item) {
 		try {
 			if (!isEdicaoDePedido()) {
-				System.out.println(pedido);
 				List<Item> list = new ArrayList<Item>();
 				list.add(item);
 				pedido.setItens(list);
 				pedido.setTipoDePedido(getTipoDePedido());
-				System.out.println(pedido);
 				pedidoServiceImplementacao.entregarItem(pedido, getFuncionarioLogado());
 			} else {
 				pedidoServiceImplementacao.entregarItem(pedido.getId(), item, getFuncionarioLogado());
@@ -299,13 +309,18 @@ public class PedidoEdit extends AbstractBean {
 		return pedido != null && pedido.getId() != null;
 	}
 
-	public void init() {
+	public String init() {
 		listItems = new ArrayList<Item>();
 		itemNovo = new Item();
+		clientes = new ArrayList<Cliente>();
 		try {
+			clientes.addAll(clienteServiceImplementacao.getAll());
 			if (isEdicaoDePedido()) {
-				System.out.println(pedido);
 				pedido = pedidoServiceImplementacao.getByID(pedido.getId());
+				if (pedido.isFinalizado()) {
+					reportarMensagemDeErro("Pedido já foi finalizado");
+					return EnderecoPaginas.PAGINA_PRINCIPAL_VENDAS;
+				}
 				listItems = pedido.getItens();
 				entrega = pedido.getEntrega();
 				mesa = pedido.getMesa();
@@ -324,6 +339,20 @@ public class PedidoEdit extends AbstractBean {
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 		}
+		return null;
+	}
+
+	public void finalizarPedido() {
+		try {
+			pedidoServiceImplementacao.finalizarPedido(pedido);
+		} catch (ServiceEdgleChurrascariaException e) {
+			reportarMensagemDeErro(e.getMessage());
+		}
+	}
+
+	public boolean podeFinalizarPedido() {
+		return pedidoServiceImplementacao.podeFinalizarPedido(pedido);
+
 	}
 
 	public List<CategoriaProduto> getCategoriasDeProdutos() {
@@ -421,6 +450,18 @@ public class PedidoEdit extends AbstractBean {
 
 	public void setDelivery(Boolean delivery) {
 		this.delivery = delivery;
+	}
+
+	public Item getItemLupa() {
+		return itemLupa;
+	}
+
+	public void setItemLupa(Item itemLupa) {
+		this.itemLupa = itemLupa;
+	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
 	}
 
 }

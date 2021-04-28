@@ -31,4 +31,7 @@ public final class EnderecoPaginas {
 	public static final String PAGINA_PRINCIPAL_FORMAS_DE_PAGAMENTO  = "/paginas/protegidas/gestao/formasdepagamento/index.xhtml"
 			+ REDIRECT_TRUE;
 
+	public static final String PAGINA_PRINCIPAL_VENDAS = "/paginas/protegidas/vendas/pedidos/index.xhtml"
+			+ REDIRECT_TRUE;
+
 }

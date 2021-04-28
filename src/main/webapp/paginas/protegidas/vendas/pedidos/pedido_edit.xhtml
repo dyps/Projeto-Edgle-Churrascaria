@@ -33,18 +33,18 @@
 					value=" > Mesa #{pedidoEdit.mesa.numero}" />
 				<p:outputLabel
 					style="font-size: 1rem;font-weight: bolder;align-self: center;vertical-align: 50%"
-					rendered="#{pedidoEdit.pedido.id==null}" value=" > Novo" />
-				<p:outputLabel
-					style="font-size: 1rem;font-weight: bolder;align-self: center;vertical-align: 50%"
-					value=" pedido" />
-				<p:outputLabel
-					style="font-size: 1rem;font-weight: bolder;align-self: center;vertical-align: 50%"
 					rendered="#{pedidoEdit.tipoDePedido.nome.equals('Balcão')}"
-					value=" balcão" />
+					value=" > Balcão" />
 				<p:outputLabel
 					style="font-size: 1rem;font-weight: bolder;align-self: center;vertical-align: 50%"
 					rendered="#{pedidoEdit.tipoDePedido.nome.equals('Delivery')}"
-					value=" delivery" />
+					value=" > Delivery" />
+				<p:outputLabel
+					style="font-size: 1rem;font-weight: bolder;align-self: center;vertical-align: 50%"
+					rendered="#{pedidoEdit.pedido.id==null}" value=" > Novo" />
+				<p:outputLabel
+					style="font-size: 1rem;font-weight: bolder;align-self: center;vertical-align: 50%"
+					value=" Pedido" />
 				<p:outputLabel
 					style="font-size: 1rem;font-weight: bolder;align-self: center;vertical-align: 50%"
 					rendered="#{pedidoEdit.pedido.id!=null}"
@@ -58,17 +58,13 @@
 				<div class="ui-g-6 " style="padding: 1em;">
 					<h:form id="idFormClientes">
 						<p:outputLabel value="Cliente: " />
-						<p:selectOneListbox id="idListClientes"
-							value="#{pedidoEdit.pedido.cliente}" var="c" filter="true"
+						<p:selectOneListbox id="idListClientes"  required="false"
+							value="#{pedidoEdit.pedido.cliente}" filter="true"
 							filterMatchMode="contains" scrollHeight="100">
-							<f:selectItems value="#{manageCliente.clientes}" var="cat"
-								itemLabel="#{cat.nome}" itemValue="#{cat}" />
-
-							<p:column>
-								<h:outputText value="#{c.nome}" />
-								<h:outputText value=", número: #{c.telefone}"
-									rendered="#{!c.telefone.isEmpty()}" />
-							</p:column>
+							<f:selectItems value="#{pedidoEdit.clientes}" var="c" 
+								itemLabel="#{c.nome}" itemValue="#{c}">
+							</f:selectItems>
+							<p:ajax listener="#{pedidoEdit.pedido.setCliente(c)}" update="idListClientes"></p:ajax>
 						</p:selectOneListbox>
 					</h:form>
 				</div>
@@ -90,7 +86,7 @@
 								header=" #{item.produto.nome}">
 								<div class="ui-g-7 "
 									style="padding: 0em; height: 2.2rem; background-color: #{pedidoEdit.corItem(item)};">
-									<p:outputLabel value=" x #{item.quantidade} =" />
+									<p:outputLabel value="#{item.quantidade} x " />
 									<p:outputLabel value=" #{item.valor}" />
 									<p:outputLabel rendered="#{item.listObservacoes.size()>0}">
 										<i class="pi pi-exclamation-circle"
@@ -103,25 +99,27 @@
 									style="padding: 0em; height: 2.2rem; text-align: center;background-color: #{pedidoEdit.corItem(item)}">
 									<p:commandLink type="submit" title="Ver"
 										action="#{pedidoEdit.apertouSearch(item)}"
+										oncomplete=" PF('verItem').show(); " update="idDialogVerItem"
 										rendered="#{pedidoEdit.mostrarSearch(item)}">
 										<i class="pi pi-search" style="color: black;" />
 									</p:commandLink>
 									<p:commandLink type="submit" title="Marcar como entregue"
-										action="#{pedidoEdit.apertouCheck(item)}" update="@form"
+										action="#{pedidoEdit.apertouCheck(item)}"
+										update="@form,idFormClientes"
 										rendered="#{pedidoEdit.mostrarCheck(item)}">
 										<i class="pi pi-check" style="color: black;" />
 										<p:confirm header="
 											Confirmação!"
-											message="Você realmente deseja Marcar como entregue?"
+											message="Você realmente deseja marcar como entregue?"
 											icon="fa fa-exclamation-triangle" />
 									</p:commandLink>
 
-									<p:commandLink type="submit" title="Editar"
-										action="#{pedidoEdit.apertouPencil(item)}" update="@form"
-										rendered="#{pedidoEdit.mostrarPencil(item)}">
-										<i class="pi pi-pencil" style="color: black;" />
+									<!-- 									<p:commandLink type="submit" title="Editar" -->
+									<!-- 										action="#{pedidoEdit.apertouPencil(item)}" update="@form" -->
+									<!-- 										rendered="#{pedidoEdit.mostrarPencil(item)}"> -->
+									<!-- 										<i class="pi pi-pencil" style="color: black;" /> -->
 
-									</p:commandLink>
+									<!-- 									</p:commandLink> -->
 
 									<p:commandLink type="submit" title="Cancelar"
 										action="#{pedidoEdit.apertouTrash(item)}" update="@form"
@@ -129,7 +127,7 @@
 										<i class="pi pi-trash" style="color: black;" />
 										<p:confirm header="
 											Confirmação!"
-											message="Você realmente deseja Cancelar?"
+											message="Você realmente deseja cancelar?"
 											icon="fa fa-exclamation-triangle" />
 									</p:commandLink>
 
@@ -214,7 +212,9 @@
 					<p:button value="Pagamento" disabled="true" />
 				</div>
 				<div class="ui-g-2">
-					<p:button value="Finalizar" disabled="true" />
+					<p:commandButton value="Finalizar"
+						disabled="#{pedidoEdit.podeFinalizarPedido()==false}"
+						type="submit" action="#{pedidoEdit.finalizarPedido()}" />
 				</div>
 			</h:form>
 		</div>
@@ -275,6 +275,24 @@
 
 			</p:dialog>
 		</h:form>
+
+		<p:dialog modal="true" id="idDialogVerItem" widgetVar="verItem"
+			width="40rem" resizable="false" global="true" showEffect="fade"
+			hideEffect="fade" header="Detalhes do item" responsive="true">
+			<p:dataTable var="acao"
+				value="#{pedidoEdit.itemLupa.listAcaoRealizada}"
+				style="text-align: center;">
+				<p:column headerText="Funcionário:">
+					<p:outputLabel value="#{acao.funcionario.nome}" />
+				</p:column>
+				<p:column headerText="Hora:">
+					<p:outputLabel value="#{acao.dataFormatada}" />
+				</p:column>
+				<p:column headerText="Ação" width="">
+					<p:outputLabel value="#{acao.tipoAcaoItemPedido.nome}" />
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
 	</ui:define>
 
 </ui:composition>

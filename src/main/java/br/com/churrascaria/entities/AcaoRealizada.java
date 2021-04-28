@@ -1,6 +1,7 @@
 package br.com.churrascaria.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -74,6 +75,11 @@ public class AcaoRealizada {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+	
+	public String getDataFormatada() {
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_TIME;
+		return data.format(formatter );
 	}
 
 	@Override

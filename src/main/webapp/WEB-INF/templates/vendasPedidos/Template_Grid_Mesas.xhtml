@@ -13,7 +13,7 @@
 				style="width : 100%" var="mesa"
 				emptyMessage="Sem mesas cadastradas &#128532;"
 				value="#{vendasMesa.mesas}">
-				<p:panel header="Mesa #{mesa.numero}" styleClass="cards">
+				<p:panel header="Mesa #{mesa.numero}" styleClass="cards" rendered="#{vendasMesa.getPedido(mesa)==null}">
 					<p:panelGrid columns="1" >
 						<br />
 						<p:commandLink type="submit" title="Icon Only"
@@ -27,6 +27,7 @@
 					<!-- 						<i class="pi pi-plus" style="color: black;" /> -->
 					<!-- 					</p:commandLink> -->
 				</p:panel>
+				
 			</p:dataGrid>
 		</h:form>
 

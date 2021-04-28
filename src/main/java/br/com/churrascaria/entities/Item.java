@@ -48,7 +48,7 @@ public class Item implements Serializable {
 	@ManyToMany(mappedBy = "listVezesSelecionada")
 	private List<Opcao> listOpcoes;
 
-	@ManyToMany(mappedBy = "listItens", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "listItens", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<ObservacaoPadrao> listObservacoes;
 
 	public Long getId() {

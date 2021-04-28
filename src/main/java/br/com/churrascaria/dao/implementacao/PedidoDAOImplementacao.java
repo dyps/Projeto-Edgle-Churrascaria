@@ -53,11 +53,11 @@ public class PedidoDAOImplementacao extends InDatabaseDAO implements PedidoDAO {
 	}
 
 	@Override
-	public Pedido update(Pedido observacao) throws PersistenciaEdgleChurrascariaException {
+	public Pedido update(Pedido pedido) throws PersistenciaEdgleChurrascariaException {
 		EntityManager em = getEntityManager();
-		Pedido resultado = observacao;
+		Pedido resultado = pedido;
 		try {
-			resultado = em.merge(observacao);
+			resultado = em.merge(pedido);
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 			throw new PersistenciaEdgleChurrascariaException("Ocorreu algum erro ao tentar atualizar o pedido.",

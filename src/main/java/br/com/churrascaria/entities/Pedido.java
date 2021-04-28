@@ -34,14 +34,16 @@ public class Pedido {
 	@Column(nullable = false)
 	private TipoDePedido tipoDePedido;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Cliente cliente;
 
 	@ManyToOne
 	private Mesa mesa;
 
 	private String observacao;
-
+	
+	private boolean finalizado = false;
+	
 	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Item> itens;
 
@@ -50,6 +52,23 @@ public class Pedido {
 
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.MERGE)
 	private List<Pagamento> pagamentos;
+
+	public boolean isFinalizado() {
+		return finalizado;
+	}
+
+	public void setFinalizado(boolean finalizado) {
+		this.finalizado = finalizado;
+	}
+
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
+	
 
 	public Long getId() {
 		return Id;
@@ -146,8 +165,9 @@ public class Pedido {
 	@Override
 	public String toString() {
 		return "Pedido [Id=" + Id + ", numero=" + numero + ", tipoDePedido=" + tipoDePedido + ", cliente=" + cliente
-				+ ", mesa=" + mesa + ", observacao=" + observacao + ", itens=" + itens + ", entrega=" + entrega
-				+ ", pagamentos=" + pagamentos + "]";
+				+ ", mesa=" + mesa + ", observacao=" + observacao + ", finalizado=" + finalizado + ", itens=" + itens
+				+ ", entrega=" + entrega + ", pagamentos=" + pagamentos + "]";
 	}
 
+	
 }

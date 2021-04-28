@@ -113,7 +113,7 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 				itemDAO.save(item);
 			} else {
 				for (AcaoRealizada acaoRealizada : item.getListAcaoRealizada()) {
-					if (acaoRealizada.getId()==null) {
+					if (acaoRealizada.getId() == null) {
 						itemDAO.novaAcao(acaoRealizada);
 					}
 				}
@@ -126,6 +126,7 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 
 	@TransacionalCdi
 	public void entregarItem(Pedido pedido, Funcionario funcionarioLogado) throws ServiceEdgleChurrascariaException {
+		System.out.println(pedido);
 		pedido.setNumero(abrirFecharCaixaServiceImplementacao.nextNumeroDePedido());
 		for (Item item : pedido.getItens()) {
 			ArrayList<AcaoRealizada> acoes = new ArrayList<>();
@@ -185,7 +186,7 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 	public float getValorItem(Item itemNovo) {
 		if (itemNovo.getProduto() instanceof ProdutoPadrao) {
 			ProdutoPadrao produto = (ProdutoPadrao) itemNovo.getProduto();
-			return itemNovo.getQuantidade() * produto.getValorDeVenda();
+			return produto.getValorDeVenda();
 		} else {
 			float valor = 0;
 			List<Opcao> list = itemNovo.getListOpcoes();
@@ -233,6 +234,23 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 		else if (jaFoi(item, TipoAcaoItemPedido.CANCELOU))
 			return false;
 		return true;
+	}
+
+	@TransacionalCdi
+	public void finalizarPedido(Pedido pedido) throws ServiceEdgleChurrascariaException {
+		if (podeFinalizarPedido(pedido)) {
+			try {
+				pedido.setFinalizado(true);
+				entidadeDAO.update(pedido);
+			} catch (PersistenciaEdgleChurrascariaException e) {
+				throw new ServiceEdgleChurrascariaException(e.getMessage());
+			}
+		}
+
+	}
+
+	public boolean podeFinalizarPedido(Pedido pedido) {
+		return pedido.getId() != null;
 	}
 
 }

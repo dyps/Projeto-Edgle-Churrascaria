@@ -14,7 +14,7 @@ import br.com.churrascaria.services.implementacao.ClienteServiceImplementacao;
 
 @FacesConverter(forClass = Cliente.class)
 public class ClienteConverter implements Converter<Cliente> {
-	
+
 	@Inject
 	private ClienteServiceImplementacao clienteService;
 
@@ -38,10 +38,12 @@ public class ClienteConverter implements Converter<Cliente> {
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Cliente value) {
+		System.out.println(value);
 		if (!(value instanceof Cliente)) {
-			return null;
+			String aux = value.toString().replaceAll("Cliente \\[Id=", "");
+			String ret = aux.split(",")[0];
+			return ret;
 		}
-
 		Long id = ((Cliente) value).getId();
 		return (id != null) ? id.toString() : null;
 	}
