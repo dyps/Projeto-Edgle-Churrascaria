@@ -107,10 +107,7 @@ public class PedidoEdit extends AbstractBean {
 	public void apertouSearch(Item item) {
 		itemLupa = item;
 	}
-	public void tes(Object a) {
-		System.out.println(a);
 
-	}
 	public String apertouCheck(Item item) {
 		try {
 			if (!isEdicaoDePedido()) {

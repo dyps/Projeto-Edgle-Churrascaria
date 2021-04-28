@@ -257,7 +257,7 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 		try {
 			List<Pedido> pedidos = entidadeDAO.getAll();
 			for (Pedido pedido : pedidos) {
-				if (pedido.getMesa().getId() == id) {
+				if (pedido.getMesa().getId() == id && !pedido.isFinalizado()) {
 					return pedido;
 				}
 			}
@@ -272,7 +272,7 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 			List<Pedido> pedidos = entidadeDAO.getAll();
 			List<Pedido> pedidosBalcao = new ArrayList<Pedido>();
 			for (Pedido pedido : pedidos) {
-				if (pedido.getTipoDePedido().getNome() == "Balcão")
+				if (pedido.getTipoDePedido().getNome() == "Balcão" && !pedido.isFinalizado())
 					pedidosBalcao.add(pedido);
 			}
 			return pedidosBalcao;
@@ -286,7 +286,7 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 			List<Pedido> pedidos = entidadeDAO.getAll();
 			List<Pedido> pedidosEntrega = new ArrayList<Pedido>();
 			for (Pedido pedido : pedidos) {
-				if (pedido.getTipoDePedido().getNome() == "Delivery")
+				if (pedido.getTipoDePedido().getNome() == "Delivery" && !pedido.isFinalizado())
 					pedidosEntrega.add(pedido);
 			}
 			return pedidosEntrega;

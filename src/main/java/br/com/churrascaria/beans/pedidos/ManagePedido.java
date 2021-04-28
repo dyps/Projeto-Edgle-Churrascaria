@@ -34,7 +34,7 @@ public class ManagePedido extends AbstractBean {
 	@Inject
 	private MesaServiceImplementacao mesaService;
 
-	private List<Pedido> pedidos;
+	private List<Pedido> pedidosEncerrados;
 
 	private List<Pedido> pedidosBalcao;
 
@@ -42,8 +42,8 @@ public class ManagePedido extends AbstractBean {
 
 	private List<Mesa> mesas;
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
+	public List<Pedido> getPedidosEncerrados() {
+		return pedidosEncerrados;
 	}
 
 	public List<Pedido> getPedidosBalcao() {
@@ -65,7 +65,7 @@ public class ManagePedido extends AbstractBean {
 	}
 
 	public String filtrar() {
-		pedidos = new ArrayList<Pedido>();
+		pedidosEncerrados = new ArrayList<Pedido>();
 		Pedido primeiroPedido = new Pedido();
 		primeiroPedido.setPrimeiro(true);
 		//pedidos.add(primeiroPedido);
@@ -75,7 +75,10 @@ public class ManagePedido extends AbstractBean {
 		pedidosEntrega.add(primeiroPedido);
 		mesas = new ArrayList<Mesa>();
 		try {
-			pedidos.addAll(pedidoService.getAll());
+			for (Pedido pedido : pedidoService.getAll()) {
+				if(pedido.isFinalizado())
+					pedidosEncerrados.add(pedido);
+			}
 			pedidosBalcao.addAll(pedidoService.getPedidosDoTipoBalcao());
 			pedidosEntrega.addAll(pedidoService.getPedidosDoTipoEntrega());
 			mesas.addAll(mesaService.findBy(new MesaFilter()));
