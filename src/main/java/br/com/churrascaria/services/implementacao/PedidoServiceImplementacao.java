@@ -257,8 +257,10 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 		try {
 			List<Pedido> pedidos = entidadeDAO.getAll();
 			for (Pedido pedido : pedidos) {
-				if (pedido.getMesa().getId() == id && !pedido.isFinalizado()) {
-					return pedido;
+				if (pedido.getMesa() != null) {
+					if (pedido.getMesa().getId() == id && !pedido.isFinalizado()) {
+						return pedido;
+					}
 				}
 			}
 			return null;

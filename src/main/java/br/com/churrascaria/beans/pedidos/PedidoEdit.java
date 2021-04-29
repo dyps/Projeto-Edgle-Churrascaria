@@ -339,12 +339,14 @@ public class PedidoEdit extends AbstractBean {
 		return null;
 	}
 
-	public void finalizarPedido() {
+	public String finalizarPedido() {
 		try {
 			pedidoServiceImplementacao.finalizarPedido(pedido);
+			return EnderecoPaginas.PAGINA_PRINCIPAL_VENDAS;
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
 		}
+		return null;
 	}
 
 	public boolean podeFinalizarPedido() {

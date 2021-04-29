@@ -68,7 +68,7 @@ public class ManagePedido extends AbstractBean {
 		pedidosEncerrados = new ArrayList<Pedido>();
 		Pedido primeiroPedido = new Pedido();
 		primeiroPedido.setPrimeiro(true);
-		//pedidos.add(primeiroPedido);
+		// pedidos.add(primeiroPedido);
 		pedidosBalcao = new ArrayList<Pedido>();
 		pedidosBalcao.add(primeiroPedido);
 		pedidosEntrega = new ArrayList<Pedido>();
@@ -76,7 +76,7 @@ public class ManagePedido extends AbstractBean {
 		mesas = new ArrayList<Mesa>();
 		try {
 			for (Pedido pedido : pedidoService.getAll()) {
-				if(pedido.isFinalizado())
+				if (pedido.isFinalizado())
 					pedidosEncerrados.add(pedido);
 			}
 			pedidosBalcao.addAll(pedidoService.getPedidosDoTipoBalcao());
@@ -95,6 +95,8 @@ public class ManagePedido extends AbstractBean {
 			return pedido.getCliente().getNome();
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
+		} catch (NullPointerException e) {
+
 		}
 		return null;
 	}
