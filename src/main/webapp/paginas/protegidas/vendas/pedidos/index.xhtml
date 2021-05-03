@@ -13,17 +13,17 @@
 
 	<ui:define name="content">
 		<div class="ui-g-12">
-			<p:tabView>
-				<p:tab title="Mesas">
+			<p:tabView id="tabView">
+				<p:tab title="Mesas" id="abaMesas">
 					<ui:include src="/WEB-INF/templates/vendasPedidos/Template_Grid_Mesas.xhtml"/>
 				</p:tab>
-				<p:tab title="Balcão">
+				<p:tab title="Balcão" id="abaBalcao">
 					<ui:include src="/WEB-INF/templates/vendasPedidos/Template_Grid_Balcao.xhtml"/>
 				</p:tab>
-				<p:tab title="Entrega">
+				<p:tab title="Entrega" id="abaEntrega">
 					<ui:include src="/WEB-INF/templates/vendasPedidos/Template_Grid_Entrega.xhtml"/>
 				</p:tab>
-				<p:tab title="Já encerrados">
+				<p:tab title="Já encerrados" id="abaEncerrados">
 					<ui:include src="/WEB-INF/templates/vendasPedidos/Template_Grid_Encerrados.xhtml"/>
 				</p:tab>
 			</p:tabView>

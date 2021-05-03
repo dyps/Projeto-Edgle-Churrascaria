@@ -311,4 +311,21 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 		}
 	}
 
+	public void setPedidoDAO(PedidoDAO pedidoDAO) {
+		this.entidadeDAO = pedidoDAO;
+	}
+	
+	public void setItemDAO(ItemDAO itemDAO) {
+		this.itemDAO = itemDAO;
+	}
+
+	public AbrirFecharCaixaServiceImplementacao getAbrirFecharCaixaServiceImplementacao() {
+		return abrirFecharCaixaServiceImplementacao;
+	}
+
+	public void setAbrirFecharCaixaServiceImplementacao(
+			AbrirFecharCaixaServiceImplementacao abrirFecharCaixaServiceImplementacao) {
+		this.abrirFecharCaixaServiceImplementacao = abrirFecharCaixaServiceImplementacao;
+	}
+
 }

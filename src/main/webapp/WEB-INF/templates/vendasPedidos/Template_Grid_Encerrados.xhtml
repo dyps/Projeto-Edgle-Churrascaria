@@ -12,7 +12,8 @@
 			<div class="ui-g ui-md-12 ui-g-nopad">
 				<div class="ui-g-3" />
 				<div class="ui-g-6 " style="text-align: right;">
-					<p:dataTable var="pedido" value="#{managePedido.pedidosEncerrados}">
+					<p:dataTable var="pedido" value="#{managePedido.pedidosEncerrados}"
+						emptyMessage="Sem pedidos registrados">
 						<p:column headerText="Número" style="text-align: left;"
 							responsivePriority="2">
 							<p:outputLabel value="#{pedido.numero}" />
@@ -25,14 +26,9 @@
 							style="text-align: left;width: 25%;" responsivePriority="3">
 							<p:outputLabel value="#{managePedido.valorTotal(pedido)}" />
 						</p:column>
-						<p:column headerText="Opção" style="text-align: left;width: 25%;"
-							responsivePriority="1">
-							<p:link outcome="pedido_edit.xhtml">
-								<f:param name="pedido" value="#{pedido.id}" />
-								<i class="fa fa-search"
-									style="color: black; font-size: 1.187rem;"
-									id="idVerDetalhesPedido" />
-							</p:link>
+						<p:column headerText="Cliente"
+							style="text-align: left;width: 25%;" responsivePriority="1">
+							<p:outputLabel value="#{pedido.cliente.nome}" />
 						</p:column>
 					</p:dataTable>
 				</div>
