@@ -55,17 +55,16 @@
 		</div>
 		<div class="ui-g-12 " style="padding: .0em;">
 			<div class="ui-g-6 " style="padding: .0em;">
-				<div class="ui-g-6 " style="padding: 1em;">
+				<div class="ui-g-6 " style="padding: 1em; height: 200px;">
 					<h:form id="idFormClientes">
-						<p:outputLabel value="Cliente: " />
-						<p:selectOneListbox id="idListClientes"  required="false"
-							value="#{pedidoEdit.pedido.cliente}" filter="true"
-							filterMatchMode="contains" scrollHeight="100">
-							<f:selectItems value="#{pedidoEdit.clientes}" var="c" 
-								itemLabel="#{c.nome}" itemValue="#{c}">
-							</f:selectItems>
-							<p:ajax listener="#{pedidoEdit.pedido.setCliente(c)}" update="idListClientes"></p:ajax>
-						</p:selectOneListbox>
+						<p:outputLabel value="Cliente: "
+							rendered="#{pedidoEdit.cliente!=null}" />
+						<p:outputLabel value="#{pedidoEdit.cliente}"
+							rendered="#{pedidoEdit.cliente!=null}" />
+						<p:commandButton id="botaoSelecionarCliente" type="submit"
+							rendered="#{pedidoEdit.cliente==null}"
+							oncomplete="PF('SelecionarCliente').show();"
+							update="idFormClientes" value="Selecinar Cliente" />
 					</h:form>
 				</div>
 
@@ -293,6 +292,29 @@
 				</p:column>
 			</p:dataTable>
 		</p:dialog>
+
+		<h:form>
+			<p:dialog modal="true" id="idDialogSelecionarCliente"
+				widgetVar="SelecionarCliente" width="40rem" resizable="false"
+				global="true" showEffect="fade" hideEffect="fade"
+				header="Detalhes do item" responsive="true">
+
+				<p:selectOneListbox id="idListClientes" required="false"
+					value="#{pedidoEdit.cliente}" filter="true"
+					filterMatchMode="contains" scrollHeight="100">
+					<f:selectItems value="#{pedidoEdit.clientes}" var="c"
+						itemLabel="#{c.nome}" itemValue="#{c}">
+					</f:selectItems>
+				</p:selectOneListbox>
+				<br />
+				<p:commandButton id="botaoSelecionarCliente" style="width: 100%;"
+					action="#{pedidoEdit.getCliente()}" update="@form,idFormClientes"
+					value="Selecionar" />
+
+			</p:dialog>
+		</h:form>
+
+
 	</ui:define>
 
 </ui:composition>

@@ -38,11 +38,8 @@ public class ClienteConverter implements Converter<Cliente> {
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Cliente value) {
-		System.out.println(value);
 		if (!(value instanceof Cliente)) {
-			String aux = value.toString().replaceAll("Cliente \\[Id=", "");
-			String ret = aux.split(",")[0];
-			return ret;
+			return null;
 		}
 		Long id = ((Cliente) value).getId();
 		return (id != null) ? id.toString() : null;

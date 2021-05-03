@@ -135,8 +135,11 @@ public class PedidoEdit extends AbstractBean {
 		if (item.getId() == null)
 			listItems.remove(item);
 		else
-			reportarMensagemDeErro("Erro interno");
-//			pedidoServiceImplementacao.cancelarItem(item);
+			try {
+				pedidoServiceImplementacao.cancelarItem(item, getFuncionarioLogado());
+			} catch (ServiceEdgleChurrascariaException | IOException e) {
+				reportarMensagemDeErro(e.getMessage());
+			}
 
 	}
 
@@ -347,6 +350,22 @@ public class PedidoEdit extends AbstractBean {
 			reportarMensagemDeErro(e.getMessage());
 		}
 		return null;
+	}
+
+	public void setCliente(Object obj) {
+		String aux = obj.toString().replaceAll("Cliente \\[Id=", "");
+		String ret = aux.split(",")[0];
+		try {
+			pedido.setCliente(clienteServiceImplementacao.getByID(Long.parseLong(ret)));
+		} catch (NumberFormatException | ServiceEdgleChurrascariaException e) {
+			reportarMensagemDeErro(e.getMessage());
+			;
+		}
+	}
+
+	public Object getCliente() {
+		return pedido.getCliente() == null ? null : pedido.getCliente().getNome();
+
 	}
 
 	public boolean podeFinalizarPedido() {

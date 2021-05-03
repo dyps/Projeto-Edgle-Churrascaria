@@ -126,7 +126,6 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 
 	@TransacionalCdi
 	public void entregarItem(Pedido pedido, Funcionario funcionarioLogado) throws ServiceEdgleChurrascariaException {
-		System.out.println(pedido);
 		pedido.setNumero(abrirFecharCaixaServiceImplementacao.nextNumeroDePedido());
 		for (Item item : pedido.getItens()) {
 			ArrayList<AcaoRealizada> acoes = new ArrayList<>();
@@ -168,6 +167,21 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 		item.setListAcaoRealizada(acoes);
 		item.setPedido(pedido);
 		salvarItem(item);
+	}
+
+	@TransacionalCdi
+	public void cancelarItem(Item item, Funcionario funcionarioLogado) throws ServiceEdgleChurrascariaException {
+		AcaoRealizada acaoRealizada = new AcaoRealizada();
+		acaoRealizada.setData(LocalDateTime.now(ZoneId.systemDefault()));
+		acaoRealizada.setTipoAcaoItemPedido(TipoAcaoItemPedido.CANCELOU);
+		acaoRealizada.setFuncionario(funcionarioLogado);
+		try {
+			item = itemDAO.getByID(item.getId());
+			item.getListAcaoRealizada().add(acaoRealizada);
+			itemDAO.update(item);
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage());
+		}
 	}
 
 	public void validar(Item item) throws ServiceEdgleChurrascariaException {
