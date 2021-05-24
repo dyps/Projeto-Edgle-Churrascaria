@@ -1,5 +1,6 @@
 package br.com.churrascaria.services.implementacao;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -254,7 +255,7 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 	public void finalizarPedido(Pedido pedido) throws ServiceEdgleChurrascariaException {
 		if (podeFinalizarPedido(pedido)) {
 			try {
-				pedido.setFinalizado(true);
+				pedido.setFinalizado(LocalDateTime.now(ZoneId.systemDefault()));
 				entidadeDAO.update(pedido);
 			} catch (PersistenciaEdgleChurrascariaException e) {
 				throw new ServiceEdgleChurrascariaException(e.getMessage());
@@ -264,7 +265,24 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 	}
 
 	public boolean podeFinalizarPedido(Pedido pedido) {
-		return pedido.getId() != null;
+		if (pedido.getId() == null) {
+			return true;
+		}
+		for (Item item : pedido.getItens()) {
+			if (!itemContemStatus(item, TipoAcaoItemPedido.ENTREGOU)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean itemContemStatus(Item item, TipoAcaoItemPedido acao) {
+		for (AcaoRealizada acaoRealizada : item.getListAcaoRealizada()) {
+			if (acaoRealizada.getTipoAcaoItemPedido().equals(acao)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public Pedido getPedidosDaMesa(Long id) throws ServiceEdgleChurrascariaException {
@@ -272,7 +290,7 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 			List<Pedido> pedidos = entidadeDAO.getAll();
 			for (Pedido pedido : pedidos) {
 				if (pedido.getMesa() != null) {
-					if (pedido.getMesa().getId() == id && !pedido.isFinalizado()) {
+					if (pedido.getMesa().getId() == id && pedido.getFinalizado() == null) {
 						return pedido;
 					}
 				}
@@ -288,7 +306,7 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 			List<Pedido> pedidos = entidadeDAO.getAll();
 			List<Pedido> pedidosBalcao = new ArrayList<Pedido>();
 			for (Pedido pedido : pedidos) {
-				if (pedido.getTipoDePedido().getNome() == "Balcão" && !pedido.isFinalizado())
+				if (pedido.getTipoDePedido().getNome() == "Balcão" && pedido.getFinalizado() == null)
 					pedidosBalcao.add(pedido);
 			}
 			return pedidosBalcao;
@@ -302,13 +320,47 @@ public class PedidoServiceImplementacao extends CRUDService<Pedido> {
 			List<Pedido> pedidos = entidadeDAO.getAll();
 			List<Pedido> pedidosEntrega = new ArrayList<Pedido>();
 			for (Pedido pedido : pedidos) {
-				if (pedido.getTipoDePedido().getNome() == "Delivery" && !pedido.isFinalizado())
+				if (pedido.getTipoDePedido().getNome() == "Delivery" && pedido.getFinalizado() == null)
 					pedidosEntrega.add(pedido);
 			}
 			return pedidosEntrega;
 		} catch (PersistenciaEdgleChurrascariaException e) {
 			throw new ServiceEdgleChurrascariaException(e.getMessage());
 		}
+	}
+
+	public List<Pedido> getEncerredos(LocalDate dataInicio, LocalDate dataFim)
+			throws ServiceEdgleChurrascariaException {
+		if (!((!dataFim.isBefore(dataInicio)) || dataFim.isEqual(dataInicio))) {
+			throw new ServiceEdgleChurrascariaException("Data de inicio deve ser antes da data de fim");
+		}
+		try {
+			List<Pedido> pedidosEncerrados = new ArrayList<Pedido>();
+			for (Pedido pedido : entidadeDAO.getAll()) {
+
+				LocalDate dataCriaçãoDoPedido = dataCriaçãoDoPedido(pedido);
+				if (pedido.getFinalizado() != null
+						&& (dataInicio.isBefore(dataCriaçãoDoPedido) || dataInicio.isEqual(dataCriaçãoDoPedido))
+						&& (dataFim.isAfter(dataCriaçãoDoPedido) || dataFim.isEqual(dataCriaçãoDoPedido))) {
+					pedidosEncerrados.add(pedido);
+				}
+			}
+			return pedidosEncerrados;
+		} catch (PersistenciaEdgleChurrascariaException e) {
+			throw new ServiceEdgleChurrascariaException(e.getMessage());
+		}
+	}
+
+	private LocalDate dataCriaçãoDoPedido(Pedido pedido) {
+		LocalDateTime retorno = null;
+		for (Item item : pedido.getItens()) {
+			for (AcaoRealizada acaoRealizada : item.getListAcaoRealizada()) {
+				if (retorno == null || acaoRealizada.getData().isBefore(retorno)) {
+					retorno = acaoRealizada.getData();
+				}
+			}
+		}
+		return retorno.toLocalDate();
 	}
 
 }

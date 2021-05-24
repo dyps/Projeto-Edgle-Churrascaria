@@ -317,7 +317,7 @@ public class PedidoEdit extends AbstractBean {
 			clientes.addAll(clienteServiceImplementacao.getAll());
 			if (isEdicaoDePedido()) {
 				pedido = pedidoServiceImplementacao.getByID(pedido.getId());
-				if (pedido.isFinalizado()) {
+				if (pedido.getFinalizado() != null) {
 					reportarMensagemDeErro("Pedido já foi finalizado");
 					return EnderecoPaginas.PAGINA_PRINCIPAL_VENDAS;
 				}

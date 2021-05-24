@@ -10,9 +10,19 @@
 	<ui:composition>
 		<h:form id="formFilter">
 			<div class="ui-g ui-md-12 ui-g-nopad">
+				<div class="ui-g-12">
+					<p:outputLabel for="dataInicio" value="Data inicio: " />
+					<p:calendar id="dataInicio" value="#{managePedido.dataInicio}" />
+					<p:outputLabel value=" " />
+					<p:outputLabel for="dataFim" value="Data fim: " />
+					<p:calendar id="dataFim" value="#{managePedido.dataFim}" />
+					<p:outputLabel value="  " />
+					<p:commandButton  value="Buscar" action="#{managePedido.filtrar()}" update="j_idt43:formFilter:idTabelaPedidosEncerrados"/>
+				</div>
 				<div class="ui-g-3" />
 				<div class="ui-g-6 " style="text-align: right;">
-					<p:dataTable var="pedido" value="#{managePedido.pedidosEncerrados}">
+					<p:dataTable id="idTabelaPedidosEncerrados" var="pedido" value="#{managePedido.pedidosEncerrados}"
+						emptyMessage="Sem pedidos entre essas datas">
 						<p:column headerText="Número" style="text-align: left;"
 							responsivePriority="2">
 							<p:outputLabel value="#{pedido.numero}" />
@@ -25,14 +35,9 @@
 							style="text-align: left;width: 25%;" responsivePriority="3">
 							<p:outputLabel value="#{managePedido.valorTotal(pedido)}" />
 						</p:column>
-						<p:column headerText="Opção" style="text-align: left;width: 25%;"
-							responsivePriority="1">
-							<p:link outcome="pedido_edit.xhtml">
-								<f:param name="pedido" value="#{pedido.id}" />
-								<i class="fa fa-search"
-									style="color: black; font-size: 1.187rem;"
-									id="idVerDetalhesPedido" />
-							</p:link>
+						<p:column headerText="Data de finalização"
+							style="text-align: left;width: 25%;" responsivePriority="1">
+							<p:outputLabel value="#{pedido.finalizado.toLocalDate()}" />
 						</p:column>
 					</p:dataTable>
 				</div>

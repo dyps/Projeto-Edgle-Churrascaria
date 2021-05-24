@@ -1,5 +1,7 @@
 package br.com.churrascaria.beans.pedidos;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,10 @@ public class ManagePedido extends AbstractBean {
 
 	private List<Mesa> mesas;
 
+	private LocalDate dataInicio = LocalDate.now(ZoneId.systemDefault()).minusDays(7L);
+
+	private LocalDate dataFim = LocalDate.now(ZoneId.systemDefault());
+
 	public List<Pedido> getPedidosEncerrados() {
 		return pedidosEncerrados;
 	}
@@ -60,33 +66,30 @@ public class ManagePedido extends AbstractBean {
 
 	@PostConstruct
 	public void init() {
-		filtrar();
-//		pedidosDoTipoBalcao();
-	}
-
-	public String filtrar() {
 		pedidosEncerrados = new ArrayList<Pedido>();
 		Pedido primeiroPedido = new Pedido();
 		primeiroPedido.setPrimeiro(true);
-		// pedidos.add(primeiroPedido);
 		pedidosBalcao = new ArrayList<Pedido>();
 		pedidosBalcao.add(primeiroPedido);
 		pedidosEntrega = new ArrayList<Pedido>();
 		pedidosEntrega.add(primeiroPedido);
 		mesas = new ArrayList<Mesa>();
 		try {
-			for (Pedido pedido : pedidoService.getAll()) {
-				if (pedido.isFinalizado())
-					pedidosEncerrados.add(pedido);
-			}
 			pedidosBalcao.addAll(pedidoService.getPedidosDoTipoBalcao());
 			pedidosEntrega.addAll(pedidoService.getPedidosDoTipoEntrega());
 			mesas.addAll(mesaService.findBy(new MesaFilter()));
 		} catch (ServiceEdgleChurrascariaException e) {
 			reportarMensagemDeErro(e.getMessage());
-			return null;
 		}
-		return null;
+		filtrar();
+	}
+
+	public void filtrar() {
+		try {
+			pedidosEncerrados = pedidoService.getEncerredos(dataInicio, dataFim);
+		} catch (ServiceEdgleChurrascariaException e) {
+			reportarMensagemDeErro(e.getMessage());
+		}
 	}
 
 	public String clienteDoPedidoMesa(Mesa mesa) {
@@ -197,6 +200,22 @@ public class ManagePedido extends AbstractBean {
 			valorTotal = valorTotal + (item.getValor() * item.getQuantidade());
 		}
 		return valorTotal;
+	}
+
+	public LocalDate getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(LocalDate dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public LocalDate getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(LocalDate dataFim) {
+		this.dataFim = dataFim;
 	}
 
 }

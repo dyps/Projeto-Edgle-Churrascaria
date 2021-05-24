@@ -1,5 +1,6 @@
 package br.com.churrascaria.entities;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class Pedido {
 
 	private String observacao;
 	
-	private boolean finalizado = false;
+	private LocalDateTime finalizado = null;
 	
 	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Item> itens = new ArrayList<Item>();
@@ -65,11 +66,11 @@ public class Pedido {
 		this.primeiro = primeiro;
 	}
 
-	public boolean isFinalizado() {
+	public LocalDateTime getFinalizado() {
 		return finalizado;
 	}
 
-	public void setFinalizado(boolean finalizado) {
+	public void setFinalizado(LocalDateTime finalizado) {
 		this.finalizado = finalizado;
 	}
 

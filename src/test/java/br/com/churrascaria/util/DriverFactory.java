@@ -17,7 +17,7 @@ public class DriverFactory {
 				System.setProperty("webdriver.opera.driver",
 						"lib\\operadriver.exe");
 						OperaOptions operaOptions = new OperaOptions();
-						operaOptions.setBinary(new File("C:\\Users\\yaggo\\AppData\\Local\\Programs\\Opera GX\\73.0.3856.415\\opera.exe"));
+						operaOptions.setBinary(new File("C:\\Users\\yaggo\\AppData\\Local\\Programs\\Opera GX\\73.0.3856.438\\opera.exe"));
 						return new OperaDriver(operaOptions);}
 			
 			case OPERANIKSON: {

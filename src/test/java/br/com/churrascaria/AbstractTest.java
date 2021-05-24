@@ -91,7 +91,7 @@ public abstract class AbstractTest {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-		driver = new DriverFactory().getDriver(DriverType.OPERANIKSON);
+		driver = new DriverFactory().getDriver(DriverType.OPERAYAGGO);
 
 		driver.manage().window().maximize();
 		// XXX: Inicialização do WebDriver a ser utilizado pelo Selenide
