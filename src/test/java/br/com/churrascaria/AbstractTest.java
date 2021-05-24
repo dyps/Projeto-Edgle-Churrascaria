@@ -23,6 +23,7 @@ import br.com.churrascaria.pageObject.entregador.EntregadorPage;
 import br.com.churrascaria.pageObject.funcionario.FuncionarioPage;
 import br.com.churrascaria.pageObject.mesa.MesaPage;
 import br.com.churrascaria.pageObject.observacaoPadrao.ObservacaoPadraoPage;
+import br.com.churrascaria.pageObject.pedido.PedidoPage;
 import br.com.churrascaria.pageObject.produto.ProdutoPage;
 import br.com.churrascaria.util.DriverFactory;
 import br.com.churrascaria.util.DriverType;
@@ -71,9 +72,10 @@ public abstract class AbstractTest {
 	protected ClientePage clientePage;
 	
 	protected ProdutoPage produtoPage;
+	
+	protected PedidoPage pedidoPage;
 
 	protected static DateFormat DATE_FORMAT;
-
 
 	protected static WebDriver driver;
 	
@@ -85,6 +87,7 @@ public abstract class AbstractTest {
 		funcionarioPage = new FuncionarioPage(driver);
 		clientePage = new ClientePage(driver);
 		produtoPage = new ProdutoPage(driver);
+		pedidoPage = new PedidoPage(driver);
 	}
 
 

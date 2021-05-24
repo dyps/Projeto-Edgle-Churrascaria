@@ -28,7 +28,7 @@ public class CriarProdutoPadraoPage extends AbstractPage {
 	}
 	
 	public CriarProdutoPadraoPage setUnidadeDeMedida() {
-		$(By.xpath("//*[@id=\"formEdit:j_idt57\"]/tbody/tr/td[1]/div")).click();
+		$(By.xpath("//*[@id=\'formEdit:j_idt66\']/tbody/tr/td[2]/label")).click();
 		return this;
 	}
 	

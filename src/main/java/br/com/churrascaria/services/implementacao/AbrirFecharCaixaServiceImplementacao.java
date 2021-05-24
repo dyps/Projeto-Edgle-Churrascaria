@@ -41,4 +41,13 @@ public class AbrirFecharCaixaServiceImplementacao {
 		}
 		return retorno;
 	}
+
+	public PedidoServiceImplementacao getPedidoServiceImplementacao() {
+		return pedidoServiceImplementacao;
+	}
+
+	public void setPedidoServiceImplementacao(PedidoServiceImplementacao pedidoServiceImplementacao) {
+		this.pedidoServiceImplementacao = pedidoServiceImplementacao;
+	}
+	
 }
